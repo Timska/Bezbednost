@@ -63,6 +63,9 @@ public class LoginActivity extends Activity {
 	}
 	
 	private void showResult(String result) {
+		if(result.equals("correct")){
+			
+		}
 		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 	}
 	

@@ -72,18 +72,17 @@
         android:hint="@string/email_hint"
         android:layout_margin="5dp"
         android:inputType="textEmailAddress"
-        android:layout_above="@+id/birth"
+        android:layout_above="@+id/birthText"
         />
     
      <EditText 
-        android:id="@id/birth"
+        android:id="@id/birthText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/greyTextView"
         android:hint="@string/birth_hint"
         android:layout_margin="5dp"
         android:inputType="date"
-        android:layout_alignParentBottom="true"
         android:layout_above="@+id/register_button_register"
         />
      
