@@ -2,6 +2,8 @@ package solution.springforandroid;
 
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -95,7 +97,7 @@ public class RegisterActivity extends Activity {
 	}
 	
 	public void registerNewUser(View view){
-		new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagebject");
+		new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessageobject");
 	}
 	
 	private void showResult(String result) {

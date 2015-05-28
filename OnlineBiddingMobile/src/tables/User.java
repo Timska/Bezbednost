@@ -12,6 +12,34 @@ public class User {
 	private String mail;
 	private Date birth;
 	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	public User(){
+		
+	}
+	
 	public User(String firstName, String lastName, String userName, String password, String mail, String birth){
 		this.firstName = firstName;
 		this.lastName = lastName;

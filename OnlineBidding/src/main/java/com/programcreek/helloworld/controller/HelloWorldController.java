@@ -53,16 +53,23 @@ public class HelloWorldController {
 		return "Hello everyone! How are you? Doing goooood?";
 	}
 	
+	@RequestMapping(value = "/json", method = RequestMethod.GET)
+	@ResponseBody
+	public User getJSON(){
+		User user = new User();
+		return user;
+	}
+	
 	@RequestMapping(value = "/sendmessagemap", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendMessageMap(@RequestBody LinkedMultiValueMap<String, String> map) {
 		//Check if username and password exist in database and return result
-		return "Validation process";
+		return "The username does not exist";
 	}
 	
-	@RequestMapping(value = "/sendmessagebject", method = RequestMethod.POST)
+	@RequestMapping(value = "/sendmessageobject", method = RequestMethod.POST)
 	@ResponseBody
-	public String sendMessageMap(@RequestBody Object u) {
+	public String sendMessageMap(@RequestBody User u) {
 		//Check if username and password exist in database and return result
 		
 		return ((User)u).getFirstName();

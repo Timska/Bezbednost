@@ -66,7 +66,9 @@ public class LoginActivity extends Activity {
 		if(result.equals("correct")){
 			
 		}
-		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+		else{
+			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
