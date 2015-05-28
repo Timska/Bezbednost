@@ -64,7 +64,7 @@ public class HelloWorldController {
 	@ResponseBody
 	public String sendMessageMap(@RequestBody LinkedMultiValueMap<String, String> map) {
 		//Check if username and password exist in database and return result
-		return "The username does not exist";
+		return "correct";
 	}
 	
 	@RequestMapping(value = "/sendmessageobject", method = RequestMethod.POST)

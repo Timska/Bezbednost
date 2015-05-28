@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -64,7 +65,8 @@ public class LoginActivity extends Activity {
 	
 	private void showResult(String result) {
 		if(result.equals("correct")){
-			
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		}
 		else{
 			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
