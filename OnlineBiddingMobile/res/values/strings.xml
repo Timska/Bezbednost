@@ -17,6 +17,7 @@
     <string name="repeat_password_hint">Repeat password</string>
     <string name="register_head_text">Please provide the following information</string>
     <string name="birth_hint">Date of birth (yyyy-MM-DD)</string>
+    <string name="title_activity_profile">Мој профил</string>
     
 
 </resources>

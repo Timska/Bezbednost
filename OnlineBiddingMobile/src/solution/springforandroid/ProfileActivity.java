@@ -24,25 +24,25 @@ import android.widget.Toast;
 
 public class ProfileActivity extends Activity{//  implements  DownloadListener<User>  {
 
-	EditText txtIme;
-	EditText txtPrezime;
-	EditText txtPassword;
-	EditText txtUsername;
-	EditText txtEmail;
-	EditText txtDatum;
-	Button btnSaveChanges;
-	Button btnGoBack;
+	private EditText txtIme;
+	private EditText txtPrezime;
+	private EditText txtPassword;
+	private EditText txtUsername;
+	private EditText txtEmail;
+	private EditText txtDatum;
+	private Button btnSaveChanges;
+	private Button btnGoBack;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profil);
-		txtIme = (EditText) findViewById(R.id.txtName);
-		txtPrezime = (EditText) findViewById(R.id.txtSurname);
-		txtPassword = (EditText) findViewById(R.id.txtPassword);
-		txtUsername = (EditText) findViewById(R.id.txtUsername);
-		txtEmail = (EditText) findViewById(R.id.txtEmail);
-		txtDatum = (EditText) findViewById(R.id.txtBirthDate);
+		txtIme = (EditText) findViewById(R.id.editTxtName);
+		txtPrezime = (EditText) findViewById(R.id.editTxtSurname);
+		txtPassword = (EditText) findViewById(R.id.editTxtPassword);
+		txtUsername = (EditText) findViewById(R.id.editTxtUsername);
+		txtEmail = (EditText) findViewById(R.id.editTxtEmail);
+		txtDatum = (EditText) findViewById(R.id.editTxtDate);
 		
 		//Downloader<User> downloader = new Downloader<User>(User.class, this, getApplicationContext());
 		//String url = "https://spiritbreakers.com.mk:8443/HelloWorld/json";

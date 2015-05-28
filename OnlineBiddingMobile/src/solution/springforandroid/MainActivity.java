@@ -32,13 +32,10 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		myProfile.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				
-				
-				
-			System.out.println("hahahahahahahahhahaahah");
-			Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
-			startActivity(intent);
-			System.out.println("Viki");
+				System.out.println("hahahahahahahahhahaahah");
+				Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
+				startActivity(intent);
+				System.out.println("Viki");
 				
 			}
 		});
