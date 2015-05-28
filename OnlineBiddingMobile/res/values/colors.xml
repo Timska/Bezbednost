@@ -2,5 +2,6 @@
 <resources>
     <color name="black">#000000</color>
     <color name="greyTextView">#C2C2CC</color>
-    <color name="pozadinskaBoja">#2A0212</color>
+  	<color name="textColor">#F1F8E0</color>
+    
 </resources>

@@ -14,14 +14,14 @@
         android:text="@string/greeting_text"
         android:gravity="center"
         android:textSize="30sp"
-        android:textColor="#F1F8E0"
+        android:textColor="@color/textColor"
         android:inputType="none"/>
     
     <EditText 
         android:id="@+id/usernameText"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-         android:textColor="#F1F8E0"
+         android:textColor="@color/textColor"
         android:hint="@string/username_hint"
         android:layout_margin="5dp"
         android:layout_weight="10"/>
@@ -30,7 +30,7 @@
         android:id="@+id/passwordText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textColor="#F1F8E0"
+        android:textColor="@color/textColor"
         android:inputType="textPassword"
         android:hint="@string/password_hint"
         android:layout_margin="5dp"
