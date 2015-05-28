@@ -62,7 +62,7 @@
             android:text="  Мојот профил  "
             android:layout_margin="10dp"
             android:textColor="#F1F8E0"
-            
+            android:onClick="onClick"
              />
 
         <Button

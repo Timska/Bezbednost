@@ -29,7 +29,19 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		
 		
 		
-		
+		myProfile.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				
+				
+				
+			System.out.println("hahahahahahahahhahaahah");
+			Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
+			startActivity(intent);
+			System.out.println("Viki");
+				
+			}
+		});
 			
 				
 
@@ -57,12 +69,7 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		
 		
 	}
-	public void onClickMyProfile() {
-		// TODO Auto-generated method stub
-		Intent intent =  new Intent(this, ProfileActivity.class);
-		startActivity(intent);
-		System.out.println("Viki");
-	}
+
 	
 
 	public void onLoadFinished(String data) {
