@@ -22,7 +22,7 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		// String url = "http://192.168.0.102:9966/web-programming/categories";
 		// String url = "http://ifconfig.me/all.json";
 		// String url = "https://127.0.0.2:8443/HelloWorld/message";
-		String url = "https://spiritbreakers.com.mk:8443/HelloWorld/message";
+		String url = "http://127.0.0.1:8080/HelloWorld/";
 		// String url = "https://10.0.2.2:8443/HelloWorld/message";
 		// String url = "https://192.168.0.103:8443/HelloWorld/message";
 		System.out.println("alohaaa");
