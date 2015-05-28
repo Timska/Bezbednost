@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 
 	private EditText txtPassword;
 	private EditText txtRepeatPassword;
+	private EditText lastSelectedView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,29 @@ public class RegisterActivity extends Activity {
 		txtPassword = (EditText) findViewById(R.id.passwordRegisterText);
 		txtRepeatPassword = (EditText) findViewById(R.id.passwordRepeatText);
 		
+		txtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(!hasFocus){
+					String password = txtRepeatPassword.getText().toString();
+					if(!password.isEmpty() && !password.equals(txtPassword.getText().toString())){
+						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();;
+					}
+				}
+			}
+		});
 		
+		txtRepeatPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(!hasFocus){
+					String password = txtPassword.getText().toString();
+					if(!password.isEmpty() && !password.equals(txtRepeatPassword.getText().toString())){
+						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();;
+					}
+				}
+			}
+		});
 	}
 
 	@Override
