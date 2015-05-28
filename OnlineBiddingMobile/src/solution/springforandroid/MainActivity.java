@@ -1,7 +1,11 @@
 package solution.springforandroid;
-
+import android.content.Context;
+import android.content.Intent;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,7 +27,18 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		activeAuctions= (Button) findViewById(R.id.btnListAuctions);
 		myAuctions=(Button) findViewById(R.id.btnMyAuctions);
 		
-	
+		
+		
+		
+			
+				
+
+				
+
+		
+		
+		
+		
 		Downloader<String> downloader = new Downloader<String>(String.class, this, getApplicationContext());
 		// Downloader<Category[]> downloader = new Downloader<Category[]>(Category[].class, this);
 		// Downloader<IfConfigMeJson> downloader = new Downloader<IfConfigMeJson>(IfConfigMeJson.class, this);
@@ -36,13 +51,20 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		// String url = "https://10.0.2.2:8443/HelloWorld/message";
 		// String url = "https://192.168.0.103:8443/HelloWorld/message";
 		System.out.println("alohaaa");
-		downloader.execute(url);
+		//downloader.execute(url);
 		System.out.println("daaaaaaa");
 		
 		
 		
 	}
+	public void onClickMyProfile() {
+		// TODO Auto-generated method stub
+		Intent intent =  new Intent(this, ProfileActivity.class);
+		startActivity(intent);
+		System.out.println("Viki");
+	}
 	
+
 	public void onLoadFinished(String data) {
 		
 	}

@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 
 
-import tables.User;
 
+import tables.User;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Profil extends Activity  implements  DownloadListener<User>  {
+public class ProfileActivity extends Activity{//  implements  DownloadListener<User>  {
 
 	EditText txtIme;
 	EditText txtPrezime;
@@ -44,16 +44,16 @@ public class Profil extends Activity  implements  DownloadListener<User>  {
 		txtEmail = (EditText) findViewById(R.id.txtEmail);
 		txtDatum = (EditText) findViewById(R.id.txtBirthDate);
 		
-		Downloader<User> downloader = new Downloader<User>(User.class, this, getApplicationContext());
-		String url = "https://spiritbreakers.com.mk:8443/HelloWorld/json";
-		downloader.execute(url);
+		//Downloader<User> downloader = new Downloader<User>(User.class, this, getApplicationContext());
+		//String url = "https://spiritbreakers.com.mk:8443/HelloWorld/json";
+		//downloader.execute(url);
 		
 		btnSaveChanges=(Button) findViewById(R.id.btnSaveChanges);
 		btnSaveChanges.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new PostUserCredentials().execute("https://spiritbreakers.com.mk:8443/HelloWorld/sendmessagemap");
+				//new PostUserCredentials().execute("https://spiritbreakers.com.mk:8443/HelloWorld/sendmessagemap");
 			
 			}
 		});
@@ -68,7 +68,7 @@ public class Profil extends Activity  implements  DownloadListener<User>  {
 		});
 	}
 
-	public void onLoadFinished(User data) {
+	/*public void onLoadFinished(User data) {
 		// TODO Auto-generated method stub
 		
 		txtIme.setText(data.getFirstName());
@@ -102,9 +102,15 @@ private class PostUserCredentials extends AsyncTask<String, Void, String> {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			//showResult(result);
+			showResult(result);
 		}
+
+		
 	}
+	private void showResult(String result) {
+		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 		
 	
+	}
+	*/
 }

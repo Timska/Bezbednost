@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="solution.springforandroid.MainActivity"
-    android:background="@color/pozadinskaBoja"
+   	android:background="@color/black"
 	 >
 
     <LinearLayout
@@ -50,7 +50,9 @@
             android:layout_gravity="center"
             android:text="   Мои аукции   "
             android:layout_margin="10dp"
-            android:textColor="#F1F8E0" />
+            android:textColor="#F1F8E0"
+            android:onClick="onClickMyProfile"
+             />
 
         <Button
             android:id="@+id/btnMyProfile"
@@ -59,7 +61,9 @@
             android:layout_gravity="center"
             android:text="  Мојот профил  "
             android:layout_margin="10dp"
-            android:textColor="#F1F8E0" />
+            android:textColor="#F1F8E0"
+            
+             />
 
         <Button
             android:id="@+id/btnLogOut"
