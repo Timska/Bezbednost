@@ -7,16 +7,12 @@
     tools:context="${relativePackage}.${activityClass}" 
     android:background="@color/pozadinskaBoja">
 
-
-
     <ImageView
         android:id="@+id/imgProfilePicture"
         android:layout_width="107dp"
-        android:layout_height="107dp"
+        android:layout_height="99dp"
         android:layout_gravity="center|top"
-        android:src="@drawable/ic_launcher" 
-      
-        />
+        android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/txtName"
@@ -98,13 +94,41 @@
         android:inputType="textPassword"
         android:textColor="#F1F8E0" />
 
-    <Button
-        android:id="@+id/btnSaveChanges"
+    <TextView
+        android:id="@+id/txtBirthDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Зачувај промени"
-        android:textColor="#F1F8E0" />
-    
+        android:text="Датум на раѓање"
+         android:textColor="#F1F8E0" />
+
+    <EditText
+        android:id="@+id/editTxtDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+         android:textColor="#F1F8E0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        
+        <Button
+            android:id="@+id/btnNazad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Врати се назад"
+             android:layout_gravity="left"
+            android:textColor="#F1F8E0" />
+
+        <Button
+            android:id="@+id/btnSaveChanges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Зачувај промени"
+            android:textColor="#F1F8E0" />
+
+    </LinearLayout>
+
 </LinearLayout>
-    

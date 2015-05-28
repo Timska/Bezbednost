@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,12 +6,72 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="solution.springforandroid.MainActivity" >
+    tools:context="solution.springforandroid.MainActivity"
+    android:background="@color/pozadinskaBoja"
+	 >
 
-    <TextView
-        android:id="@+id/result_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        android:layout_width="281dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+        <TextView
+            android:id="@+id/txtWelcom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="#F1F8E0"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Добредојдовте!" />
+         <TextView
+            android:id="@+id/txtUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="start"
+            android:text="Најавени сте како:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#F1F8E0" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnListAuctions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Aктивни аукции"
+            android:layout_margin="10dp"
+            android:textColor="#F1F8E0" />
+
+        <Button
+            android:id="@+id/btnMyAuctions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="   Мои аукции   "
+            android:layout_margin="10dp"
+            android:textColor="#F1F8E0" />
+
+        <Button
+            android:id="@+id/btnMyProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="  Мојот профил  "
+            android:layout_margin="10dp"
+            android:textColor="#F1F8E0" />
+
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="      Одјави се      " 
+             android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#F1F8E0"
+            
+            />
+       
+    </LinearLayout>
+    
+</LinearLayout>
