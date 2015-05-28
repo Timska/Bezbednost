@@ -1,4 +1,4 @@
-package com.programcreek.helloworld.controller;
+package com.onlinebidding.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import tables.User;
+import com.onlinebidding.model.User;
 
 @Controller
 public class HelloWorldController {
 	
-	//static final String DATABASE_URL = "jdbc:mysql://localhost:3306/onlinebidding";
+	static final String DATABASE_URL = "jdbc:mysql://localhost:3306/onlinebidding";
 	String message = "Welcome to Spring MVC!";
 	
 	@RequestMapping("/hello")
@@ -34,7 +34,7 @@ public class HelloWorldController {
 	@RequestMapping("/message")
 	@ResponseBody
 	public String getMessage() {
-		/*Connection connection = null;
+		Connection connection = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		
@@ -49,7 +49,7 @@ public class HelloWorldController {
 		}
 		catch(Exception e){
 			e.printStackTrace();
-		}*/
+		}
 		return "Hello everyone! How are you? Doing goooood?";
 	}
 	

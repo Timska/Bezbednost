@@ -22,7 +22,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd"> -->
         
     <mvc:annotation-driven />
 
-	<context:component-scan base-package="com.programcreek.helloworld.controller" />
+	<context:component-scan base-package="com.onlinebidding.controller" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
