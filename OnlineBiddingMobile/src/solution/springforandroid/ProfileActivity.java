@@ -24,25 +24,25 @@ import android.widget.Toast;
 
 public class ProfileActivity extends Activity{//  implements  DownloadListener<User>  {
 
-	private EditText txtIme;
-	private EditText txtPrezime;
+	private EditText txtName;
+	private EditText txtSurname;
 	private EditText txtPassword;
 	private EditText txtUsername;
 	private EditText txtEmail;
-	private EditText txtDatum;
+	private EditText txtDate;
 	private Button btnSaveChanges;
-	private Button btnGoBack;
+	private Button btnMyAuctions;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profil);
-		txtIme = (EditText) findViewById(R.id.editTxtName);
-		txtPrezime = (EditText) findViewById(R.id.editTxtSurname);
+		txtName = (EditText) findViewById(R.id.editTxtName);
+		txtSurname = (EditText) findViewById(R.id.editTxtSurname);
 		txtPassword = (EditText) findViewById(R.id.editTxtPassword);
 		txtUsername = (EditText) findViewById(R.id.editTxtUsername);
 		txtEmail = (EditText) findViewById(R.id.editTxtEmail);
-		txtDatum = (EditText) findViewById(R.id.editTxtDate);
+		txtDate = (EditText) findViewById(R.id.editTxtDate);
 		
 		//Downloader<User> downloader = new Downloader<User>(User.class, this, getApplicationContext());
 		//String url = "https://spiritbreakers.com.mk:8443/HelloWorld/json";
@@ -57,15 +57,7 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 			
 			}
 		});
-		btnGoBack=(Button) findViewById(R.id.btnNazad);
-		btnGoBack.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				//da se otvori main activity
-			}
-		});
+		
 	}
 
 	/*public void onLoadFinished(User data) {

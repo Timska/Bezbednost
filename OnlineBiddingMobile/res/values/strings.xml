@@ -18,6 +18,8 @@
     <string name="register_head_text">Ве молиме пополнете ги следните информации.</string>
     <string name="birth_hint">Дата на раѓање (yyyy-MM-DD)</string>
     <string name="title_activity_profile">Мој профил</string>
+    <string name="save_changes">Зачувај промени</string>
+    <string name="my_auctions">Мои аукции</string>
     
 
 </resources>
