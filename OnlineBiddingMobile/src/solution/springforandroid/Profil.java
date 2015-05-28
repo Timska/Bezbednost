@@ -29,7 +29,7 @@ public class Profil extends Activity  implements  DownloadListener<User>  {
 	EditText txtPassword;
 	EditText txtUsername;
 	EditText txtEmail;
-	EditText txtDate;
+	EditText txtDatum;
 	Button btnSaveChanges;
 	Button btnGoBack;
 	
@@ -42,7 +42,7 @@ public class Profil extends Activity  implements  DownloadListener<User>  {
 		txtPassword = (EditText) findViewById(R.id.txtPassword);
 		txtUsername = (EditText) findViewById(R.id.txtUsername);
 		txtEmail = (EditText) findViewById(R.id.txtEmail);
-		txtDate = (EditText) findViewById(R.id.txtBirthDate);
+		txtDatum = (EditText) findViewById(R.id.txtBirthDate);
 		
 		Downloader<User> downloader = new Downloader<User>(User.class, this, getApplicationContext());
 		String url = "https://spiritbreakers.com.mk:8443/HelloWorld/json";
@@ -76,7 +76,7 @@ public class Profil extends Activity  implements  DownloadListener<User>  {
 		txtUsername.setText(data.getUserName());
 		txtPassword.setText(data.getPassword());
 		txtEmail.setText(data.getMail());
-		txtDate.setText(data.getBirth().toString());
+		txtDatum.setText(data.getBirth().toString());
 	}
 	
 
@@ -89,7 +89,7 @@ private class PostUserCredentials extends AsyncTask<String, Void, String> {
 			credentials.add("password", txtPassword.getText().toString());
 			credentials.add("firstName", txtIme.getText().toString());
 			credentials.add("lastName", txtPrezime.getText().toString());
-			credentials.add("birth", txtDate.getText().toString());
+			credentials.add("birth", txtDatum.getText().toString());
 			credentials.add("email", txtEmail.getText().toString());
 			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
 			
