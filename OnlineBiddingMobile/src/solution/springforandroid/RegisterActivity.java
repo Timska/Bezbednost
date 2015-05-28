@@ -1,7 +1,15 @@
 package solution.springforandroid;
 
+
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import tables.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,21 +20,35 @@ import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 
+	private EditText txtFirstName;
+	private EditText txtLastName;
+	private EditText txtUsername;
+	private EditText txtEmail;
+	private EditText txtBirth;
 	private EditText txtPassword;
 	private EditText txtRepeatPassword;
-	private EditText lastSelectedView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		
+		init();
+		
 		comparePasswords();
 	}
 	
-	private void comparePasswords(){
+	private void init(){
 		txtPassword = (EditText) findViewById(R.id.passwordRegisterText);
 		txtRepeatPassword = (EditText) findViewById(R.id.passwordRepeatText);
+		txtBirth = (EditText) findViewById(R.id.birthText);
+		txtEmail = (EditText) findViewById(R.id.emailText);
+		txtFirstName = (EditText) findViewById(R.id.firstNameText);
+		txtLastName = (EditText) findViewById(R.id.lastNameText);
+		txtUsername = (EditText) findViewById(R.id.usernameRegisterText);
+	}
+	
+	private void comparePasswords(){
 		
 		txtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			
@@ -73,7 +95,35 @@ public class RegisterActivity extends Activity {
 	}
 	
 	public void registerNewUser(View view){
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
+		new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagebject");
+	}
+	
+	private void showResult(String result) {
+		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+		if(result.equals("correct")){
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		}
+	}
+	
+	private class PostUserCredentials extends AsyncTask<String, Void, String> {
+		
+		@Override
+		protected String doInBackground(String... params) {
+			User u = new User(txtFirstName.getText().toString(), txtLastName.getText().toString(),
+					txtUsername.getText().toString(), txtPassword.getText().toString(), 
+					txtEmail.getText().toString(), txtBirth.getText().toString());
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			String response = restTemplate.postForObject(params[0], u, String.class);
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			showResult(result);
+		}
 	}
 }

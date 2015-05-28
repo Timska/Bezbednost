@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import tables.User;
+
 @Controller
 public class HelloWorldController {
 	
@@ -56,5 +58,14 @@ public class HelloWorldController {
 	public String sendMessageMap(@RequestBody LinkedMultiValueMap<String, String> map) {
 		//Check if username and password exist in database and return result
 		return "Validation process";
+	}
+	
+	@RequestMapping(value = "/sendmessagebject", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendMessageMap(@RequestBody Object u) {
+		//Check if username and password exist in database and return result
+		
+		return ((User)u).getFirstName();
+		
 	}
 }
