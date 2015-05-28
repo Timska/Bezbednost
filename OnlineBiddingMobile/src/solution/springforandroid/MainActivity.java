@@ -2,18 +2,28 @@ package solution.springforandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements DownloadListener<String> {
 
 	private TextView resultTextView;
+	private Button myProfile;
+	private Button logOut;
+	private Button activeAuctions;
+	private Button myAuctions;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		resultTextView = (TextView) findViewById(R.id.result_text);
+		
+		myProfile=(Button) findViewById(R.id.btnMyProfile);
+		logOut=(Button) findViewById(R.id.btnLogOut);
+		activeAuctions= (Button) findViewById(R.id.btnListAuctions);
+		myAuctions=(Button) findViewById(R.id.btnMyAuctions);
+		
+	
 		Downloader<String> downloader = new Downloader<String>(String.class, this, getApplicationContext());
 		// Downloader<Category[]> downloader = new Downloader<Category[]>(Category[].class, this);
 		// Downloader<IfConfigMeJson> downloader = new Downloader<IfConfigMeJson>(IfConfigMeJson.class, this);
@@ -28,10 +38,13 @@ public class MainActivity extends Activity implements DownloadListener<String> {
 		System.out.println("alohaaa");
 		downloader.execute(url);
 		System.out.println("daaaaaaa");
+		
+		
+		
 	}
 	
 	public void onLoadFinished(String data) {
-		resultTextView.setText(data);
+		
 	}
 	
 	/*public void onLoadFinished(Category[] data) {
