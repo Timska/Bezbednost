@@ -3,6 +3,8 @@ package com.onlinebidding.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +13,8 @@ import javax.persistence.Table;
 public class Item {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long itemID;
 	private String itemName;
 	private Date created;
 	private String description;
@@ -23,6 +27,14 @@ public class Item {
 		this.itemName = itemName;
 		this.created = created;
 		this.description = description;
+	}
+	
+	public Long getItemID() {
+		return itemID;
+	}
+
+	public void setItemID(Long itemID) {
+		this.itemID = itemID;
 	}
 
 	public String getItemName() {

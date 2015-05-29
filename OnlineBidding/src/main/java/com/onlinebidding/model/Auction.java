@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -15,6 +17,8 @@ import javax.persistence.Table;
 public class Auction {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long auctionID;
 	private String auctionName;
 	@ManyToOne
 	private User creator;
@@ -24,19 +28,29 @@ public class Auction {
 	private Item item;
 	private Date startDate;
 	private Date endDate;
+	private String currentPrice;
 
 	public Auction() {
 
 	}
 
 	public Auction(String auctionName, User creator, List<User> entrants,
-			Item item, Date startDate, Date endDate) {
+			Item item, Date startDate, Date endDate, String currentPrice) {
 		this.auctionName = auctionName;
 		this.creator = creator;
 		this.entrants = entrants;
 		this.item = item;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.currentPrice = currentPrice;
+	}
+
+	public Long getAuctionID() {
+		return auctionID;
+	}
+
+	public void setAuctionID(Long auctionID) {
+		this.auctionID = auctionID;
 	}
 
 	public String getAuctionName() {
@@ -85,6 +99,14 @@ public class Auction {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(String currentPrice) {
+		this.currentPrice = currentPrice;
 	}
 
 }
