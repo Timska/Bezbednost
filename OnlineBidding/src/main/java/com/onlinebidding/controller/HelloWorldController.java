@@ -1,12 +1,9 @@
 package com.onlinebidding.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,11 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.onlinebidding.model.User;
+import com.onlinebidding.service.UserService;
 
 @Controller
 public class HelloWorldController {
 	
-	static final String DATABASE_URL = "jdbc:mysql://localhost:3306/onlinebidding";
 	String message = "Welcome to Spring MVC!";
 	
 	@RequestMapping("/hello")
@@ -34,22 +31,6 @@ public class HelloWorldController {
 	@RequestMapping("/message")
 	@ResponseBody
 	public String getMessage() {
-		Connection connection = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-		
-		try{
-			connection = DriverManager.getConnection(DATABASE_URL, "root", "MySQLServerPass");
-			statement = connection.createStatement();
-			String query = "SELECT * FROM user WHERE userid = 1";
-			resultSet = statement.executeQuery(query);
-			if(resultSet.next()){
-				System.out.println(resultSet.getString("Name"));
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
 		return "Hello everyone! How are you? Doing goooood?";
 	}
 	
@@ -60,6 +41,7 @@ public class HelloWorldController {
 		return user;
 	}
 	
+	////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value = "/sendmessagemap", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendMessageMap(@RequestBody LinkedMultiValueMap<String, String> map) {
@@ -72,7 +54,33 @@ public class HelloWorldController {
 	public String sendMessageMap(@RequestBody User u) {
 		//Check if username and password exist in database and return result
 		
-		return ((User)u).getFirstName();
-		
+		return u.getFirstName();	
 	}
+	/////////////////////////////////////////////////////////////////////////////
+	
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
+	@ResponseBody
+	public String checkForLogin(@RequestBody MultiValueMap<String, String> map) {
+		String userName = map.getFirst("userName");
+		User user = userService.findUser(userName);
+		if (user == null) {
+			return "Корисничкото име не постои!";
+		}
+		String password = map.getFirst("password");
+		if (!user.getPassword().equals(password)) {
+			return "Погрешно внесена лозинка!";
+		}
+		return "correct";
+	}
+
 }
+
+
+
+
+
+
+
