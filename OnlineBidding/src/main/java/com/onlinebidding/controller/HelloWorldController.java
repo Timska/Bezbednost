@@ -69,6 +69,12 @@ public class HelloWorldController {
 		return "correct";
 	}
 
+	@RequestMapping(value = "/getuser", method = RequestMethod.GET)
+	@ResponseBody
+	public User getUser(@RequestBody String userName) {
+		return userService.findUser(userName);
+	}
+	
 	@RequestMapping(value = "/registeruser", method = RequestMethod.POST)
 	@ResponseBody
 	public String registerUser(@RequestBody User user) {
@@ -84,6 +90,8 @@ public class HelloWorldController {
 	public List<Auction> getAllAuctions() {
 		return auctionService.getAllAuctions();
 	}
+	
+	
 }
 
 
