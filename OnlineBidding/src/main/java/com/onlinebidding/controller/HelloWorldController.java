@@ -2,7 +2,6 @@ package com.onlinebidding.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,28 +40,12 @@ public class HelloWorldController {
 		return user;
 	}
 	
-	////////////////////////////////////////////////////////////////////////////
-	@RequestMapping(value = "/sendmessagemap", method = RequestMethod.POST)
-	@ResponseBody
-	public String sendMessageMap(@RequestBody LinkedMultiValueMap<String, String> map) {
-		//Check if username and password exist in database and return result
-		return "correct";
-	}
-	
-	@RequestMapping(value = "/sendmessageobject", method = RequestMethod.POST)
-	@ResponseBody
-	public String sendMessageMap(@RequestBody User u) {
-		//Check if username and password exist in database and return result
-		
-		return u.getFirstName();	
-	}
-	/////////////////////////////////////////////////////////////////////////////
-	
 	@Autowired
 	private UserService userService;
 	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
+	private static final String alreadyRegistered = "3";
 	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
 	@ResponseBody
@@ -79,6 +62,15 @@ public class HelloWorldController {
 		return "correct";
 	}
 
+	@RequestMapping(value = "/registeruser", method = RequestMethod.POST)
+	@ResponseBody
+	public String registerUser(@RequestBody User user) {
+		if (userService.findUser(user.getUserName()) != null) {
+			return alreadyRegistered;
+		}
+		userService.create(user);
+		return "correct";
+	}
 }
 
 
