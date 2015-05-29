@@ -1,5 +1,7 @@
 package com.onlinebidding.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.User;
+import com.onlinebidding.service.AuctionService;
 import com.onlinebidding.service.UserService;
 
 @Controller
@@ -43,6 +47,9 @@ public class HelloWorldController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private AuctionService auctionService;
+	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
 	private static final String alreadyRegistered = "3";
@@ -70,6 +77,12 @@ public class HelloWorldController {
 		}
 		userService.create(user);
 		return "correct";
+	}
+	
+	@RequestMapping(value = "/getallauctions", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Auction> getAllAuctions() {
+		return auctionService.getAllAuctions();
 	}
 }
 

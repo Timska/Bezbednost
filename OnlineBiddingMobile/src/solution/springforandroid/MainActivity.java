@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	private void getAuctionsFromServer(){
 		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
-		downloader.execute("http://192.168.0.102:8080/HelloWorld/getListAuctions");
+		downloader.execute("http://192.168.0.102:8080/HelloWorld/getallauctions");
 	}
 	
 	public void startMyProfileActivity(View view){
@@ -49,7 +49,12 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 
 	public void onLoadFinished(Auction[] data) {
 		// TODO Auto-generated method stub
-		listAuctions = Arrays.asList(data);
+		if(data != null){
+			listAuctions = Arrays.asList(data);
+		}
+		else{
+			listAuctions = new ArrayList<Auction>();
+		}
 		initAuctionsView();
 	}
 
