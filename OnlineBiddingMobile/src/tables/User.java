@@ -32,7 +32,12 @@ public class User {
 		this.lastName = lastName;
 		this.mail = mail;
 		StringTokenizer st = new StringTokenizer(birth, "-");
-		this.birth = new Date(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+		int year = Integer.parseInt(st.nextToken());
+		int month = Integer.parseInt(st.nextToken());
+		int day = Integer.parseInt(st.nextToken());
+		System.out.println(year+" "+month+" "+day);
+		this.birth = new Date(year-1900, month-1, day);
+		System.out.println(this.birth);
 		this.enteredAuctions = enteredAuctions;
 	}
 

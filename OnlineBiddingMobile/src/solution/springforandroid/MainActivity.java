@@ -2,6 +2,7 @@ package solution.springforandroid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import tables.Auction;
@@ -46,11 +47,18 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
 		startActivity(intent);
 	}
+	
+	public void logOut(View view){
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+	}
 
 	public void onLoadFinished(Auction[] data) {
 		// TODO Auto-generated method stub
 		if(data != null){
 			listAuctions = Arrays.asList(data);
+			Collections.sort(listAuctions);
 		}
 		else{
 			listAuctions = new ArrayList<Auction>();

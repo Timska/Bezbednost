@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Auction {
+public class Auction implements Comparable<Auction> {
 
 	private Long auctionID;
 	private String auctionName;
@@ -92,6 +92,10 @@ public class Auction {
 
 	public void setCurrentPrice(String currentPrice) {
 		this.currentPrice = currentPrice;
+	}
+
+	public int compareTo(Auction another) {
+		return this.startDate.compareTo(another.startDate);
 	}
 
 }
