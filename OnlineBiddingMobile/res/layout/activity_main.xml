@@ -34,7 +34,8 @@
             android:layout_weight="50"
             android:text="@string/log_out"
             android:textColor="@color/textColor"
-            style="?android:attr/borderlessButtonStyle" />
+            style="?android:attr/borderlessButtonStyle"
+            android:onClick="logOut" />
     </LinearLayout>
     
     <ListView 

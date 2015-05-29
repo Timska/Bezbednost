@@ -32,77 +32,25 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 	private EditText txtDate;
 	private Button btnSaveChanges;
 	private Button btnMyAuctions;
+	private User currentUser;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profil);
+		
+		getUser();
+		
 		txtName = (EditText) findViewById(R.id.editTxtName);
+		txtName.setText(currentUser.getFirstName());
 		txtSurname = (EditText) findViewById(R.id.editTxtSurname);
 		txtPassword = (EditText) findViewById(R.id.editTxtPassword);
 		txtUsername = (EditText) findViewById(R.id.editTxtUsername);
 		txtEmail = (EditText) findViewById(R.id.editTxtEmail);
-		txtDate = (EditText) findViewById(R.id.editTxtDate);
-		
-		//Downloader<User> downloader = new Downloader<User>(User.class, this, getApplicationContext());
-		//String url = "https://spiritbreakers.com.mk:8443/HelloWorld/json";
-		//downloader.execute(url);
-		
-		btnSaveChanges=(Button) findViewById(R.id.btnSaveChanges);
-		btnSaveChanges.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//new PostUserCredentials().execute("https://spiritbreakers.com.mk:8443/HelloWorld/sendmessagemap");
-			
-			}
-		});
-		
-	}
-
-	/*public void onLoadFinished(User data) {
-		// TODO Auto-generated method stub
-		
-		txtIme.setText(data.getFirstName());
-		txtPrezime.setText(data.getLastName());
-		txtUsername.setText(data.getUserName());
-		txtPassword.setText(data.getPassword());
-		txtEmail.setText(data.getMail());
-		txtDatum.setText(data.getBirth().toString());
+		txtDate = (EditText) findViewById(R.id.editTxtDate);	
 	}
 	
-
-private class PostUserCredentials extends AsyncTask<String, Void, String> {
-		
-		@Override
-		protected String doInBackground(String... params) {
-			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
-			credentials.add("userName", txtUsername.getText().toString());
-			credentials.add("password", txtPassword.getText().toString());
-			credentials.add("firstName", txtIme.getText().toString());
-			credentials.add("lastName", txtPrezime.getText().toString());
-			credentials.add("birth", txtDatum.getText().toString());
-			credentials.add("email", txtEmail.getText().toString());
-			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
-			
-			RestTemplate restTemplate = new RestTemplate();
-			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			String response = restTemplate.postForObject(params[0], credentials, String.class);
-			return response;
-		}
-		
-		@Override
-		protected void onPostExecute(String result) {
-			showResult(result);
-		}
-
-		
+	private void getUser(){
+		currentUser = (User) getIntent().getExtras().get("user");
 	}
-	private void showResult(String result) {
-		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-		
-	
-	}
-	*/
 }

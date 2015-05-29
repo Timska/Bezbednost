@@ -71,8 +71,9 @@ public class HelloWorldController {
 
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
 	@ResponseBody
-	public User getUser(@RequestBody String userName) {
-		return userService.findUser(userName);
+	public User getUser(@RequestBody String username) {
+		User u = userService.findUser(username);
+		return u;
 	}
 	
 	@RequestMapping(value = "/registeruser", method = RequestMethod.POST)

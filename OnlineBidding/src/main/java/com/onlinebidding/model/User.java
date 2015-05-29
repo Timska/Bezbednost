@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ public class User {
 	private String lastName;
 	private String mail;
 	private Date birth;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Auction> enteredAuctions;
 
 	public User() {

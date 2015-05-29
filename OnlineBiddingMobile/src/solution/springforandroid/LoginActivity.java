@@ -5,9 +5,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import tables.Auction;
+import tables.User;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,7 @@ public class LoginActivity extends Activity {
 	private EditText txtPassword;
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
+	private User user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,17 +70,20 @@ public class LoginActivity extends Activity {
 	
 	private void showResult(String result) {
 		if(result.equals("correct")){
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
+			getUser();
 		}
 		else{
 			if(result.equals(unexistingUser)){
-				Toast.makeText(this, "Корисничкото име не постои", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "РљРѕСЂРёСЃРЅРёС‡РєРѕС‚Рѕ РёРјРµ РЅРµ РїРѕСЃС‚РѕРё", Toast.LENGTH_SHORT).show();
 			}
 			else if(result.equals(wrongPassword)){
-				Toast.makeText(this, "Внесена погрешна лозинка", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Р’РЅРµСЃРµРЅР° РїРѕРіСЂРµС€РЅР° Р»РѕР·РёРЅРєР°", Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+	
+	private void getUser(){
+		new PostUsername().execute("http://192.168.0.102:8080/HelloWorld/getuser");
 	}
 	
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
@@ -101,5 +106,32 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(String result) {
 			showResult(result);
 		}
+	}
+	
+	private class PostUsername extends AsyncTask<String, Void, User> {
+		
+		@Override
+		protected User doInBackground(String... params) {
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			System.out.println(txtUsername.getText().toString());
+			return restTemplate.postForObject(params[0], txtUsername.getText().toString(), User.class);
+		}
+		
+		@Override
+		protected void onPostExecute(User result) {
+			System.out.println(result.getFirstName());
+			user = result;
+			startActivity();
+		}
+	}
+	
+	private void startActivity(){
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra("user", user);
+		startActivity(intent);
+		finish();
 	}
 }

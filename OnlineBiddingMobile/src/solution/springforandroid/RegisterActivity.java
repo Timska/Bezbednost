@@ -57,7 +57,7 @@ public class RegisterActivity extends Activity {
 				if(!hasFocus){
 					String password = txtRepeatPassword.getText().toString();
 					if(!password.isEmpty() && !password.equals(txtPassword.getText().toString())){
-						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "Р›РѕР·РёРЅРєРёС‚Рµ РЅРµ СЃРµ РёРґРµРЅС‚РёС‡РЅРё", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity {
 				if(!hasFocus){
 					String password = txtPassword.getText().toString();
 					if(!password.isEmpty() && !password.equals(txtRepeatPassword.getText().toString())){
-						Toast.makeText(getApplicationContext(), "Лозинките не се идентични", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "Р›РѕР·РёРЅРєРёС‚Рµ РЅРµ СЃРµ РёРґРµРЅС‚РёС‡РЅРё", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -106,41 +106,41 @@ public class RegisterActivity extends Activity {
 	private boolean validate(){
 		boolean valid = true;
 		if(txtFirstName.getText().toString().isEmpty()){
-			Toast.makeText(this, "Внесете име", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р’РЅРµСЃРµС‚Рµ РёРјРµ", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		if(txtLastName.getText().toString().isEmpty()){
-			Toast.makeText(this, "Внесете презиме", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р’РЅРµСЃРµС‚Рµ РїСЂРµР·РёРјРµ", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		if(txtUsername.getText().toString().isEmpty()){
-			Toast.makeText(this, "Внесете корисничко име", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р’РЅРµСЃРµС‚Рµ РєРѕСЂРёСЃРЅРёС‡РєРѕ РёРјРµ", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		String regExp = "^(?=.*[!@#$&*])(?=.*[0-9]).{6,15}$";
 		if(txtPassword.getText().toString().isEmpty()){
-			Toast.makeText(this, "Внесете лозинка", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р’РЅРµСЃРµС‚Рµ Р»РѕР·РёРЅРєР°", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		if(txtRepeatPassword.getText().toString().isEmpty()){
-			Toast.makeText(this, "Повторете ја лозинката", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "РџРѕРІС‚РѕСЂРµС‚Рµ СР° Р»РѕР·РёРЅРєР°С‚Р°", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		if(!txtPassword.getText().toString().matches(regExp)){
-			Toast.makeText(this, "Лозинката треба да содржи барем еден "
-					+ "специјален знак, една цифра и минимум должина шест", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Р›РѕР·РёРЅРєР°С‚Р° С‚СЂРµР±Р° РґР° СЃРѕРґСЂР¶Рё Р±Р°СЂРµРј РµРґРµРЅ "
+					+ "СЃРїРµС†РёСР°Р»РµРЅ Р·РЅР°Рє, РµРґРЅР° С†РёС„СЂР° Рё РјРёРЅРёРјСѓРј РґРѕР»Р¶РёРЅР° С€РµСЃС‚", Toast.LENGTH_LONG).show();
 			valid = false;
 		}
 		if(!txtRepeatPassword.getText().toString().equals(txtPassword.getText().toString())){
-			Toast.makeText(this, "Лозинките се разликуваат", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р›РѕР·РёРЅРєРёС‚Рµ СЃРµ СЂР°Р·Р»РёРєСѓРІР°Р°С‚", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		if(!txtEmail.getText().toString().matches("^([A-Za-z0-9.-_])+@([A-Za-z0-9.-_])+.([A-Za-z]{2,4})$")){
-			Toast.makeText(this, "Внесете валиден маил", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р’РЅРµСЃРµС‚Рµ РІР°Р»РёРґРµРЅ РјР°РёР»", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		if(!txtBirth.getText().toString().matches("^(19[0-9][0-9])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")){
-			Toast.makeText(this, "Внесете валиден датум", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Р’РЅРµСЃРµС‚Рµ РІР°Р»РёРґРµРЅ РґР°С‚СѓРј", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
 		return valid;
@@ -148,12 +148,13 @@ public class RegisterActivity extends Activity {
 	
 	private void showResult(String result) {
 		if(result.equals("correct")){
-			Toast.makeText(this, "Успешна регистрација", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "РЈСЃРїРµС€РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСР°", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
+			finish();
 		}
 		else{
-			Toast.makeText(this, "Корисничкото име веќе постои", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "РљРѕСЂРёСЃРЅРёС‡РєРѕС‚Рѕ РёРјРµ РІРµСњРµ РїРѕСЃС‚РѕРё", Toast.LENGTH_SHORT).show();
 		}
 	}
 	

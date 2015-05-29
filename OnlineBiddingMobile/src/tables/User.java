@@ -1,11 +1,12 @@
 package tables;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
 
-public class User {
+public class User implements Serializable{
 
 	private String userName;
 	private String password;
