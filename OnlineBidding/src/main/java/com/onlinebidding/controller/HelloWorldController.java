@@ -67,11 +67,11 @@ public class HelloWorldController {
 		String userName = map.getFirst("userName");
 		User user = userService.findUser(userName);
 		if (user == null) {
-			return "Корисничкото име не постои!";
+			return "1";
 		}
 		String password = map.getFirst("password");
 		if (!user.getPassword().equals(password)) {
-			return "Погрешно внесена лозинка!";
+			return "2";
 		}
 		return "correct";
 	}
