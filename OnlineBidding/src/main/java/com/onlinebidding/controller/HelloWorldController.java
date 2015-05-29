@@ -61,17 +61,20 @@ public class HelloWorldController {
 	@Autowired
 	private UserService userService;
 	
+	private static final String unexistingUser = "1";
+	private static final String wrongPassword = "2";
+	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkForLogin(@RequestBody MultiValueMap<String, String> map) {
 		String userName = map.getFirst("userName");
 		User user = userService.findUser(userName);
 		if (user == null) {
-			return "1";
+			return unexistingUser;
 		}
 		String password = map.getFirst("password");
 		if (!user.getPassword().equals(password)) {
-			return "2";
+			return wrongPassword;
 		}
 		return "correct";
 	}
