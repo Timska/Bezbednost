@@ -20,9 +20,8 @@
     <string name="title_activity_profile">Мој профил</string>
     <string name="save_changes">Зачувај промени</string>
     <string name="my_auctions">Мои аукции</string>
-    
     <string name="my_profile">Мој профил</string>
     <string name="log_out">Одјави се</string>
-    
+    <string name="title_activity_single_auction">SingleAuctionActivity</string>
 
 </resources>
