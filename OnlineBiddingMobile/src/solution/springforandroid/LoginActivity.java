@@ -34,7 +34,8 @@ public class LoginActivity extends Activity {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
+				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
+				new PostUserCredentials().execute("http://192.168.0.102:8080/HelloWorld/checkForLogin");
 			}
 		});
 	}
