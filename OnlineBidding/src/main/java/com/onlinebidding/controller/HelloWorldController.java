@@ -69,7 +69,7 @@ public class HelloWorldController {
 		return "correct";
 	}
 
-	@RequestMapping(value = "/getuser", method = RequestMethod.GET)
+	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
 	@ResponseBody
 	public User getUser(@RequestBody String userName) {
 		return userService.findUser(userName);
