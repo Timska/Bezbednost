@@ -24,13 +24,9 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	@Override
 	protected T doInBackground(String... params) {
 		RestTemplate restTemplate = new RestTemplate();
-		MappingJacksonHttpMessageConverter jacksonConverter= new MappingJacksonHttpMessageConverter();
-		restTemplate.getMessageConverters().add(jacksonConverter);
-		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 		// For HTTPS requests
 		// HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(new MyHttpClient(context));
 		// restTemplate.setRequestFactory(requestFactory);
-		System.out.println("tukaaa eeee");
 		try{
 			return restTemplate.getForObject(params[0], type);
 		}
@@ -43,7 +39,6 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	@Override
 	protected void onPostExecute(T result) {
-		System.out.println("vlezeeee");
 		listener.onLoadFinished(result);
 	}
 	
