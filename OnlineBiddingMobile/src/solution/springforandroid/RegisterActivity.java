@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity {
 				if(!hasFocus){
 					String password = txtPassword.getText().toString();
 					if(!password.isEmpty() && !password.equals(txtRepeatPassword.getText().toString())){
-						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "Лозинките не се идентични", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
