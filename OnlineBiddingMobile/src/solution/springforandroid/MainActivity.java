@@ -1,4 +1,10 @@
 package solution.springforandroid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import tables.Auction;
 import android.content.Context;
 import android.content.Intent;
 import android.app.Activity;
@@ -6,84 +12,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements DownloadListener<String> {
+public class MainActivity extends Activity implements DownloadListener<Auction[]>{
 
-	private TextView resultTextView;
-	private Button myProfile;
-	private Button logOut;
-	private Button activeAuctions;
-	private Button myAuctions;
+	private ListView auctionsView;
+	private ArrayAdapter<Auction> auctionsAdapter;
+	private List<Auction> listAuctions;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		myProfile=(Button) findViewById(R.id.btnMyProfile);
-		logOut=(Button) findViewById(R.id.btnLogOut);
-		activeAuctions= (Button) findViewById(R.id.btnListAuctions);
-		myAuctions=(Button) findViewById(R.id.btnMyAuctions);
-		
-		
-		
-		myProfile.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View v) {
-				System.out.println("hahahahahahahahhahaahah");
-				Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
-				startActivity(intent);
-				System.out.println("Viki");
-				
-			}
-		});
-			
-				
-
-				
-
-		
-		
-		
-		
-		Downloader<String> downloader = new Downloader<String>(String.class, this, getApplicationContext());
-		// Downloader<Category[]> downloader = new Downloader<Category[]>(Category[].class, this);
-		// Downloader<IfConfigMeJson> downloader = new Downloader<IfConfigMeJson>(IfConfigMeJson.class, this);
-		// String url = "http://192.168.0.100:8080/HelloWorld/message";
-		// String url = "http://192.168.43.237:8080/HelloWorld/message";
-		// String url = "http://192.168.0.102:9966/web-programming/categories";
-		// String url = "http://ifconfig.me/all.json";
-		// String url = "https://127.0.0.2:8443/HelloWorld/message";
-		String url = "http://127.0.0.1:8080/HelloWorld/";
-		// String url = "https://10.0.2.2:8443/HelloWorld/message";
-		// String url = "https://192.168.0.103:8443/HelloWorld/message";
-		System.out.println("alohaaa");
-		//downloader.execute(url);
-		System.out.println("daaaaaaa");
-		
-		
-		
-	}
-
-	
-
-	public void onLoadFinished(String data) {
-		
+		getAuctionsFromServer();
 	}
 	
-	/*public void onLoadFinished(Category[] data) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < data.length; i++) {
-			sb.append(data[i].getName() + " ");
-		}
-		resultTextView.setText(sb.toString());
-	}*/
+	private void initAuctionsView(){
+		auctionsView = (ListView) findViewById(R.id.auctionsView);
+		auctionsAdapter = new ArrayAdapter<Auction>(this, R.layout.simple_list_item_auction, listAuctions);
+		auctionsView.setAdapter(auctionsAdapter);
+	}
+	
+	private void getAuctionsFromServer(){
+		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
+		downloader.execute("http://192.168.0.102:8080/HelloWorld/getListAuctions");
+	}
+	
+	public void startMyProfileActivity(View view){
+		Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
+		startActivity(intent);
+	}
 
-	/*public void onLoadFinished(IfConfigMeJson data) {
-		resultTextView.setText("Your IP address is: " + data.getIpAddr());
-	}*/
+	public void onLoadFinished(Auction[] data) {
+		// TODO Auto-generated method stub
+		listAuctions = Arrays.asList(data);
+		initAuctionsView();
+	}
+
 }
 
 
