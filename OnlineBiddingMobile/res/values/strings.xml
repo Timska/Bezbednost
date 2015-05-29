@@ -9,7 +9,7 @@
     <string name="password_hint">Лозинка</string>
     <string name="greeting_text">Добредојдовте во најбезбедната апликација за наддавање на целиот свет.</string>
     <string name="login_button">Најави се</string>
-    <string name="register_button">Регистирај се</string>
+    <string name="register_button">Регистрирај се</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="first_name_hint">Име</string>
     <string name="last_name_hint">Презиме</string>

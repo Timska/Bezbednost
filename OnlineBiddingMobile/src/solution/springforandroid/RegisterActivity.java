@@ -51,14 +51,13 @@ public class RegisterActivity extends Activity {
 	}
 	
 	private void comparePasswords(){
-		
 		txtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			
 			public void onFocusChange(View v, boolean hasFocus) {
 				if(!hasFocus){
 					String password = txtRepeatPassword.getText().toString();
 					if(!password.isEmpty() && !password.equals(txtPassword.getText().toString())){
-						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();;
+						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -70,11 +69,12 @@ public class RegisterActivity extends Activity {
 				if(!hasFocus){
 					String password = txtPassword.getText().toString();
 					if(!password.isEmpty() && !password.equals(txtRepeatPassword.getText().toString())){
-						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();;
+						Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 		});
+		
 	}
 
 	@Override
@@ -97,14 +97,62 @@ public class RegisterActivity extends Activity {
 	}
 	
 	public void registerNewUser(View view){
-		new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessageobject");
+		
+		if(validate()){
+			new PostUserCredentials().execute("http://192.168.43.11:8080/HelloWorld/sendmessageobject");
+		}
+	}
+	
+	private boolean validate(){
+		boolean valid = true;
+		if(txtFirstName.getText().toString().isEmpty()){
+			Toast.makeText(this, "Внесете име", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if(txtLastName.getText().toString().isEmpty()){
+			Toast.makeText(this, "Внесете презиме", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if(txtUsername.getText().toString().isEmpty()){
+			Toast.makeText(this, "Внесете корисничко име", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		String regExp = "^(?=.*[!@#$&*])(?=.*[0-9]).{6,15}$";
+		if(txtPassword.getText().toString().isEmpty()){
+			Toast.makeText(this, "Внесете лозинка", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if(txtRepeatPassword.getText().toString().isEmpty()){
+			Toast.makeText(this, "Повторете ја лозинката", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if(!txtPassword.getText().toString().matches(regExp)){
+			Toast.makeText(this, "Лозинката треба да содржи барем еден "
+					+ "специјален знак, една цифра и минимум должина шест", Toast.LENGTH_LONG).show();
+			valid = false;
+		}
+		if(!txtRepeatPassword.getText().toString().equals(txtPassword.getText().toString())){
+			Toast.makeText(this, "Лозинките се разликуваат", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if(!txtEmail.getText().toString().matches("^([A-Za-z0-9.-_])+@([A-Za-z0-9.-_])+.([A-Za-z]{2,4})$")){
+			Toast.makeText(this, "Внесете валиден маил", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if(!txtBirth.getText().toString().matches("^(19[0-9][0-9])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")){
+			Toast.makeText(this, "Внесете валиден датум", Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		return valid;
 	}
 	
 	private void showResult(String result) {
-		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 		if(result.equals("correct")){
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
+		}
+		else{
+			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 		}
 	}
 	
