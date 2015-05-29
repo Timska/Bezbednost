@@ -5,19 +5,21 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="username_hint">Username</string>
-    <string name="password_hint">Password</string>
-    <string name="greeting_text">Welcome to the safest online bidding application</string>
-    <string name="login_button">Log in</string>
-    <string name="register_button">Register</string>
+    <string name="username_hint">Корисничко име</string>
+    <string name="password_hint">Лозинка</string>
+    <string name="greeting_text">Добредојдовте во најбезбедната апликација за наддавање на целиот свет.</string>
+    <string name="login_button">Најави се</string>
+    <string name="register_button">Регистрирај се</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="first_name_hint">First name</string>
-    <string name="last_name_hint">Last name</string>
+    <string name="first_name_hint">Име</string>
+    <string name="last_name_hint">Презиме</string>
     <string name="email_hint">Email</string>
-    <string name="repeat_password_hint">Repeat password</string>
-    <string name="register_head_text">Please provide the following information</string>
-    <string name="birth_hint">Date of birth (yyyy-MM-DD)</string>
+    <string name="repeat_password_hint">Повторно внеси лозинка</string>
+    <string name="register_head_text">Ве молиме пополнете ги следните информации.</string>
+    <string name="birth_hint">Дата на раѓање (yyyy-MM-DD)</string>
     <string name="title_activity_profile">Мој профил</string>
+    <string name="save_changes">Зачувај промени</string>
+    <string name="my_auctions">Мои аукции</string>
     
 
 </resources>
