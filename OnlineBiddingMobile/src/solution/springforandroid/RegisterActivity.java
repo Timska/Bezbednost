@@ -99,7 +99,7 @@ public class RegisterActivity extends Activity {
 	public void registerNewUser(View view){
 		
 		if(validate()){
-			new PostUserCredentials().execute("http://192.168.43.11:8080/HelloWorld/sendmessageobject");
+			new PostUserCredentials().execute("http://192.168.0.102:8080/HelloWorld/registeruser");
 		}
 	}
 	
@@ -148,11 +148,12 @@ public class RegisterActivity extends Activity {
 	
 	private void showResult(String result) {
 		if(result.equals("correct")){
+			Toast.makeText(this, "Успешна регистрација", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
 		else{
-			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Корисничкото име веќе постои", Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -160,9 +161,9 @@ public class RegisterActivity extends Activity {
 		
 		@Override
 		protected String doInBackground(String... params) {
-			User u = new User(txtFirstName.getText().toString(), txtLastName.getText().toString(),
-					txtUsername.getText().toString(), txtPassword.getText().toString(), 
-					txtEmail.getText().toString(), txtBirth.getText().toString());
+			User u = new User(txtUsername.getText().toString(), txtPassword.getText().toString(),
+					txtFirstName.getText().toString(), txtLastName.getText().toString(), 
+					txtEmail.getText().toString(), txtBirth.getText().toString(), null);
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
