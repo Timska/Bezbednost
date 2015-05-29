@@ -59,7 +59,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	public void logOut(View view){
 		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
 		finish();
 	}
 

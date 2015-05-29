@@ -132,6 +132,7 @@ public class LoginActivity extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("user", user);
 		startActivity(intent);
-		finish();
+		txtPassword.setText("");
+		txtUsername.setText("");
 	}
 }
