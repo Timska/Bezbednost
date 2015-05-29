@@ -22,6 +22,8 @@ public class LoginActivity extends Activity {
 	private Button btnLogin;
 	private EditText txtUsername;
 	private EditText txtPassword;
+	private static final String unexistingUser = "1";
+	private static final String wrongPassword = "2";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class LoginActivity extends Activity {
 			
 			public void onClick(View v) {
 				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
-				new PostUserCredentials().execute("http://192.168.0.102:8080/HelloWorld/checkForLogin");
+				new PostUserCredentials().execute("http://192.168.0.102:8080/HelloWorld/checkforlogin");
 			}
 		});
 	}
@@ -70,7 +72,12 @@ public class LoginActivity extends Activity {
 			startActivity(intent);
 		}
 		else{
-			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+			if(result.equals(unexistingUser)){
+				Toast.makeText(this, "Корисничкото име не постои", Toast.LENGTH_SHORT).show();
+			}
+			else if(result.equals(wrongPassword)){
+				Toast.makeText(this, "Внесена погрешна лозинка", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 	
