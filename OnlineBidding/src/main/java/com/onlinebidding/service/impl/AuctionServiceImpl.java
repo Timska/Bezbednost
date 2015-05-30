@@ -32,8 +32,10 @@ public class AuctionServiceImpl implements AuctionService {
 	public List<Auction> getNotFinishedAuctions() {
 		List<Auction> auctions = getAllAuctions();
 		Date currentDate = new Date();
+		System.err.println(currentDate.toString());
 		for (int i = auctions.size() - 1; i >= 0; i--) {
 			Auction auction = auctions.get(i);
+			System.err.println(auction.getAuctionName()+" "+auction.getEndDate().toString());
 			if (currentDate.after(auction.getEndDate())) {
 				auctions.remove(auction);
 			}

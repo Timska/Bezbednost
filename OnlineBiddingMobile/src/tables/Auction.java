@@ -1,6 +1,5 @@
 package tables;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -101,7 +100,7 @@ public class Auction implements Comparable<Auction> {
 	
 	@Override
 	public String toString(){
-		return auctionName+" "+DateFormat.getDateInstance().format(startDate);
+		return auctionName+" "+startDate.toString();
 	}
 
 }
