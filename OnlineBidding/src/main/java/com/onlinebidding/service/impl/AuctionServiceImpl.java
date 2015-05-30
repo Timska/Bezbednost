@@ -21,11 +21,11 @@ public class AuctionServiceImpl implements AuctionService {
 		auctionRepository.save(auction);
 	}
 	
-	public void updateAuction(Long auctionID, User user, String price) {
+	public Auction updateAuction(Long auctionID, User user, String price) {
 		Auction auction = auctionRepository.findOne(auctionID);
 		auction.setCurrentPrice(price);
 		auction.setWinner(user);
-		auctionRepository.save(auction);
+		return auctionRepository.save(auction);
 	}
 
 	public Auction findAuction(Long auctionID) {

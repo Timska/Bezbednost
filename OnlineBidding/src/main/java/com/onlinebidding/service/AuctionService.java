@@ -19,7 +19,7 @@ public interface AuctionService {
 
 	public List<Auction> getUserNotFinishedAuctions(String userName);
 
-	public void updateAuction(Long auctionID, User user, String price);
+	public Auction updateAuction(Long auctionID, User user, String price);
 
 	public void enterAuction(Long auctionID, User user);
 	

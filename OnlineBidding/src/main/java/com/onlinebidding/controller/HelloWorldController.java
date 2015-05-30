@@ -126,18 +126,11 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateAuctionPrice(@RequestBody MultiValueMap<String, Object> map) {
+	public Auction updateAuctionPrice(@RequestBody MultiValueMap<String, Object> map) {
 		Long ID = (Long) map.getFirst("auctionID");
 		User user = (User) map.getFirst("user");
 		String price = map.getFirst("auctionPrice").toString();
-		if (auctionService.findAuction(ID) == null) {
-			return auctionNotFound;
-		}
-		if (userService.findUser(user.getUserName()) == null) {
-			return unexistingUser;
-		}
-		auctionService.updateAuction(ID, user, price);
-		return "correct";
+		return auctionService.updateAuction(ID, user, price);
 	}
 	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
