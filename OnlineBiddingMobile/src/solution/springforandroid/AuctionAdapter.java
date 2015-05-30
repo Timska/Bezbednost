@@ -38,8 +38,7 @@ public class AuctionAdapter extends ArrayAdapter<Auction> {
        btnAuctionEnter.setOnClickListener(new View.OnClickListener() {
 		
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			//Intent intent = new Intent(context, LoginActivity.class);
+			
 			
 		}
 	});

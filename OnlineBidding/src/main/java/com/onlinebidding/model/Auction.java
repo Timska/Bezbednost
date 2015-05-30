@@ -1,9 +1,11 @@
 package com.onlinebidding.model;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ public class Auction {
 	private String auctionName;
 	@ManyToOne
 	private User creator;
-	@ManyToMany(mappedBy = "enteredAuctions")
+	@ManyToMany(mappedBy = "enteredAuctions", fetch = FetchType.EAGER)
 	private List<User> entrants;
 	@OneToOne
 	private Item item;

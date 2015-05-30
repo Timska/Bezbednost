@@ -23,5 +23,6 @@
     <string name="my_profile">Мој профил</string>
     <string name="log_out">Одјави се</string>
     <string name="title_activity_single_auction">SingleAuctionActivity</string>
+    <string name="enterAuction">Влези</string>
 
 </resources>

@@ -41,6 +41,8 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 		
 		getUser();
 		
+		setTitle(currentUser.getUserName());
+		
 		txtName = (EditText) findViewById(R.id.editTxtName);
 		txtName.setText(currentUser.getFirstName());
 		txtSurname = (EditText) findViewById(R.id.editTxtSurname);

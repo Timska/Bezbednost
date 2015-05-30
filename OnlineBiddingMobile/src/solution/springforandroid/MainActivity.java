@@ -38,7 +38,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	private void initAuctionsView(){
 		auctionsView = (ListView) findViewById(R.id.auctionsView);
-		auctionsAdapter = new ArrayAdapter<Auction>(this, R.layout.simple_list_item_auction, listAuctions);
+		auctionsAdapter = new AuctionAdapter(this, listAuctions);
 		auctionsView.setAdapter(auctionsAdapter);
 	}
 	
@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	private void getAuctionsFromServer(){
 		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
-		downloader.execute("http://192.168.0.102:8080/HelloWorld/getallauctions");
+		downloader.execute("http://192.168.0.101:8080/HelloWorld/getallauctions");
 	}
 	
 	public void startMyProfileActivity(View view){

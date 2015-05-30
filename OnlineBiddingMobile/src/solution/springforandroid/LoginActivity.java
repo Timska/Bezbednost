@@ -39,7 +39,7 @@ public class LoginActivity extends Activity {
 			
 			public void onClick(View v) {
 				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
-				new PostUserCredentials().execute("http://192.168.0.102:8080/HelloWorld/checkforlogin");
+				new PostUserCredentials().execute("http://192.168.0.101:8080/HelloWorld/checkforlogin");
 			}
 		});
 	}
@@ -83,7 +83,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	private void getUser(){
-		new PostUsername().execute("http://192.168.0.102:8080/HelloWorld/getuser");
+		new PostUsername().execute("http://192.168.0.101:8080/HelloWorld/getuser");
 	}
 	
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
