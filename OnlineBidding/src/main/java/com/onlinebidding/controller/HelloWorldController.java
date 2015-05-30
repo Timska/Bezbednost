@@ -127,7 +127,7 @@ public class HelloWorldController {
 	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
 	@ResponseBody
 	public Auction updateAuctionPrice(@RequestBody MultiValueMap<String, Object> map) {
-		Long ID = (Long) map.getFirst("auctionID");
+		Long ID = Long.parseLong(map.getFirst("auctionID").toString());
 		User user = (User) map.getFirst("user");
 		String price = map.getFirst("auctionPrice").toString();
 		return auctionService.updateAuction(ID, user, price);
