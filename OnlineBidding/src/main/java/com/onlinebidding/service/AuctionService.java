@@ -3,6 +3,7 @@ package com.onlinebidding.service;
 import java.util.List;
 
 import com.onlinebidding.model.Auction;
+import com.onlinebidding.model.User;
 
 public interface AuctionService {
 	
@@ -20,5 +21,11 @@ public interface AuctionService {
 	
 	public List<Auction> getUserNotFinishedAuctions(String userName);
 	
+	public void enterAuction(Long auctionID, User user);
+	
 	public Auction getAuctionByItemID(Long itemID);
 }
+
+
+
+

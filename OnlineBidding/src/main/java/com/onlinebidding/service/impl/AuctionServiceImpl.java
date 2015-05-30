@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.onlinebidding.model.Auction;
+import com.onlinebidding.model.User;
 import com.onlinebidding.repository.AuctionRepository;
 import com.onlinebidding.service.AuctionService;
 
@@ -65,7 +66,18 @@ public class AuctionServiceImpl implements AuctionService {
 		return auctions;
 	}
 
+	public void enterAuction(Long auctionID, User user) {
+		Auction auction = findAuction(auctionID);
+		auction.getEntrants().add(user);
+		auctionRepository.save(auction);
+	}
+	
 	public Auction getAuctionByItemID(Long itemID) {
 		return auctionRepository.findByItemItemID(itemID);
 	}
 }
+
+
+
+
+

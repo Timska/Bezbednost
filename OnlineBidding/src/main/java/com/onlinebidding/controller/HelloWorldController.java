@@ -123,6 +123,23 @@ public class HelloWorldController {
 		auctionService.updateAuction(ID, price);
 		return "correct";
 	}
+	
+	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
+	@ResponseBody
+	public String enterAuction(@RequestBody MultiValueMap<String, Object> map) {
+		Long ID = (Long) map.getFirst("auctionID");
+		User user = (User) map.getFirst("user");
+		if (auctionService.findAuction(ID) == null) {
+			return auctionNotFound;
+		}
+		auctionService.enterAuction(ID, user);
+		return "correct";
+	}
+	
+	@RequestMapping(value = "/addauction", method = RequestMethod.POST)
+	public void addAuction(@RequestBody Auction auction) {
+		auctionService.create(auction);
+	}
 }
 
 
