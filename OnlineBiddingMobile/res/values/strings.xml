@@ -25,6 +25,14 @@
     <string name="title_activity_single_auction">SingleAuctionActivity</string>
     <string name="enterAuction">Влез</string>
     <string name="title_activity_my_auctions">MyAuctionsActivity</string>
-    <string name="btn_show_finished">Прикажи завршени</string>
+    <string name="btn_show_finished">Сите аукции</string>
+    <string name="btn_hide_finished">Активни аукции</string>
+    <string name="btn_add_auction">Додај аукција</string>
+    <string name="txt_current_price">Моментално постигната цена</string>
+    <string name="btn_rise">Зголеми</string>
+    <string name="btn_check_entrants">Разгледај учесници</string>
+    <string name="txt_item_name">Име на аукциски предмет</string>
+    <string name="txt_item_description">Опис</string>
+    
 
 </resources>

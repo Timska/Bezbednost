@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class MyAuctionsActivity extends Activity implements ListAuctions {
@@ -28,19 +29,36 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	private List<Auction> listMyAuctions;
 	private ListView myAuctionsView;
 	private ArrayAdapter<Auction> myAuctionsAdapter;
+	private boolean shownFinished;
+	private Button btnChangeShownAuctions;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_auctions);
 		
+		btnChangeShownAuctions = (Button) findViewById(R.id.btn_change_shown_auctions);
+		
 		getUser();
 		
 		setTitle(currentUser.getUserName());
 		
-		getActiveAuctionsFromUser(currentUser.getUserName());
 		
-		
+		shownFinished = true;
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		System.out.println(shownFinished);
+		if(shownFinished){
+			getActiveAuctionsFromUser(currentUser.getUserName());
+			btnChangeShownAuctions.setText(R.string.btn_show_finished);
+		}
+		else{
+			getAllAuctionsFromUser(currentUser.getUserName());
+			btnChangeShownAuctions.setText(R.string.btn_hide_finished);
+		}
 	}
 	
 	private void getAllAuctionsFromUser(String username){
@@ -105,7 +123,15 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	}
 	
 	public void showAllMyAuctions(View view){
-		getAllAuctionsFromUser(currentUser.getUserName());
+		shownFinished = !shownFinished;
+		if(shownFinished){
+			getActiveAuctionsFromUser(currentUser.getUserName());
+			btnChangeShownAuctions.setText(R.string.btn_show_finished);
+		}
+		else{
+			getAllAuctionsFromUser(currentUser.getUserName());
+			btnChangeShownAuctions.setText(R.string.btn_hide_finished);
+		}
 	}
 	
 	private void initAuctionsView(){
@@ -115,6 +141,7 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	}
 
 	public void startAuctionActivity(Intent intent) {
+		intent.putExtra("user", currentUser);
 		startActivity(intent);
 	}
 	

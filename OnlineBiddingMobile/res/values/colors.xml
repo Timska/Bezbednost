@@ -3,5 +3,5 @@
     <color name="black">#000000</color>
     <color name="greyTextView">#C2C2CC</color>
   	<color name="textColor">#F1F8E0</color>
-    
+    <color name="red">#FF0000</color>
 </resources>

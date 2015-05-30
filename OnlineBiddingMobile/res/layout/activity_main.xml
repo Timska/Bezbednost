@@ -10,41 +10,50 @@
     tools:context="solution.springforandroid.MainActivity" >
 
     <LinearLayout
+        android:id="@+id/menuMyActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/menuMyActivity" >
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btnMyProfile"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="50"
+            android:layout_weight="1"
+            android:onClick="startMyProfileActivity"
             android:text="@string/my_profile"
-            android:textColor="@color/textColor"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/btnMyAuctions"
             style="?android:attr/borderlessButtonStyle"
-            android:onClick="startMyProfileActivity" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="startMyAuctions"
+            android:text="@string/my_auctions"
+            android:textColor="@color/textColor" />
 
         <Button
             android:id="@+id/btnLogOut"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="50"
+            android:layout_weight="1"
+            android:onClick="logOut"
             android:text="@string/log_out"
-            android:textColor="@color/textColor"
-            style="?android:attr/borderlessButtonStyle"
-            android:onClick="logOut" />
+            android:textColor="@color/textColor" />
     </LinearLayout>
-    
-    <ListView 
+
+    <ListView
         android:id="@+id/auctionsView"
-        android:layout_below="@id/menuMyActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menuMyActivity" >
     </ListView>
-    
 
 </RelativeLayout>

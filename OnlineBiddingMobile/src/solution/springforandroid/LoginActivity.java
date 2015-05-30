@@ -116,13 +116,11 @@ public class LoginActivity extends Activity {
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
 			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			System.out.println(txtUsername.getText().toString());
 			return restTemplate.postForObject(params[0], txtUsername.getText().toString(), User.class);
 		}
 		
 		@Override
 		protected void onPostExecute(User result) {
-			System.out.println(result.getFirstName());
 			user = result;
 			startActivity();
 		}

@@ -27,6 +27,12 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		setContentView(R.layout.activity_main);
 		getUser();
 		
+		
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
 		getAuctionsFromServer();
 	}
 	
@@ -54,6 +60,12 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	public void logOut(View view){
 		finish();
 	}
+	
+	public void startMyAuctions(View view){
+		Intent intent = new Intent(this, MyAuctionsActivity.class);
+		intent.putExtra("user", currentUser);
+		startActivity(intent);
+	}
 
 	public void onLoadFinished(Auction[] data) {
 		// TODO Auto-generated method stub
@@ -68,6 +80,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	}
 
 	public void startAuctionActivity(Intent intent) {
+		intent.putExtra("user", currentUser);
 		startActivity(intent);
 	}
 
