@@ -8,6 +8,8 @@ public interface AuctionService {
 	
 	public void create(Auction auction);
 	
+	public void updateAuction(Long auctionID, String price);
+	
 	public Auction findAuction(Long auctionID);
 	
 	public List<Auction> getAllAuctions();

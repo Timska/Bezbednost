@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.User;
 import com.onlinebidding.service.AuctionService;
-import com.onlinebidding.service.ItemService;
 import com.onlinebidding.service.UserService;
 
 @Controller
@@ -51,12 +50,10 @@ public class HelloWorldController {
 	@Autowired
 	private AuctionService auctionService;
 	
-	@Autowired
-	private ItemService itemService;
-	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
 	private static final String alreadyRegistered = "3";
+	private static final String auctionNotFound = "4";
 	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
 	@ResponseBody
@@ -102,6 +99,23 @@ public class HelloWorldController {
 		return auctionService.getNotFinishedAuctions();
 	}
 	
+	@RequestMapping(value = "/userauctions", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Auction> getUserAuctions(@RequestBody String userName) {
+		return auctionService.getUserAuctions(userName);
+	}
+	
+	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateAuctionPrice(MultiValueMap<String, Object> map) {
+		Long ID = (Long) map.getFirst("auctionID");
+		String price = map.getFirst("auctionPrice").toString();
+		if (auctionService.findAuction(ID) == null) {
+			return auctionNotFound;
+		}
+		auctionService.updateAuction(ID, price);
+		return "correct";
+	}
 }
 
 

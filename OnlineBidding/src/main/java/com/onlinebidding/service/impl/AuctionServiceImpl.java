@@ -19,6 +19,12 @@ public class AuctionServiceImpl implements AuctionService {
 	public void create(Auction auction) {
 		auctionRepository.save(auction);
 	}
+	
+	public void updateAuction(Long auctionID, String price) {
+		Auction auction = auctionRepository.findOne(auctionID);
+		auction.setCurrentPrice(price);
+		auctionRepository.save(auction);
+	}
 
 	public Auction findAuction(Long auctionID) {
 		return auctionRepository.findOne(auctionID);
