@@ -107,7 +107,7 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateAuctionPrice(MultiValueMap<String, Object> map) {
+	public String updateAuctionPrice(@RequestBody MultiValueMap<String, Object> map) {
 		Long ID = (Long) map.getFirst("auctionID");
 		String price = map.getFirst("auctionPrice").toString();
 		if (auctionService.findAuction(ID) == null) {
