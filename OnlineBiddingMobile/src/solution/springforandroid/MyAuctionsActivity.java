@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -36,11 +37,17 @@ public class MyAuctionsActivity extends Activity {
 		
 		setTitle(currentUser.getUserName());
 		
-		getAuctionsFromUser(currentUser.getUserName());
+		getActiveAuctionsFromUser(currentUser.getUserName());
+		
+		
 	}
 	
-	private void getAuctionsFromUser(String username){
+	private void getAllAuctionsFromUser(String username){
 		new PostUsername().execute("http://192.168.0.101:8080/HelloWorld/userauctions", username);
+	}
+	
+	private void getActiveAuctionsFromUser(String username){
+		new PostUsername().execute("http://192.168.0.101:8080/HelloWorld/usernotfinishedauctions", username);
 	}
 
 	
@@ -94,6 +101,10 @@ public class MyAuctionsActivity extends Activity {
 			listMyAuctions = new ArrayList<Auction>();
 		}
 		initAuctionsView();
+	}
+	
+	public void showAllMyAuctions(View view){
+		getAllAuctionsFromUser(currentUser.getUserName());
 	}
 	
 	private void initAuctionsView(){
