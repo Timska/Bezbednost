@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.User;
 import com.onlinebidding.service.AuctionService;
+import com.onlinebidding.service.ItemService;
 import com.onlinebidding.service.UserService;
 
 @Controller
@@ -49,6 +50,9 @@ public class HelloWorldController {
 	
 	@Autowired
 	private AuctionService auctionService;
+	
+	@Autowired
+	private ItemService itemService;
 	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
@@ -92,6 +96,11 @@ public class HelloWorldController {
 		return auctionService.getAllAuctions();
 	}
 	
+	@RequestMapping(value = "/notfinishedauctions", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Auction> getNotFinishedAuctions() {
+		return auctionService.getNotFinishedAuctions();
+	}
 	
 }
 

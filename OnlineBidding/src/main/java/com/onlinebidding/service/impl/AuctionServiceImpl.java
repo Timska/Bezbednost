@@ -1,5 +1,6 @@
 package com.onlinebidding.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,18 @@ public class AuctionServiceImpl implements AuctionService {
 
 	public List<Auction> getAllAuctions() {
 		return auctionRepository.findAll();
+	}
+	
+	public List<Auction> getNotFinishedAuctions() {
+		List<Auction> auctions = getAllAuctions();
+		Date currentDate = new Date();
+		for (int i = auctions.size() - 1; i >= 0; i--) {
+			Auction auction = auctions.get(i);
+			if (currentDate.after(auction.getEndDate())) {
+				auctions.remove(auction);
+			}
+		}
+		return auctions;
 	}
 
 	public List<Auction> getUserAuctions(String userName) {
