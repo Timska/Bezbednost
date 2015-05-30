@@ -67,10 +67,16 @@ public class AuctionServiceImpl implements AuctionService {
 		return auctions;
 	}
 
-	public void enterAuction(Long auctionID, User user) {
+	public Auction enterAuction(Long auctionID, User user) {
 		Auction auction = findAuction(auctionID);
 		auction.getEntrants().add(user);
-		auctionRepository.save(auction);
+		return auctionRepository.save(auction);
+	}
+	
+	public Auction exitAuction(Long auctionID, User user) {
+		Auction auction = findAuction(auctionID);
+		auction.getEntrants().remove(user);
+		return auctionRepository.save(auction);
 	}
 	
 	public Auction getAuctionByItemID(Long itemID) {
