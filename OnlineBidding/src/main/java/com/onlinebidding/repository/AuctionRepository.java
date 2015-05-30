@@ -10,5 +10,8 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
 	public List<Auction> findByCreatorUserName(String userName);
 	
+	public List<Auction> findByWinnerUserName(String userName);
+	
 	public Auction findByItemItemID(Long itemID);
+	
 }

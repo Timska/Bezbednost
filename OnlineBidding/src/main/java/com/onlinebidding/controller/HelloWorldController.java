@@ -112,15 +112,31 @@ public class HelloWorldController {
 		return auctionService.getUserNotFinishedAuctions(userName);
 	}
 	
+	@RequestMapping(value = "/wonuserauctions", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Auction> getWonUserAuctions(@RequestBody String userName) {
+		return auctionService.getWonUserAuctions(userName);
+	}
+	
+	@RequestMapping(value = "/entereduserauctions", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Auction> getEnteredUserAuctions(@RequestBody String userName) {
+		return userService.findUser(userName).getEnteredAuctions();
+	}
+	
 	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAuctionPrice(@RequestBody MultiValueMap<String, Object> map) {
 		Long ID = (Long) map.getFirst("auctionID");
+		User user = (User) map.getFirst("user");
 		String price = map.getFirst("auctionPrice").toString();
 		if (auctionService.findAuction(ID) == null) {
 			return auctionNotFound;
 		}
-		auctionService.updateAuction(ID, price);
+		if (userService.findUser(user.getUserName()) == null) {
+			return unexistingUser;
+		}
+		auctionService.updateAuction(ID, user, price);
 		return "correct";
 	}
 	
@@ -131,6 +147,9 @@ public class HelloWorldController {
 		User user = (User) map.getFirst("user");
 		if (auctionService.findAuction(ID) == null) {
 			return auctionNotFound;
+		}
+		if (userService.findUser(user.getUserName()) == null) {
+			return unexistingUser;
 		}
 		auctionService.enterAuction(ID, user);
 		return "correct";

@@ -23,6 +23,8 @@ public class Auction {
 	private String auctionName;
 	@ManyToOne
 	private User creator;
+	@ManyToOne
+	private User winner;
 	@ManyToMany(mappedBy = "enteredAuctions", fetch = FetchType.EAGER)
 	private List<User> entrants;
 	@OneToOne
@@ -35,10 +37,11 @@ public class Auction {
 
 	}
 
-	public Auction(String auctionName, User creator, List<User> entrants,
+	public Auction(String auctionName, User creator, User winner, List<User> entrants,
 			Item item, Date startDate, Date endDate, String currentPrice) {
 		this.auctionName = auctionName;
 		this.creator = creator;
+		this.winner = winner;
 		this.entrants = entrants;
 		this.item = item;
 		this.startDate = startDate;
@@ -68,6 +71,14 @@ public class Auction {
 
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+
+	public User getWinner() {
+		return winner;
+	}
+
+	public void setWinner(User winner) {
+		this.winner = winner;
 	}
 
 	public List<User> getEntrants() {

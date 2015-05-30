@@ -21,9 +21,10 @@ public class AuctionServiceImpl implements AuctionService {
 		auctionRepository.save(auction);
 	}
 	
-	public void updateAuction(Long auctionID, String price) {
+	public void updateAuction(Long auctionID, User user, String price) {
 		Auction auction = auctionRepository.findOne(auctionID);
 		auction.setCurrentPrice(price);
+		auction.setWinner(user);
 		auctionRepository.save(auction);
 	}
 
@@ -74,6 +75,10 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	public Auction getAuctionByItemID(Long itemID) {
 		return auctionRepository.findByItemItemID(itemID);
+	}
+
+	public List<Auction> getWonUserAuctions(String userName) {
+		return auctionRepository.findByWinnerUserName(userName);
 	}
 }
 
