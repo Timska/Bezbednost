@@ -53,7 +53,6 @@ public class HelloWorldController {
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
 	private static final String alreadyRegistered = "3";
-	private static final String auctionNotFound = "4";
 	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
 	@ResponseBody
@@ -135,15 +134,9 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
 	@ResponseBody
-	public String enterAuction(@RequestBody MultiValueMap<String, Object> map) {
-		Long ID = (Long) map.getFirst("auctionID");
-		User user = (User) map.getFirst("user");
-		if (auctionService.findAuction(ID) == null) {
-			return auctionNotFound;
-		}
-		if (userService.findUser(user.getUserName()) == null) {
-			return unexistingUser;
-		}
+	public String enterAuction(@RequestBody MultiValueMap<String, String> map) {
+		Long ID = Long.parseLong(map.getFirst("auctionID").toString());
+		User user = userService.findUser(map.getFirst("userName").toString());
 		auctionService.enterAuction(ID, user);
 		return "correct";
 	}
