@@ -74,6 +74,7 @@ public class HelloWorldController {
 	@ResponseBody
 	public User getUser(@RequestBody String username) {
 		User u = userService.findUser(username);
+		System.err.println(u.getUserName());
 		return u;
 	}
 	
