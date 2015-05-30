@@ -57,9 +57,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 
 	public void onLoadFinished(Auction[] data) {
 		// TODO Auto-generated method stub
-		for(int i=0;i<data.length;++i){
-			System.out.println(data[i].getStartDate().toString());
-		}
 		if(data != null){
 			listAuctions = Arrays.asList(data);
 			Collections.sort(listAuctions);

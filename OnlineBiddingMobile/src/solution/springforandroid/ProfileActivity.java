@@ -13,8 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 
 
+
 import tables.User;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,7 +33,6 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 	private EditText txtUsername;
 	private EditText txtEmail;
 	private EditText txtDate;
-	private Button btnMyAuctions;
 	private User currentUser;
 	
 	@Override
@@ -55,7 +56,15 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 		txtDate.setText(DateFormat.getDateInstance().format(currentUser.getBirth()));
 	}
 	
+	public void startMyAuctions(View view){
+		Intent intent = new Intent(this, MyAuctionsActivity.class);
+		intent.putExtra("user", currentUser);
+		startActivity(intent);
+	}
+	
 	private void getUser(){
 		currentUser = (User) getIntent().getExtras().get("user");
 	}
+	
+	
 }

@@ -41,6 +41,10 @@
             android:name=".SingleAuctionActivity"
             android:label="@string/title_activity_single_auction" >
         </activity>
+        <activity
+            android:name=".MyAuctionsActivity"
+            android:label="@string/title_activity_my_auctions" >
+        </activity>
     </application>
 
 </manifest>
