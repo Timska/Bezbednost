@@ -25,5 +25,6 @@
     <string name="title_activity_single_auction">SingleAuctionActivity</string>
     <string name="enterAuction">Влез</string>
     <string name="title_activity_my_auctions">MyAuctionsActivity</string>
+    <string name="btn_show_finished">Прикажи завршени</string>
 
 </resources>

@@ -6,19 +6,11 @@
 
     <TextView
         android:id="@+id/txtAuctionNameAndDate"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="70"
         android:gravity="center"
         android:textColor="@color/textColor" >
     </TextView>
 
-    <Button
-        android:id="@+id/btnAuctionEnter"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/greyTextView"
-        android:text="@string/enterAuction"
-        android:layout_weight="30" />
 
 </LinearLayout>

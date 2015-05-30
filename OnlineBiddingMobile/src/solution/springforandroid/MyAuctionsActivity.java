@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import tables.Auction;
 import tables.User;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,7 +21,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MyAuctionsActivity extends Activity {
+public class MyAuctionsActivity extends Activity implements ListAuctions {
 
 	
 	private User currentUser;
@@ -111,6 +112,10 @@ public class MyAuctionsActivity extends Activity {
 		myAuctionsView = (ListView) findViewById(R.id.my_auctions_view);
 		myAuctionsAdapter = new AuctionAdapter(this, listMyAuctions);
 		myAuctionsView.setAdapter(myAuctionsAdapter);
+	}
+
+	public void startAuctionActivity(Intent intent) {
+		startActivity(intent);
 	}
 	
 }

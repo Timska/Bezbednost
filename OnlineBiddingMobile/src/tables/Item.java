@@ -1,9 +1,10 @@
 package tables;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Item {
+public class Item implements Serializable{
 
 	private Long itemID;
 	private String itemName;

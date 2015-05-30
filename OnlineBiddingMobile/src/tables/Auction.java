@@ -1,11 +1,12 @@
 package tables;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 
-public class Auction implements Comparable<Auction> {
+public class Auction implements Comparable<Auction>, Serializable {
 
 	private Long auctionID;
 	private String auctionName;

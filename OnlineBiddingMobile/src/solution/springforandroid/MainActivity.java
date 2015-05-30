@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import solution.springforandroid.DownloadListener;
 
-public class MainActivity extends Activity implements DownloadListener<Auction[]> {
+public class MainActivity extends Activity implements DownloadListener<Auction[]>, ListAuctions {
 
 	private ListView auctionsView;
 	private ArrayAdapter<Auction> auctionsAdapter;
@@ -65,6 +65,10 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 			listAuctions = new ArrayList<Auction>();
 		}
 		initAuctionsView();
+	}
+
+	public void startAuctionActivity(Intent intent) {
+		startActivity(intent);
 	}
 
 }
