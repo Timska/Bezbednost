@@ -106,6 +106,12 @@ public class HelloWorldController {
 		return auctionService.getUserAuctions(userName);
 	}
 	
+	@RequestMapping(value = "/usernotfinishedauctions", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Auction> getUserNotFinishedAuctions(@RequestBody String userName) {
+		return auctionService.getUserNotFinishedAuctions(userName);
+	}
+	
 	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAuctionPrice(@RequestBody MultiValueMap<String, Object> map) {

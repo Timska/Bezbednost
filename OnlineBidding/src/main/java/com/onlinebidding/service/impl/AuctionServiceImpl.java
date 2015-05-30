@@ -52,6 +52,18 @@ public class AuctionServiceImpl implements AuctionService {
 	public List<Auction> getUserAuctions(String userName) {
 		return auctionRepository.findByCreatorUserName(userName);
 	}
+	
+	public List<Auction> getUserNotFinishedAuctions(String userName) {
+		List<Auction> auctions = getUserAuctions(userName);
+		Date currentDate = new Date();
+		for (int i = auctions.size() - 1; i >= 0; i--) {
+			Auction auction = auctions.get(i);
+			if (currentDate.after(auction.getEndDate())) {
+				auctions.remove(auction);
+			}
+		}
+		return auctions;
+	}
 
 	public Auction getAuctionByItemID(Long itemID) {
 		return auctionRepository.findByItemItemID(itemID);

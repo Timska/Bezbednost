@@ -18,5 +18,7 @@ public interface AuctionService {
 	
 	public List<Auction> getUserAuctions(String userName);
 	
+	public List<Auction> getUserNotFinishedAuctions(String userName);
+	
 	public Auction getAuctionByItemID(Long itemID);
 }
