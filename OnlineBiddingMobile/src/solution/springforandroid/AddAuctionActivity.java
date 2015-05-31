@@ -38,11 +38,14 @@ public class AddAuctionActivity extends Activity {
 	private EditText txtAuctionItemName;
 	private EditText txtAuctionItemDescription;
 	private User currentUser;
+	private boolean start;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_auction);
+		
+		start = false;
 		
 		getUser();
 		
@@ -73,9 +76,7 @@ public class AddAuctionActivity extends Activity {
 	            		myCalendar.get(Calendar.HOUR_OF_DAY), 
 	            		myCalendar.get(Calendar.MINUTE), true).show();
 	            
-	            System.out.println("pomina 1");
-	            
-	            updateLabel(v);
+	            start = true;
 	        }
 	    });
 		
@@ -96,9 +97,7 @@ public class AddAuctionActivity extends Activity {
 	            		myCalendar.get(Calendar.HOUR_OF_DAY), 
 	            		myCalendar.get(Calendar.MINUTE), true).show();
 	            
-	            System.out.println("pomina 1");
-	            
-	            updateLabel(v);
+	            start = false;
 	        }
 	    });
 		
@@ -118,6 +117,8 @@ public class AddAuctionActivity extends Activity {
 		        myCalendar.set(Calendar.MONTH, monthOfYear);
 		        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 		        
+
+	            updateLabel();
 		    }
 
 		};
@@ -133,14 +134,22 @@ public class AddAuctionActivity extends Activity {
 		
 	}
 	
-	private void updateLabel(View v) {
+	private void updateLabel() {
 
 	    String myFormat = "yyyy-MM-dd kk:mm"; //In which you need put here
 	    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-	    EditText ev = (EditText) v;
-	    ev.setText(sdf.format(myCalendar.getTime()));
+	    EditText ev;
+	    if(start){
+	    	ev = txtStartDate;
 	    }
+	    else{
+	    	ev = txtEndDate;
+	    }
+	    
+	    ev.setText(sdf.format(myCalendar.getTime()));
+	    
+	}
 	
 
 	@Override
@@ -163,7 +172,7 @@ public class AddAuctionActivity extends Activity {
 	}
 	
 	public void addNewAuction(View view){
-		new PostAuction().execute("http://192.168.0.101:8080/HelloWorld/addauction");
+		new PostAuction().execute(getResources().getString(R.string.url_address)+"/addauction");
 	}
 	
 	private void getUser(){
@@ -171,7 +180,8 @@ public class AddAuctionActivity extends Activity {
 	}
 	
 	private Date getDateFromString(String s){
-		StringTokenizer st = new StringTokenizer(txtStartDate.getText().toString());
+		System.out.println("vo get date" + s);
+		StringTokenizer st = new StringTokenizer(s);
 		StringTokenizer date = new StringTokenizer(st.nextToken(), "-");
 		StringTokenizer time = new StringTokenizer(st.nextToken(), ":");
 		int year = Integer.parseInt(date.nextToken());
@@ -183,17 +193,18 @@ public class AddAuctionActivity extends Activity {
 	}
 	
 	private void showResult(){
+		System.out.println("vo show result vleze");
 		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT).show();
 		finish();
 	}
 	
 	
-	private class PostAuction extends AsyncTask<String, Void, Void> {
+	private class PostAuction extends AsyncTask<String, Void, String> {
 		
 		@Override
-		protected Void doInBackground(String... params) {
+		protected String doInBackground(String... params) {
 			Item item = new Item(txtAuctionItemName.getText().toString(), null, txtAuctionItemDescription.getText().toString());
-			Auction a = new Auction(txtAuctionName.getText().toString(), currentUser, null, 
+			Auction a = new Auction(txtAuctionName.getText().toString(), currentUser, currentUser, 
 					new ArrayList<User>(), item, 
 					getDateFromString(txtStartDate.getText().toString()), 
 					getDateFromString(txtEndDate.getText().toString()), 
@@ -202,11 +213,12 @@ public class AddAuctionActivity extends Activity {
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
 			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			return restTemplate.postForObject(params[0], a, Void.class);
+			return restTemplate.postForObject(params[0], a, String.class);
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(String result) {
+			System.out.println("vo post execute");
 			showResult();
 		}
 	}

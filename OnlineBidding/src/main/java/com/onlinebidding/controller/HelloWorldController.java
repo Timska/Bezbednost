@@ -154,10 +154,13 @@ public class HelloWorldController {
 	}
 	
 	@RequestMapping(value = "/addauction", method = RequestMethod.POST)
-	public void addAuction(@RequestBody Auction auction) {
+	@ResponseBody
+	public String addAuction(@RequestBody Auction auction) {
 		Item item = auction.getItem();
 		itemService.create(item);
 		auctionService.create(auction);
+		System.err.println("Vo kontrolerot se e vo red");
+		return "correct";
 	}
 }
 

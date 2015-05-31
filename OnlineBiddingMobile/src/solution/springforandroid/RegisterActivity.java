@@ -99,7 +99,7 @@ public class RegisterActivity extends Activity {
 	public void registerNewUser(View view){
 		
 		if(validate()){
-			new PostUserCredentials().execute("http://192.168.0.101:8080/HelloWorld/registeruser");
+			new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/registeruser");
 		}
 	}
 	

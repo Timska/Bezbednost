@@ -91,7 +91,7 @@ public class SingleAuctionActivity extends Activity {
 				}
 				
 				newPrice = price;
-				new PostPrice().execute("http://192.168.0.101:8080/HelloWorld/updateauctionprice");
+				new PostPrice().execute(getResources().getString(R.string.url_address)+"/updateauctionprice");
 			}
 		});
 		
@@ -127,11 +127,11 @@ public class SingleAuctionActivity extends Activity {
 		entered = !entered;
 		if(entered){
 			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
-			new PostForEnterOrExitAuction().execute("http://192.168.0.101:8080/HelloWorld/enterauction");
+			new PostForEnterOrExitAuction().execute(getResources().getString(R.string.url_address)+"/enterauction");
 		}
 		else{
 			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
-			new PostForEnterOrExitAuction().execute("http://192.168.0.101:8080/HelloWorld/exitauction");
+			new PostForEnterOrExitAuction().execute(getResources().getString(R.string.url_address)+"/exitauction");
 		}
 	}
 	
@@ -148,11 +148,12 @@ public class SingleAuctionActivity extends Activity {
 	private void initTimer(){
 		Date now = new Date();
 		long milliseconds;
+		System.out.println(auction.getEndDate().toString());
 		if(now.compareTo(auction.getEndDate()) > 0){
 			milliseconds = 0;
 		}
 		else{
-			milliseconds = now.getTime() - auction.getEndDate().getTime();
+			milliseconds = auction.getEndDate().getTime() - now.getTime();
 		}
 		timer = new CountEndDate(milliseconds, (long)1000, txtTimer, this);
 		timer.start();

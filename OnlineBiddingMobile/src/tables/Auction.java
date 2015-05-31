@@ -100,6 +100,7 @@ public class Auction implements Comparable<Auction>, Serializable {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+		adjustDate(startDate);
 	}
 
 	public Date getEndDate() {
@@ -108,6 +109,7 @@ public class Auction implements Comparable<Auction>, Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+		adjustDate(endDate);
 	}
 
 	public String getCurrentPrice() {
@@ -127,4 +129,7 @@ public class Auction implements Comparable<Auction>, Serializable {
 		return auctionName+"-"+currentPrice+" "+DateFormat.getInstance().format(startDate);
 	}
 
+	private void adjustDate(Date date){
+		date.setHours(date.getHours()+8);
+	}
 }

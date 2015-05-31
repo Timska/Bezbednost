@@ -42,5 +42,6 @@
     <string name="auction_item_name_hint">Име на предметот што е на аукција</string>
     <string name="auction_item_description_hint">Опис на предметот што е на аукција</string>
     <string name="new_auction_button">Додади аукција</string>
+    <string name="url_address">http://192.168.0.101:8080/HelloWorld</string>
 
 </resources>

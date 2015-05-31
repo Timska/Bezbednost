@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	private void getAuctionsFromServer(){
 		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
-		downloader.execute("http://192.168.0.101:8080/HelloWorld/notfinishedauctions");
+		downloader.execute(getResources().getString(R.string.url_address)+"/notfinishedauctions");
 	}
 	
 	public void startMyProfileActivity(View view){

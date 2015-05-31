@@ -61,11 +61,11 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	}
 	
 	private void getAllAuctionsFromUser(String username){
-		new PostUsername().execute("http://192.168.0.101:8080/HelloWorld/userauctions", username);
+		new PostUsername().execute(getResources().getString(R.string.url_address)+"/userauctions", username);
 	}
 	
 	private void getActiveAuctionsFromUser(String username){
-		new PostUsername().execute("http://192.168.0.101:8080/HelloWorld/usernotfinishedauctions", username);
+		new PostUsername().execute(getResources().getString(R.string.url_address)+"/usernotfinishedauctions", username);
 	}
 
 	
