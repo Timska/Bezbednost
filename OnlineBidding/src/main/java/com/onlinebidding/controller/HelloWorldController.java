@@ -67,7 +67,7 @@ public class HelloWorldController {
 		if (user == null) {
 			return unexistingUser;
 		}
-		String password = map.getFirst("password");
+		String password = String.valueOf(map.getFirst("password").hashCode());
 		if (!user.getPassword().equals(password)) {
 			return wrongPassword;
 		}
@@ -88,6 +88,8 @@ public class HelloWorldController {
 		if (userService.findUser(user.getUserName()) != null) {
 			return alreadyRegistered;
 		}
+		String password = user.getPassword();
+		user.setPassword(String.valueOf(password.hashCode()));
 		userService.create(user);
 		return "correct";
 	}
@@ -142,6 +144,9 @@ public class HelloWorldController {
 	public Auction enterAuction(@RequestBody MultiValueMap<String, String> map) {
 		Long ID = Long.parseLong(map.getFirst("auctionID").toString());
 		User user = userService.findUser(map.getFirst("userName").toString());
+		Auction auction = auctionService.findAuction(ID);
+		
+		userService.enterAuction(auction, user.getUserName());
 		return auctionService.enterAuction(ID, user);
 	}
 	
@@ -150,6 +155,9 @@ public class HelloWorldController {
 	public Auction exitAuction(@RequestBody MultiValueMap<String, String> map) {
 		Long ID = Long.parseLong(map.getFirst("auctionID").toString());
 		User user = userService.findUser(map.getFirst("userName").toString());
+		Auction auction = auctionService.findAuction(ID);
+		
+		userService.exitAuction(auction, user.getUserName());
 		return auctionService.exitAuction(ID, user);
 	}
 	
