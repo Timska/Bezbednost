@@ -10,7 +10,9 @@ public interface UserAuctionService {
 
 	public void create(UserAuction userAuction);
 	
-	public void delete(Long ID);
+	public void delete(String userName, Long auctionID);
+	
+	public UserAuction findUserAuctionByUserAndAuction(String userName, Long auctionID);
 	
 	public UserAuction findUserAuction(Long ID);
 	

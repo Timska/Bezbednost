@@ -135,7 +135,7 @@ public class HelloWorldController {
 		String price = map.getFirst("auctionPrice").toString();
 		return auctionService.updateAuction(auctionID, userService.findUser(userName), price);
 	}
-	
+	///////////////////////////////////////Changed from here////////////////////////////////////////////
 	@RequestMapping(value = "/userenteredauctions", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Auction> getUserEnteredAuctions(@RequestBody String userName) {
@@ -157,8 +157,10 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/exitauction", method = RequestMethod.POST)
 	@ResponseBody
-	public String exitAuction(@RequestBody Long ID) {
-		userAuctionService.delete(ID);
+	public String exitAuction(@RequestBody MultiValueMap<String, String> map) {
+		String userName = map.getFirst("userName").toString();
+		Long auctionID = Long.valueOf(map.getFirst("auctionID").toString());
+		userAuctionService.delete(userName, auctionID);
 		return "correct";
 	}
 	
@@ -169,6 +171,13 @@ public class HelloWorldController {
 		itemService.create(item);
 		auctionService.create(auction);
 		return "correct";
+	}
+	
+	// Checking method
+	@RequestMapping(value = "/userauctioncheck", method = RequestMethod.GET)
+	@ResponseBody
+	public UserAuction getUserAuctionCheck() {
+		return userAuctionService.findUserAuctionByUserAndAuction("", 1L);
 	}
 }
 

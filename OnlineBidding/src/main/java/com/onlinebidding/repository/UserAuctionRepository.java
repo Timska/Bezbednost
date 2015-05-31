@@ -11,4 +11,6 @@ public interface UserAuctionRepository extends JpaRepository<UserAuction, Long> 
 	public List<UserAuction> findByUserUserName(String userName);
 	
 	public List<UserAuction> findByAuctionAuctionID(Long auctionID);
+	
+	public UserAuction findByUserUserNameAndAuctionAuctionID(String userName, Long auctionID);
 }

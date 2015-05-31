@@ -22,10 +22,15 @@ public class UserAuctionServiceImpl implements UserAuctionService {
 		userAuctionRepository.save(userAuction);
 	}
 	
-	public void delete(Long ID) {
-		userAuctionRepository.delete(ID);
+	public void delete(String userName, Long auctionID) {
+		UserAuction userAuction = userAuctionRepository.findByUserUserNameAndAuctionAuctionID(userName, auctionID);
+		userAuctionRepository.delete(userAuction);
 	}
 
+	public UserAuction findUserAuctionByUserAndAuction(String userName, Long auctionID) {
+		return userAuctionRepository.findByUserUserNameAndAuctionAuctionID(userName, auctionID);
+	}
+	
 	public UserAuction findUserAuction(Long ID) {
 		return userAuctionRepository.findOne(ID);
 	}
