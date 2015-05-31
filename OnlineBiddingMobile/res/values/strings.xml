@@ -23,16 +23,24 @@
     <string name="my_profile">Мој профил</string>
     <string name="log_out">Одјави се</string>
     <string name="title_activity_single_auction">SingleAuctionActivity</string>
-    <string name="enterAuction">Влез</string>
+    <string name="enter_auction">Влез</string>
+    <string name="exit_auction">Излез</string>
     <string name="title_activity_my_auctions">MyAuctionsActivity</string>
     <string name="btn_show_finished">Сите аукции</string>
     <string name="btn_hide_finished">Активни аукции</string>
     <string name="btn_add_auction">Додај аукција</string>
-    <string name="txt_current_price">Моментално постигната цена</string>
+    <string name="txt_current_price">Моментално постигната цена:</string>
     <string name="btn_rise">Зголеми</string>
     <string name="btn_check_entrants">Разгледај учесници</string>
-    <string name="txt_item_name">Име на аукциски предмет</string>
-    <string name="txt_item_description">Опис</string>
-    
+    <string name="txt_item_name">Име на аукциски предмет:</string>
+    <string name="txt_item_description">Опис:</string>
+    <string name="title_activity_add_auction">Нова аукција</string>
+    <string name="auction_name_hint">Име на аукција</string>
+    <string name="current_price_hint">Почетна цена на аукцискиот предмет</string>
+    <string name="auction_start_date_hint">Почетна дата на аукцијата</string>
+    <string name="auction_end_date_hint">Крајна дата на аукцијата</string>
+    <string name="auction_item_name_hint">Име на предметот што е на аукција</string>
+    <string name="auction_item_description_hint">Опис на предметот што е на аукција</string>
+    <string name="new_auction_button">Додади аукција</string>
 
 </resources>

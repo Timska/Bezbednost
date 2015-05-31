@@ -37,6 +37,9 @@ public class SingleAuctionActivity extends Activity {
 	private CountDownTimer timer;
 	private TextView txtTimer;
 	private TextView txtWinner;
+	private Button btnViewEntrants;
+	private boolean entered;
+	private Button btnEnterAuction;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +50,24 @@ public class SingleAuctionActivity extends Activity {
 		
 		setTitle(auction.getAuctionName());
 		
+		checkEntered();
+		
 		initViews();
 		
+	}
+	
+	private void checkEntered(){
+		if(auction.getEntrants() == null){
+			entered = false;
+			return;
+		}
+		for(int i=0;i<auction.getEntrants().size();++i){
+			if(auction.getEntrants().get(i).getUserName().equals(currentUser.getUserName())){
+				entered = true;
+				return;
+			}
+		}
+		entered = false;
 	}
 	
 	private void initViews(){
@@ -76,19 +95,54 @@ public class SingleAuctionActivity extends Activity {
 			}
 		});
 		
+		btnViewEntrants = (Button) findViewById(R.id.btn_view_entrants);
+		btnViewEntrants.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		btnEnterAuction = (Button) findViewById(R.id.btn_enter_auction);
+		
+		checkCreator();
+		
 		txtAuctionCreator = (TextView) findViewById(R.id.txt_auction_creator);
 		txtAuctionCreator.setText("Креатор: "+auction.getCreator().getUserName());
 		
 		txtAuctionItemName = (TextView) findViewById(R.id.txt_auction_item_name);
-		txtAuctionItemName.setText("Име на аукцискиот предмет: "+auction.getItem().getItemName());
+		txtAuctionItemName.setText(auction.getItem().getItemName());
 		
 		txtAuctionItemDescription = (TextView) findViewById(R.id.txt_auction_item_description);
-		txtAuctionItemDescription.setText("Опис: "+auction.getItem().getDescription());
+		txtAuctionItemDescription.setText(auction.getItem().getDescription());
 		
 		txtWinner = (TextView) findViewById(R.id.txt_current_price);
 		
 		txtTimer = (TextView) findViewById(R.id.txt_timer);
 		initTimer();
+	}
+	
+	private void enterOrExitAuction(View view){
+		entered = !entered;
+		if(entered){
+			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
+			new PostForEnterOrExitAuction().execute("http://192.168.0.101:8080/HelloWorld/enterauction");
+		}
+		else{
+			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
+			new PostForEnterOrExitAuction().execute("http://192.168.0.101:8080/HelloWorld/exitauction");
+		}
+	}
+	
+	private void checkCreator(){
+		if(currentUser.getUserName().equals(auction.getCreator().getUserName())){
+			btnRise.setEnabled(false);
+			btnEnterAuction.setEnabled(false);
+		}
+		else{
+			btnViewEntrants.setEnabled(false);
+		}
 	}
 	
 	private void initTimer(){
@@ -166,8 +220,34 @@ public class SingleAuctionActivity extends Activity {
 		}
 	}
 	
-	private void showResult(Auction result){
+	private class PostForEnterOrExitAuction extends AsyncTask<String, Void, Auction> {
+		
+		@Override
+		protected Auction doInBackground(String... params) {
+			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
+			credentials.add("auctionID", String.valueOf(auction.getAuctionID()));
+			credentials.add("userName", currentUser.getUserName());
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			return restTemplate.postForObject(params[0], credentials, Auction.class);
+		}
+		
+		@Override
+		protected void onPostExecute(Auction result) {
+			setResult(result);
+		}
+	}
+	
+	
+	private void setResult(Auction result){
 		auction = result;
+	}
+	
+	private void showResult(Auction result){
+		setResult(auction);
 		txtPrice.setText(result.getCurrentPrice()+"ден");
 		newPrice = Integer.parseInt(auction.getCurrentPrice()) + 100;
 		txtNewPrice.setText(newPrice+"");

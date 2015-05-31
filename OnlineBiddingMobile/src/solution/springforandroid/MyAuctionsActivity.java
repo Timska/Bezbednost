@@ -44,14 +44,13 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 		setTitle(currentUser.getUserName());
 		
 		
-		shownFinished = true;
+		shownFinished = false;
 	}
 	
 	@Override
 	protected void onResume(){
 		super.onResume();
-		System.out.println(shownFinished);
-		if(shownFinished){
+		if(!shownFinished){
 			getActiveAuctionsFromUser(currentUser.getUserName());
 			btnChangeShownAuctions.setText(R.string.btn_show_finished);
 		}
@@ -125,12 +124,12 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	public void showAllMyAuctions(View view){
 		shownFinished = !shownFinished;
 		if(shownFinished){
-			getActiveAuctionsFromUser(currentUser.getUserName());
-			btnChangeShownAuctions.setText(R.string.btn_show_finished);
-		}
-		else{
 			getAllAuctionsFromUser(currentUser.getUserName());
 			btnChangeShownAuctions.setText(R.string.btn_hide_finished);
+		}
+		else{
+			getActiveAuctionsFromUser(currentUser.getUserName());
+			btnChangeShownAuctions.setText(R.string.btn_show_finished);
 		}
 	}
 	
@@ -141,6 +140,12 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	}
 
 	public void startAuctionActivity(Intent intent) {
+		intent.putExtra("user", currentUser);
+		startActivity(intent);
+	}
+	
+	public void startAddAuctionActivtiy(View view){
+		Intent intent = new Intent(this, AddAuctionActivity.class);
 		intent.putExtra("user", currentUser);
 		startActivity(intent);
 	}

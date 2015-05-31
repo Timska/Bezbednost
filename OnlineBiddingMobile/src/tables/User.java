@@ -36,7 +36,6 @@ public class User implements Serializable{
 		int year = Integer.parseInt(st.nextToken());
 		int month = Integer.parseInt(st.nextToken());
 		int day = Integer.parseInt(st.nextToken());
-		System.out.println(year+" "+month+" "+day);
 		this.birth = new Date(year-1900, month-1, day);
 		System.out.println(this.birth);
 		this.enteredAuctions = enteredAuctions;
