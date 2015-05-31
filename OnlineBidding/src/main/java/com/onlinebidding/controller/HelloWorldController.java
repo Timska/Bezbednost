@@ -148,6 +148,18 @@ public class HelloWorldController {
 		return userAuctionService.getAuctionEnteredUsers(auctionID);
 	}
 	
+	@RequestMapping(value = "/hasuserentered", method = RequestMethod.POST)
+	@ResponseBody
+	public Boolean hasUserEntered(@RequestBody MultiValueMap<String, String> map) {
+		String userName = map.getFirst("userName").toString();
+		Long auctionID = Long.valueOf(map.getFirst("auctionID").toString());
+		UserAuction userAuction = userAuctionService.findUserAuctionByUserAndAuction(userName, auctionID);
+		if (userAuction == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
 	@ResponseBody
 	public String enterAuction(@RequestBody UserAuction userAuction) {
@@ -172,13 +184,7 @@ public class HelloWorldController {
 		auctionService.create(auction);
 		return "correct";
 	}
-	
-	// Checking method
-	@RequestMapping(value = "/userauctioncheck", method = RequestMethod.GET)
-	@ResponseBody
-	public UserAuction getUserAuctionCheck() {
-		return userAuctionService.findUserAuctionByUserAndAuction("VikiP", 1L);
-	}
+
 }
 
 
