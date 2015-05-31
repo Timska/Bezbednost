@@ -2,8 +2,11 @@ package tables;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 
 
@@ -130,6 +133,6 @@ public class Auction implements Comparable<Auction>, Serializable {
 	}
 
 	private void adjustDate(Date date){
-		date.setHours(date.getHours()+8);
+		
 	}
 }

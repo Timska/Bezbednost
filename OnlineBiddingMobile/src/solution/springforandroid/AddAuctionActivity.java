@@ -189,11 +189,12 @@ public class AddAuctionActivity extends Activity {
 		int day = Integer.parseInt(date.nextToken());
 		int hours = Integer.parseInt(time.nextToken());
 		int minutes = Integer.parseInt(time.nextToken());;
-		return new Date(year-1900, month-1, day, hours, minutes);
+		Date dateFromString = new Date(year-1900, month-1, day, hours, minutes);
+		System.out.println(dateFromString);
+		return dateFromString;
 	}
 	
 	private void showResult(){
-		System.out.println("vo show result vleze");
 		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT).show();
 		finish();
 	}

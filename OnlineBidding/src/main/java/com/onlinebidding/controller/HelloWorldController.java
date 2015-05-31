@@ -159,7 +159,7 @@ public class HelloWorldController {
 		Item item = auction.getItem();
 		itemService.create(item);
 		auctionService.create(auction);
-		System.err.println("Vo kontrolerot se e vo red");
+		System.err.println(auction.getEndDate());
 		return "correct";
 	}
 }
