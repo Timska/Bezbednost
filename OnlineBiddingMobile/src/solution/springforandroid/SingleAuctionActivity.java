@@ -106,6 +106,7 @@ public class SingleAuctionActivity extends Activity {
 		});
 		
 		btnEnterAuction = (Button) findViewById(R.id.btn_enter_auction);
+		btnEnterAuction.setEnabled(entered);
 		
 		checkCreator();
 		

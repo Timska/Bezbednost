@@ -40,118 +40,111 @@ public class AddAuctionActivity extends Activity {
 	private EditText txtAuctionItemDescription;
 	private User currentUser;
 	private boolean start;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_auction);
-		
+
 		start = false;
-		
+
 		getUser();
-		
+
 		setDatePicker();
-		
+
 		initViews();
 	}
-	
-	private void initViews(){
-		
+
+	private void initViews() {
+
 		txtAuctionName = (EditText) findViewById(R.id.auction_name_text);
 		txtAuctionPrice = (EditText) findViewById(R.id.auction_current_price);
 		txtAuctionItemName = (EditText) findViewById(R.id.auction_item_name);
 		txtAuctionItemDescription = (EditText) findViewById(R.id.auction_item_description);
-		
-		
+
 		txtStartDate = (TextView) findViewById(R.id.auction_start_date);
-		
+
 		txtStartDate.setOnClickListener(new View.OnClickListener() {
 
-	        public void onClick(View v) {
-	            // TODO Auto-generated method stub
-	            new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
-	                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-	                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-	            
-	            new TimePickerDialog(AddAuctionActivity.this, time, 
-	            		myCalendar.get(Calendar.HOUR_OF_DAY), 
-	            		myCalendar.get(Calendar.MINUTE), true).show();
-	            
-	            start = true;
-	        }
-	    });
-		
-		
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
+						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+				new TimePickerDialog(AddAuctionActivity.this, time, myCalendar
+						.get(Calendar.HOUR_OF_DAY), myCalendar
+						.get(Calendar.MINUTE), true).show();
+
+				start = true;
+			}
+		});
+
 		txtEndDate = (TextView) findViewById(R.id.auction_end_date);
-		
+
 		txtEndDate.setOnClickListener(new View.OnClickListener() {
 
-	        public void onClick(View v) {
-	            // TODO Auto-generated method stub
-	            new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
-	                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-	                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-	            
-	            System.out.println("pomina");
-	            
-	            new TimePickerDialog(AddAuctionActivity.this, time, 
-	            		myCalendar.get(Calendar.HOUR_OF_DAY), 
-	            		myCalendar.get(Calendar.MINUTE), true).show();
-	            
-	            start = false;
-	        }
-	    });
-		
-		
-		
-		
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
+						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+				System.out.println("pomina");
+
+				new TimePickerDialog(AddAuctionActivity.this, time, myCalendar
+						.get(Calendar.HOUR_OF_DAY), myCalendar
+						.get(Calendar.MINUTE), true).show();
+
+				start = false;
+			}
+		});
+
 	}
-	
-	private void setDatePicker(){
+
+	private void setDatePicker() {
 		myCalendar = Calendar.getInstance();
 
 		date = new DatePickerDialog.OnDateSetListener() {
 
-		    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		        // TODO Auto-generated method stub
-		        myCalendar.set(Calendar.YEAR, year);
-		        myCalendar.set(Calendar.MONTH, monthOfYear);
-		        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-		        
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+					int dayOfMonth) {
+				// TODO Auto-generated method stub
+				myCalendar.set(Calendar.YEAR, year);
+				myCalendar.set(Calendar.MONTH, monthOfYear);
+				myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-	            updateLabel();
-		    }
+				updateLabel();
+			}
 
 		};
-		
+
 		time = new TimePickerDialog.OnTimeSetListener() {
-			
+
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				// TODO Auto-generated method stub
 				myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-		        myCalendar.set(Calendar.MINUTE, minute);
+				myCalendar.set(Calendar.MINUTE, minute);
 			}
 		};
-		
+
 	}
-	
+
 	private void updateLabel() {
 
-	    String myFormat = "yyyy-MM-dd kk:mm"; //In which you need put here
-	    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+		String myFormat = "yyyy-MM-dd kk:mm"; // In which you need put here
+		SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-	    TextView ev;
-	    if(start){
-	    	ev = txtStartDate;
-	    }
-	    else{
-	    	ev = txtEndDate;
-	    }
-	    
-	    ev.setText(sdf.format(myCalendar.getTime()));
-	    
+		TextView ev;
+		if (start) {
+			ev = txtStartDate;
+		} else {
+			ev = txtEndDate;
+		}
+
+		ev.setText(sdf.format(myCalendar.getTime()));
+
 	}
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,16 +164,65 @@ public class AddAuctionActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void addNewAuction(View view){
-		new PostAuction().execute(getResources().getString(R.string.url_address)+"/addauction");
+
+	public void addNewAuction(View view) {
+		if (validate()) {
+			new PostAuction().execute(getResources().getString(
+					R.string.url_address)
+					+ "/addauction");
+		}
 	}
-	
-	private void getUser(){
+
+	private boolean validate() {
+		boolean valid = true;
+		if (txtAuctionName.getText().toString().isEmpty()) {
+			Toast.makeText(this, "Внесете име на аукцијата", Toast.LENGTH_SHORT)
+					.show();
+			valid = false;
+		}
+		if (txtAuctionPrice.getText().toString().isEmpty()) {
+			Toast.makeText(this, "Внесете почетна цена", Toast.LENGTH_SHORT)
+					.show();
+			valid = false;
+		} else {
+			try {
+				Integer.parseInt(txtAuctionPrice.getText().toString());
+			} catch (Exception e) {
+				Toast.makeText(this, "Внесете валидна цена", Toast.LENGTH_SHORT)
+						.show();
+				valid = false;
+			}
+		}
+		if (txtStartDate.getText().toString().equals(getResources().getString(R.string.auction_start_date_hint))) {
+			Toast.makeText(this, "Внесете почетна дата",
+					Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if (txtStartDate.getText().toString().equals(getResources().getString(R.string.auction_end_date_hint))) {
+			Toast.makeText(this, "Внесете крајна дата",
+					Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if (getDateFromString(txtStartDate.getText().toString()).after(
+				getDateFromString(txtEndDate.getText().toString()))) {
+			Toast.makeText(this, "Почетната дата треба да е пред крајната",
+					Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		if (txtAuctionItemName.getText().toString().isEmpty()) {
+			Toast.makeText(this, "Внесете име на предметот што е на аукција",
+					Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+
+		return valid;
+	}
+
+	private void getUser() {
 		currentUser = (User) getIntent().getExtras().get("user");
 	}
-	
-	private Date getDateFromString(String s){
+
+	private Date getDateFromString(String s) {
 		System.out.println("vo get date" + s);
 		StringTokenizer st = new StringTokenizer(s);
 		StringTokenizer date = new StringTokenizer(st.nextToken(), "-");
@@ -189,41 +231,44 @@ public class AddAuctionActivity extends Activity {
 		int month = Integer.parseInt(date.nextToken());
 		int day = Integer.parseInt(date.nextToken());
 		int hours = Integer.parseInt(time.nextToken());
-		int minutes = Integer.parseInt(time.nextToken());;
-		Date dateFromString = new Date(year-1900, month-1, day, hours, minutes);
+		int minutes = Integer.parseInt(time.nextToken());
+		;
+		Date dateFromString = new Date(year - 1900, month - 1, day, hours,
+				minutes);
 		System.out.println(dateFromString);
 		return dateFromString;
 	}
-	
-	private void showResult(){
-		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT).show();
+
+	private void showResult() {
+		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT)
+				.show();
 		finish();
 	}
-	
-	
+
 	private class PostAuction extends AsyncTask<String, Void, String> {
-		
+
 		@Override
 		protected String doInBackground(String... params) {
-			Item item = new Item(txtAuctionItemName.getText().toString(), null, txtAuctionItemDescription.getText().toString());
-			Auction a = new Auction(txtAuctionName.getText().toString(), currentUser, currentUser, 
-					new ArrayList<User>(), item, 
-					getDateFromString(txtStartDate.getText().toString()), 
-					getDateFromString(txtEndDate.getText().toString()), 
+			Item item = new Item(txtAuctionItemName.getText().toString(), null,
+					txtAuctionItemDescription.getText().toString());
+			Auction a = new Auction(txtAuctionName.getText().toString(),
+					currentUser, currentUser, new ArrayList<User>(), item,
+					getDateFromString(txtStartDate.getText().toString()),
+					getDateFromString(txtEndDate.getText().toString()),
 					txtAuctionPrice.getText().toString());
-			
+
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate
+					.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			return restTemplate.postForObject(params[0], a, String.class);
 		}
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			System.out.println("vo post execute");
 			showResult();
 		}
 	}
-	
-	
+
 }
