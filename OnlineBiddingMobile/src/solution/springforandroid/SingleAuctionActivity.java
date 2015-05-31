@@ -61,6 +61,7 @@ public class SingleAuctionActivity extends Activity {
 		}
 		for(int i=0;i<auction.getEntrants().size();++i){
 			if(auction.getEntrants().get(i).getUserName().equals(currentUser.getUserName())){
+				System.out.println("Go ima");
 				entered = true;
 				return;
 			}
@@ -106,7 +107,12 @@ public class SingleAuctionActivity extends Activity {
 		});
 		
 		btnEnterAuction = (Button) findViewById(R.id.btn_enter_auction);
-		btnEnterAuction.setEnabled(entered);
+		if(entered){
+			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
+		}
+		else{
+			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
+		}
 		
 		checkCreator();
 		
@@ -229,6 +235,7 @@ public class SingleAuctionActivity extends Activity {
 		@Override
 		protected Auction doInBackground(String... params) {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
+			System.out.println("Stginuva do povik na server");
 			credentials.add("auctionID", String.valueOf(auction.getAuctionID()));
 			credentials.add("userName", currentUser.getUserName());
 			

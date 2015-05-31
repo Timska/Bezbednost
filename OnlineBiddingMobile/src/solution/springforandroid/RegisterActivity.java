@@ -2,12 +2,14 @@ package solution.springforandroid;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import tables.Auction;
 import tables.User;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -208,7 +210,7 @@ public class RegisterActivity extends Activity {
 		protected String doInBackground(String... params) {
 			User u = new User(txtUsername.getText().toString(), txtPassword.getText().toString(),
 					txtFirstName.getText().toString(), txtLastName.getText().toString(), 
-					txtEmail.getText().toString(), txtBirth.getText().toString(), null);
+					txtEmail.getText().toString(), txtBirth.getText().toString(), new ArrayList<Auction>());
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
