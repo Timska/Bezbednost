@@ -1,11 +1,13 @@
-package solution.springforandroid;
+package onlinebidding.activities;
+
+import onlinebidding.model.User;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import tables.User;
+import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;

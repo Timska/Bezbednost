@@ -1,4 +1,4 @@
-package solution.springforandroid;
+package onlinebidding.server;
 
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -11,6 +11,7 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 
+import solution.springforandroid.R;
 import android.content.Context;
 
 public class MyHttpClient extends DefaultHttpClient {

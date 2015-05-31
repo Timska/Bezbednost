@@ -1,4 +1,4 @@
-package solution.springforandroid;
+package onlinebidding.activities;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,12 +7,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import onlinebidding.model.Auction;
+import onlinebidding.model.Item;
+import onlinebidding.model.User;
+
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import tables.Auction;
-import tables.Item;
-import tables.User;
+import solution.springforandroid.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

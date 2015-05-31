@@ -1,8 +1,11 @@
-package solution.springforandroid;
+package onlinebidding.adapters;
 
 import java.util.List;
 
-import tables.Auction;
+import onlinebidding.activities.SingleAuctionActivity;
+import onlinebidding.interfaces.ListAuctions;
+import onlinebidding.model.Auction;
+import solution.springforandroid.R;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -28,10 +31,10 @@ public class AuctionAdapter extends ArrayAdapter<Auction> {
        final int i = position;
 
        if (convertView == null) {
-          convertView = LayoutInflater.from(getContext()).inflate(R.layout.simple_list_item_auction, parent, false);
+          convertView = LayoutInflater.from(getContext()).inflate(R.layout.simple_list_item, parent, false);
        }
        
-       TextView txtAuctionNameAndDate = (TextView) convertView.findViewById(R.id.txtAuctionNameAndDate);
+       TextView txtAuctionNameAndDate = (TextView) convertView.findViewById(R.id.txtItemInListView);
        // Populate the data into the template view using the data object
        
        txtAuctionNameAndDate.setText(auction.toString());

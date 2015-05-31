@@ -1,11 +1,16 @@
-package solution.springforandroid;
+package onlinebidding.activities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import tables.Auction;
-import tables.User;
+import onlinebidding.adapters.AuctionAdapter;
+import onlinebidding.interfaces.ListAuctions;
+import onlinebidding.model.Auction;
+import onlinebidding.model.User;
+import onlinebidding.server.DownloadListener;
+import onlinebidding.server.Downloader;
+import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +37,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	@Override
 	protected void onResume(){
 		super.onResume();
-		System.out.println("OnResume entered!");
 		getAuctionsFromServer();
 	}
 	

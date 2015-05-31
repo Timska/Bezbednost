@@ -1,4 +1,4 @@
-package solution.springforandroid;
+package onlinebidding.server;
 
 import org.springframework.web.client.RestTemplate;
 

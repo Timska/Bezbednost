@@ -1,4 +1,4 @@
-package tables;
+package onlinebidding.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -93,4 +93,8 @@ public class User implements Serializable{
 		this.firstName = firstName;
 	}
 
+	@Override
+	public String toString(){
+		return this.userName + "\t" + this.mail;
+	}
 }

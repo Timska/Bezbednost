@@ -1,4 +1,4 @@
-package solution.springforandroid;
+package onlinebidding.server;
 
 public interface DownloadListener<T> {
 	

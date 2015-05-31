@@ -1,14 +1,17 @@
-package solution.springforandroid;
+package onlinebidding.activities;
 import java.util.Date;
+
+import onlinebidding.model.Auction;
+import onlinebidding.model.User;
+import onlinebidding.model.UserAuction;
+import onlinebidding.timers.CountEndDate;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import tables.Auction;
-import tables.User;
-import tables.UserAuction;
+import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -89,8 +92,9 @@ public class SingleAuctionActivity extends Activity {
 		btnViewEntrants.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent(SingleAuctionActivity.this, ListEnteredActivity.class);
+				intent.putExtra("auction", auction);
+				startActivity(intent);
 			}
 		});
 		

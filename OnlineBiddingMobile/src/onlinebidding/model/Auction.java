@@ -1,4 +1,4 @@
-package tables;
+package onlinebidding.model;
 
 import java.io.Serializable;
 import java.text.DateFormat;

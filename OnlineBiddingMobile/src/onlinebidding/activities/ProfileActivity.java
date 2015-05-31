@@ -1,7 +1,8 @@
-package solution.springforandroid;
+package onlinebidding.activities;
 import java.text.DateFormat;
 
-import tables.User;
+import onlinebidding.model.User;
+import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

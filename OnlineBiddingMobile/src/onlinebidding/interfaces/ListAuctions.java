@@ -1,4 +1,4 @@
-package solution.springforandroid;
+package onlinebidding.interfaces;
 
 import android.content.Intent;
 

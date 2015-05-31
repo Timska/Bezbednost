@@ -1,5 +1,7 @@
-package solution.springforandroid;
+package onlinebidding.timers;
 
+import onlinebidding.activities.SingleAuctionActivity;
+import solution.springforandroid.R;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.TextView;

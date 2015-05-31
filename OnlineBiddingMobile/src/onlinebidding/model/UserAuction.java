@@ -1,4 +1,4 @@
-package tables;
+package onlinebidding.model;
 
 public class UserAuction {
 

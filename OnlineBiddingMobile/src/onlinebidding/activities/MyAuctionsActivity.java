@@ -1,14 +1,18 @@
-package solution.springforandroid;
+package onlinebidding.activities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import onlinebidding.adapters.AuctionAdapter;
+import onlinebidding.interfaces.ListAuctions;
+import onlinebidding.model.Auction;
+import onlinebidding.model.User;
+
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import tables.Auction;
-import tables.User;
+import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
