@@ -14,8 +14,7 @@ public class User implements Serializable{
 	private String lastName;
 	private String mail;
 	private Date birth;
-	private List<Auction> enteredAuctions;
-
+	
 	public User() {
 
 	}
@@ -25,8 +24,7 @@ public class User implements Serializable{
 	}
 	
 	public User(String userName, String password, String firstName,
-			String lastName, String mail, String birth,
-			List<Auction> enteredAuctions) {
+			String lastName, String mail, String birth) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
@@ -38,7 +36,6 @@ public class User implements Serializable{
 		int day = Integer.parseInt(st.nextToken());
 		this.birth = new Date(year-1900, month-1, day);
 		System.out.println(this.birth);
-		this.enteredAuctions = enteredAuctions;
 	}
 
 	public User(String userName, String password, String firstName,
@@ -50,7 +47,6 @@ public class User implements Serializable{
 		this.lastName = lastName;
 		this.mail = mail;
 		this.birth = birth;
-		this.enteredAuctions = enteredAuctions;
 	}
 
 	public String getLastName() {
@@ -91,14 +87,6 @@ public class User implements Serializable{
 
 	public void setBirth(Date birth) {
 		this.birth = birth;
-	}
-
-	public List<Auction> getEnteredAuctions() {
-		return enteredAuctions;
-	}
-
-	public void setEnteredAuctions(List<Auction> enteredAuctions) {
-		this.enteredAuctions = enteredAuctions;
 	}
 
 	public void setFirstName(String firstName) {

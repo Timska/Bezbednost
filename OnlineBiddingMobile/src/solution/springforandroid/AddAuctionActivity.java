@@ -252,7 +252,7 @@ public class AddAuctionActivity extends Activity {
 			Item item = new Item(txtAuctionItemName.getText().toString(), null,
 					txtAuctionItemDescription.getText().toString());
 			Auction a = new Auction(txtAuctionName.getText().toString(),
-					currentUser, currentUser, new ArrayList<User>(), item,
+					currentUser, currentUser, item,
 					getDateFromString(txtStartDate.getText().toString()),
 					getDateFromString(txtEndDate.getText().toString()),
 					txtAuctionPrice.getText().toString());

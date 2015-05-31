@@ -7,13 +7,13 @@ import java.util.List;
 
 
 
+
 public class Auction implements Comparable<Auction>, Serializable {
 
 	private Long auctionID;
 	private String auctionName;
 	private User creator;
 	private User winner;
-	private List<User> entrants;
 	private Item item;
 	private Date startDate;
 	private Date endDate;
@@ -23,23 +23,11 @@ public class Auction implements Comparable<Auction>, Serializable {
 
 	}
 
-	public Auction(String auctionName, User creator, List<User> entrants,
-			Item item, Date startDate, Date endDate, String currentPrice) {
-		this.auctionName = auctionName;
-		this.creator = creator;
-		this.entrants = entrants;
-		this.item = item;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.currentPrice = currentPrice;
-	}
-	
-	public Auction(String auctionName, User creator, User winner, List<User> entrants,
-			Item item, Date startDate, Date endDate, String currentPrice) {
+	public Auction(String auctionName, User creator, User winner, Item item,
+			Date startDate, Date endDate, String currentPrice) {
 		this.auctionName = auctionName;
 		this.creator = creator;
 		this.winner = winner;
-		this.entrants = entrants;
 		this.item = item;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -76,14 +64,6 @@ public class Auction implements Comparable<Auction>, Serializable {
 
 	public void setCreator(User creator) {
 		this.creator = creator;
-	}
-
-	public List<User> getEntrants() {
-		return entrants;
-	}
-
-	public void setEntrants(List<User> entrants) {
-		this.entrants = entrants;
 	}
 
 	public Item getItem() {

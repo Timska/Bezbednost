@@ -56,18 +56,7 @@ public class SingleAuctionActivity extends Activity {
 	}
 	
 	private void checkEntered(){
-		if(auction.getEntrants() == null){
-			entered = false;
-			return;
-		}
-		for(int i=0;i<auction.getEntrants().size();++i){
-			if(auction.getEntrants().get(i).getUserName().equals(currentUser.getUserName())){
-				System.out.println("Go ima");
-				entered = true;
-				return;
-			}
-		}
-		entered = false;
+		new PostCheckUserInAuction().execute(getResources().getString(R.string.url_address)+"/hasuserentered");
 	}
 	
 	private void initViews(){
@@ -94,9 +83,7 @@ public class SingleAuctionActivity extends Activity {
 				new PostPrice().execute(getResources().getString(R.string.url_address)+"/updateauctionprice");
 			}
 		});
-		if(!entered){
-			btnRise.setEnabled(false);
-		}
+		
 		
 		btnViewEntrants = (Button) findViewById(R.id.btn_view_entrants);
 		btnViewEntrants.setOnClickListener(new View.OnClickListener() {
@@ -108,12 +95,7 @@ public class SingleAuctionActivity extends Activity {
 		});
 		
 		btnEnterAuction = (Button) findViewById(R.id.btn_enter_auction);
-		if(entered){
-			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
-		}
-		else{
-			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
-		}
+		
 		
 		checkCreator();
 		
@@ -246,34 +228,62 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			setResult(result);
+			
 		}
 	}
 	
-	private class PostForExit extends AsyncTask<String, Void, Auction> {
+	private class PostForExit extends AsyncTask<String, Void, String> {
 		
 		@Override
-		protected Auction doInBackground(String... params) {
+		protected String doInBackground(String... params) {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
 			System.out.println("Stginuva do povik na server");
-			UserAuction ua = new UserAuction(currentUser, auction);
+			credentials.add("userName", currentUser.getUserName());
+			credentials.add("auctionID", auction.getAuctionID().toString());
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
 			
 			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			return restTemplate.postForObject(params[0], ua, Auction.class);
+			return restTemplate.postForObject(params[0], credentials, String.class);
 		}
 		
 		@Override
-		protected void onPostExecute(Auction result) {
+		protected void onPostExecute(String result) {
 			
 		}
 	}
 	
-	
-	private void setResult(String result){
+	private class PostCheckUserInAuction extends AsyncTask<String, Void, Boolean> {
 		
+		@Override
+		protected Boolean doInBackground(String... params) {
+			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
+			credentials.add("userName", currentUser.getUserName());
+			credentials.add("auctionID", auction.getAuctionID().toString());
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			return restTemplate.postForObject(params[0], credentials, Boolean.class);
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			setEntered(result);
+		}
+	}
+	
+	private void setEntered(boolean result){
+		entered = result;
+		if(entered){
+			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
+		}
+		else{
+			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
+		}
+		btnRise.setEnabled(entered);
 	}
 	
 	private void showResult(Auction result){
