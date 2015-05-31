@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.onlinebidding.model.Auction;
+import com.onlinebidding.model.Item;
 import com.onlinebidding.model.User;
 import com.onlinebidding.service.AuctionService;
+import com.onlinebidding.service.ItemService;
 import com.onlinebidding.service.UserService;
 
 @Controller
@@ -49,6 +51,9 @@ public class HelloWorldController {
 	
 	@Autowired
 	private AuctionService auctionService;
+	
+	@Autowired
+	private ItemService itemService;
 	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
@@ -150,6 +155,8 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/addauction", method = RequestMethod.POST)
 	public void addAuction(@RequestBody Auction auction) {
+		Item item = auction.getItem();
+		itemService.create(item);
 		auctionService.create(auction);
 	}
 }

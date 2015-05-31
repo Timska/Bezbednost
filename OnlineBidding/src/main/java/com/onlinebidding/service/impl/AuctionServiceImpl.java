@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.onlinebidding.model.Auction;
-import com.onlinebidding.model.Item;
 import com.onlinebidding.model.User;
 import com.onlinebidding.repository.AuctionRepository;
-import com.onlinebidding.repository.ItemRepository;
 import com.onlinebidding.service.AuctionService;
 
 @Service
@@ -19,12 +17,7 @@ public class AuctionServiceImpl implements AuctionService {
 	@Autowired
 	private AuctionRepository auctionRepository;
 	
-	@Autowired
-	private ItemRepository itemRepository;
-	
 	public void create(Auction auction) {
-		Item item = auction.getItem();
-		itemRepository.save(item);
 		auctionRepository.save(auction);
 	}
 	
