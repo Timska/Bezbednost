@@ -27,12 +27,11 @@ public class AuctionServiceImpl implements AuctionService {
 		auction.setWinner(user);
 		return auctionRepository.save(auction);
 	}
-
+	
 	public Auction findAuction(Long auctionID) {
 		return auctionRepository.findOne(auctionID);
 	}
 	
-
 	public List<Auction> getAllAuctions() {
 		return auctionRepository.findAll();
 	}
@@ -65,18 +64,6 @@ public class AuctionServiceImpl implements AuctionService {
 			}
 		}
 		return auctions;
-	}
-
-	public Auction enterAuction(Long auctionID, User user) {
-		Auction auction = findAuction(auctionID);
-		auction.getEntrants().add(user);
-		return auctionRepository.save(auction);
-	}
-	
-	public Auction exitAuction(Long auctionID, User user) {
-		Auction auction = findAuction(auctionID);
-		auction.getEntrants().remove(user);
-		return auctionRepository.save(auction);
 	}
 	
 	public Auction getAuctionByItemID(Long itemID) {

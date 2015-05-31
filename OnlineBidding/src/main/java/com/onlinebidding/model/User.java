@@ -1,12 +1,9 @@
 package com.onlinebidding.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +17,6 @@ public class User {
 	private String lastName;
 	private String mail;
 	private Date birth;
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Auction> enteredAuctions;
 
 	public User() {
 
@@ -32,15 +27,13 @@ public class User {
 	}
 
 	public User(String userName, String password, String firstName,
-			String lastName, String mail, Date birth,
-			List<Auction> enteredAuctions) {
+			String lastName, String mail, Date birth) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mail = mail;
 		this.birth = birth;
-		this.enteredAuctions = enteredAuctions;
 	}
 
 	public String getLastName() {
@@ -81,14 +74,6 @@ public class User {
 
 	public void setBirth(Date birth) {
 		this.birth = birth;
-	}
-
-	public List<Auction> getEnteredAuctions() {
-		return enteredAuctions;
-	}
-
-	public void setEnteredAuctions(List<Auction> enteredAuctions) {
-		this.enteredAuctions = enteredAuctions;
 	}
 
 	public void setFirstName(String firstName) {

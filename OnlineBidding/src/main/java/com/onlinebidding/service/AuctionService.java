@@ -20,10 +20,6 @@ public interface AuctionService {
 	public List<Auction> getUserNotFinishedAuctions(String userName);
 
 	public Auction updateAuction(Long auctionID, User user, String price);
-
-	public Auction enterAuction(Long auctionID, User user);
-	
-	public Auction exitAuction(Long auctionID, User user);
 	
 	public List<Auction> getWonUserAuctions(String userName);
 

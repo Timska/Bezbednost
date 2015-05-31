@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.Item;
 import com.onlinebidding.model.User;
+import com.onlinebidding.model.UserAuction;
 import com.onlinebidding.service.AuctionService;
 import com.onlinebidding.service.ItemService;
+import com.onlinebidding.service.UserAuctionService;
 import com.onlinebidding.service.UserService;
 
 @Controller
@@ -55,6 +57,9 @@ public class HelloWorldController {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired 
+	private UserAuctionService userAuctionService;
+	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
 	private static final String alreadyRegistered = "3";
@@ -77,9 +82,7 @@ public class HelloWorldController {
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
 	@ResponseBody
 	public User getUser(@RequestBody String username) {
-		User u = userService.findUser(username);
-		System.err.println(u.getUserName());
-		return u;
+		return userService.findUser(username);
 	}
 	
 	@RequestMapping(value = "/registeruser", method = RequestMethod.POST)
@@ -123,13 +126,7 @@ public class HelloWorldController {
 	public List<Auction> getWonUserAuctions(@RequestBody String userName) {
 		return auctionService.getWonUserAuctions(userName);
 	}
-	
-	@RequestMapping(value = "/entereduserauctions", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Auction> getEnteredUserAuctions(@RequestBody String userName) {
-		return userService.findUser(userName).getEnteredAuctions();
-	}
-	
+
 	@RequestMapping(value = "/updateauctionprice", method = RequestMethod.POST)
 	@ResponseBody
 	public Auction updateAuctionPrice(@RequestBody MultiValueMap<String, String> map) {
@@ -139,26 +136,30 @@ public class HelloWorldController {
 		return auctionService.updateAuction(auctionID, userService.findUser(userName), price);
 	}
 	
+	@RequestMapping(value = "/userenteredauctions", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Auction> getUserEnteredAuctions(@RequestBody String userName) {
+		return userAuctionService.getUserEnteredAuctions(userName);
+	}
+	
+	@RequestMapping(value = "/auctionenteredusers", method = RequestMethod.POST)
+	@ResponseBody
+	public List<User> getAuctionEnteredUsers(@RequestBody Long auctionID) {
+		return userAuctionService.getAuctionEnteredUsers(auctionID);
+	}
+	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
 	@ResponseBody
-	public Auction enterAuction(@RequestBody MultiValueMap<String, String> map) {
-		Long ID = Long.parseLong(map.getFirst("auctionID").toString());
-		User user = userService.findUser(map.getFirst("userName").toString());
-		Auction auction = auctionService.findAuction(ID);
-		
-		userService.enterAuction(auction, user.getUserName());
-		return auctionService.enterAuction(ID, user);
+	public String enterAuction(@RequestBody UserAuction userAuction) {
+		userAuctionService.create(userAuction);
+		return "correct";
 	}
 	
 	@RequestMapping(value = "/exitauction", method = RequestMethod.POST)
 	@ResponseBody
-	public Auction exitAuction(@RequestBody MultiValueMap<String, String> map) {
-		Long ID = Long.parseLong(map.getFirst("auctionID").toString());
-		User user = userService.findUser(map.getFirst("userName").toString());
-		Auction auction = auctionService.findAuction(ID);
-		
-		userService.exitAuction(auction, user.getUserName());
-		return auctionService.exitAuction(ID, user);
+	public String exitAuction(@RequestBody Long ID) {
+		userAuctionService.delete(ID);
+		return "correct";
 	}
 	
 	@RequestMapping(value = "/addauction", method = RequestMethod.POST)
@@ -167,7 +168,6 @@ public class HelloWorldController {
 		Item item = auction.getItem();
 		itemService.create(item);
 		auctionService.create(auction);
-		System.err.println(auction.getEndDate());
 		return "correct";
 	}
 }

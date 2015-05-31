@@ -1,14 +1,11 @@
 package com.onlinebidding.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,8 +22,6 @@ public class Auction {
 	private User creator;
 	@ManyToOne
 	private User winner;
-	@ManyToMany(mappedBy = "enteredAuctions", fetch = FetchType.EAGER)
-	private List<User> entrants;
 	@OneToOne
 	private Item item;
 	private Date startDate;
@@ -37,12 +32,11 @@ public class Auction {
 
 	}
 
-	public Auction(String auctionName, User creator, User winner, List<User> entrants,
-			Item item, Date startDate, Date endDate, String currentPrice) {
+	public Auction(String auctionName, User creator, User winner, Item item,
+			Date startDate, Date endDate, String currentPrice) {
 		this.auctionName = auctionName;
 		this.creator = creator;
 		this.winner = winner;
-		this.entrants = entrants;
 		this.item = item;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -79,14 +73,6 @@ public class Auction {
 
 	public void setWinner(User winner) {
 		this.winner = winner;
-	}
-
-	public List<User> getEntrants() {
-		return entrants;
-	}
-
-	public void setEntrants(List<User> entrants) {
-		this.entrants = entrants;
 	}
 
 	public Item getItem() {
