@@ -70,9 +70,11 @@ public class AddAuctionActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
+				DatePickerDialog dpd = new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+						myCalendar.get(Calendar.DAY_OF_MONTH));
+				dpd.getDatePicker().setMinDate(new Date().getTime());
+				dpd.show();
 
 				new TimePickerDialog(AddAuctionActivity.this, time, myCalendar
 						.get(Calendar.HOUR_OF_DAY), myCalendar
@@ -88,9 +90,11 @@ public class AddAuctionActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
+				DatePickerDialog dpd = new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-						myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+						myCalendar.get(Calendar.DAY_OF_MONTH));
+				dpd.getDatePicker().setMinDate(new Date().getTime());
+				dpd.show();
 
 				System.out.println("pomina");
 

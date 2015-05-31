@@ -4,11 +4,14 @@ package onlinebidding.activities;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
 
+import org.codehaus.jackson.map.deser.std.CalendarDeserializer;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -59,9 +62,13 @@ public class RegisterActivity extends Activity {
 
 	        public void onClick(View v) {
 	            // TODO Auto-generated method stub
-	            new DatePickerDialog(RegisterActivity.this, date, myCalendar
-	                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-	                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+	        	DatePickerDialog dpd = new DatePickerDialog(RegisterActivity.this, date, myCalendar
+						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+						myCalendar.get(Calendar.DAY_OF_MONTH));
+	        	Date date = new Date();
+	        	date.setYear(new Date().getYear() - 18);
+				dpd.getDatePicker().setMaxDate(date.getTime());
+				dpd.show();
 	        }
 	    });
 		
