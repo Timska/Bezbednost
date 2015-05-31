@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends Activity {
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
 	private User user;
+	private CheckBox cbxAdministrator;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,15 @@ public class LoginActivity extends Activity {
 			
 			public void onClick(View v) {
 				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
-				new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/checkforlogin");
+				if(cbxAdministrator.isChecked()){
+					
+				}
+				else{
+					new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/checkforlogin");
+				}
 			}
 		});
+		cbxAdministrator = (CheckBox) findViewById(R.id.cbox_is_administrator);
 	}
 
 	@Override

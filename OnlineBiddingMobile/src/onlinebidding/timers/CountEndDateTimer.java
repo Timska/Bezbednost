@@ -6,12 +6,12 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
-public class CountEndDate extends CountDownTimer{
+public class CountEndDateTimer extends CountDownTimer{
 
 	private TextView view;
 	private Context context;
 	
-	public CountEndDate(long millisInFuture, long countDownInterval, TextView view, Context context) {
+	public CountEndDateTimer(long millisInFuture, long countDownInterval, TextView view, Context context) {
 		super(millisInFuture, countDownInterval);
 		this.view = view;
 		this.context = context;

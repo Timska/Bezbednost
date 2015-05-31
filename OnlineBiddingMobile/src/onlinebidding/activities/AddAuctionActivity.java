@@ -73,7 +73,6 @@ public class AddAuctionActivity extends Activity {
 				DatePickerDialog dpd = new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
 						myCalendar.get(Calendar.DAY_OF_MONTH));
-				dpd.getDatePicker().setMinDate(new Date().getTime());
 				dpd.show();
 
 				new TimePickerDialog(AddAuctionActivity.this, time, myCalendar
@@ -93,7 +92,6 @@ public class AddAuctionActivity extends Activity {
 				DatePickerDialog dpd = new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
 						myCalendar.get(Calendar.DAY_OF_MONTH));
-				dpd.getDatePicker().setMinDate(new Date().getTime());
 				dpd.show();
 
 				System.out.println("pomina");

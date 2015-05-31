@@ -4,7 +4,8 @@ import java.util.Date;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
 import onlinebidding.model.UserAuction;
-import onlinebidding.timers.CountEndDate;
+import onlinebidding.timers.CheckPriceChangedTimer;
+import onlinebidding.timers.CountEndDateTimer;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
@@ -37,6 +38,7 @@ public class SingleAuctionActivity extends Activity {
 	private TextView txtAuctionItemName;
 	private TextView txtAuctionItemDescription;
 	private CountDownTimer timer;
+	private CheckPriceChangedTimer timerUpdate;
 	private TextView txtTimer;
 	private TextView txtWinner;
 	private Button btnViewEntrants;
@@ -48,6 +50,12 @@ public class SingleAuctionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_single_auction);
 		
+		
+		
+	}
+	
+	@Override
+	protected void onResume(){
 		init();
 		
 		setTitle(auction.getAuctionName());
@@ -55,7 +63,6 @@ public class SingleAuctionActivity extends Activity {
 		checkEntered();
 		
 		initViews();
-		
 	}
 	
 	private void checkEntered(){
@@ -115,7 +122,7 @@ public class SingleAuctionActivity extends Activity {
 		txtWinner = (TextView) findViewById(R.id.txt_current_price);
 		
 		txtTimer = (TextView) findViewById(R.id.txt_timer);
-		initTimer();
+		initTimers();
 	}
 	
 	public void enterOrExitAuction(View view){
@@ -141,7 +148,7 @@ public class SingleAuctionActivity extends Activity {
 		}
 	}
 	
-	private void initTimer(){
+	private void initTimers(){
 		Date now = new Date();
 		long milliseconds;
 		System.out.println(auction.getEndDate().toString());
@@ -151,8 +158,11 @@ public class SingleAuctionActivity extends Activity {
 		else{
 			milliseconds = auction.getEndDate().getTime() - now.getTime();
 		}
-		timer = new CountEndDate(milliseconds, (long)1000, txtTimer, this);
+		timer = new CountEndDateTimer(milliseconds, (long)1000, txtTimer, this);
 		timer.start();
+		
+		timerUpdate = new CheckPriceChangedTimer(60 * 60 * 1000, 1000 * 60, this);
+		timerUpdate.start();
 	}
 	
 	private void init(){
@@ -279,6 +289,11 @@ public class SingleAuctionActivity extends Activity {
 		}
 	}
 	
+	public Auction getActiveAuction(){
+		return auction;
+	}
+	
+	
 	private void setEntered(boolean result){
 		entered = result;
 		if(entered){
@@ -290,7 +305,7 @@ public class SingleAuctionActivity extends Activity {
 		btnRise.setEnabled(entered);
 	}
 	
-	private void showResult(Auction result){
+	public void showResult(Auction result){
 		auction = result;
 		txtPrice.setText(result.getCurrentPrice()+"ден");
 		newPrice = Integer.parseInt(auction.getCurrentPrice()) + 100;
