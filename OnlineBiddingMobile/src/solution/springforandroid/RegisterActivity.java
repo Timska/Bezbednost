@@ -1,23 +1,25 @@
 package solution.springforandroid;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import tables.User;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
@@ -26,7 +28,9 @@ public class RegisterActivity extends Activity {
 	private EditText txtLastName;
 	private EditText txtUsername;
 	private EditText txtEmail;
-	private EditText txtBirth;
+	private TextView txtBirth;
+	private DatePickerDialog.OnDateSetListener date;
+	private Calendar myCalendar;
 	private EditText txtPassword;
 	private EditText txtRepeatPassword;
 	
@@ -34,6 +38,8 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		
+		setDatePicker();
 		
 		init();
 		
@@ -43,11 +49,49 @@ public class RegisterActivity extends Activity {
 	private void init(){
 		txtPassword = (EditText) findViewById(R.id.passwordRegisterText);
 		txtRepeatPassword = (EditText) findViewById(R.id.passwordRepeatText);
-		txtBirth = (EditText) findViewById(R.id.birthText);
+		txtBirth = (TextView) findViewById(R.id.birthText);
+		
+		txtBirth.setOnClickListener(new View.OnClickListener() {
+
+	        public void onClick(View v) {
+	            // TODO Auto-generated method stub
+	            new DatePickerDialog(RegisterActivity.this, date, myCalendar
+	                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+	                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+	        }
+	    });
+		
 		txtEmail = (EditText) findViewById(R.id.emailText);
 		txtFirstName = (EditText) findViewById(R.id.firstNameText);
 		txtLastName = (EditText) findViewById(R.id.lastNameText);
 		txtUsername = (EditText) findViewById(R.id.usernameRegisterText);
+	}
+	
+	private void setDatePicker(){
+		myCalendar = Calendar.getInstance();
+
+		date = new DatePickerDialog.OnDateSetListener() {
+
+		    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+		        // TODO Auto-generated method stub
+		        myCalendar.set(Calendar.YEAR, year);
+		        myCalendar.set(Calendar.MONTH, monthOfYear);
+		        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		        
+
+	            updateLabel();
+		    }
+
+		};
+	}
+	
+	private void updateLabel() {
+
+	    String myFormat = "yyyy-MM-dd"; //In which you need put here
+	    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+	    
+	    txtBirth.setText(sdf.format(myCalendar.getTime()));
+	    
 	}
 	
 	private void comparePasswords(){

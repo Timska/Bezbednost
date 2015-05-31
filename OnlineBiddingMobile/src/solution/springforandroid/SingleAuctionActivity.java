@@ -16,10 +16,8 @@ import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,6 +92,9 @@ public class SingleAuctionActivity extends Activity {
 				new PostPrice().execute(getResources().getString(R.string.url_address)+"/updateauctionprice");
 			}
 		});
+		if(!entered){
+			btnRise.setEnabled(false);
+		}
 		
 		btnViewEntrants = (Button) findViewById(R.id.btn_view_entrants);
 		btnViewEntrants.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +124,9 @@ public class SingleAuctionActivity extends Activity {
 		initTimer();
 	}
 	
-	private void enterOrExitAuction(View view){
+	public void enterOrExitAuction(View view){
 		entered = !entered;
+		btnRise.setEnabled(entered);
 		if(entered){
 			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
 			new PostForEnterOrExitAuction().execute(getResources().getString(R.string.url_address)+"/enterauction");
@@ -248,7 +250,7 @@ public class SingleAuctionActivity extends Activity {
 	}
 	
 	private void showResult(Auction result){
-		setResult(auction);
+		auction = result;
 		txtPrice.setText(result.getCurrentPrice()+"ден");
 		newPrice = Integer.parseInt(auction.getCurrentPrice()) + 100;
 		txtNewPrice.setText(newPrice+"");

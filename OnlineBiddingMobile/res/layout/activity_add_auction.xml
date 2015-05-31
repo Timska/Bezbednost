@@ -2,90 +2,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="solution.springforandroid.RegisterActivity" 
-    android:background="@color/black">
+    tools:context="solution.springforandroid.RegisterActivity" >
 
-    <TextView 
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyTextView"
         android:layout_margin="5dp"
         android:inputType="none"
-        android:text="@string/register_head_text"/>
-  
-    <EditText 
+        android:text="@string/register_head_text"
+        android:textColor="@color/greyTextView"
+        android:textSize="20sp" />
+
+    <EditText
         android:id="@+id/auction_name_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyTextView"
-        android:hint="@string/auction_name_hint"
+        android:layout_above="@+id/auction_current_price"
         android:layout_margin="5dp"
-        android:layout_above="@+id/auction_current_price"/>
-    
-    <EditText 
+        android:hint="@string/auction_name_hint"
+        android:textColor="@color/greyTextView" />
+
+    <EditText
         android:id="@id/auction_current_price"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyTextView"
-        android:hint="@string/current_price_hint"
+        android:layout_above="@+id/auction_start_date"
         android:layout_margin="5dp"
-        android:layout_above="@+id/auction_start_date"/>
-    
-    <EditText 
+        android:hint="@string/current_price_hint"
+        android:textColor="@color/greyTextView" />
+
+    <TextView
         android:id="@id/auction_start_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyTextView"
-        android:hint="@string/auction_start_date_hint"
-        android:layout_margin="5dp"
-        android:inputType="date"
         android:layout_above="@+id/auction_end_date"
-        />
-    
-    <EditText 
+        android:layout_margin="20dp"
+        android:text="@string/auction_start_date_hint"
+        android:textColor="@color/greyTextView"
+        android:textSize="18sp" />
+
+    <TextView
         android:id="@id/auction_end_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/auction_item_name"
+        android:layout_margin="20dp"
+        android:text="@string/auction_end_date_hint"
         android:textColor="@color/greyTextView"
-        android:hint="@string/auction_end_date_hint"
-        android:layout_margin="5dp"
-        android:inputType="date"
-        android:layout_above="@+id/auction_item_name"/>
-    
-    <EditText 
+        android:textSize="18sp" />
+
+    <EditText
         android:id="@id/auction_item_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyTextView"
-        android:hint="@string/auction_item_name_hint"
+        android:layout_above="@+id/auction_item_description"
         android:layout_margin="5dp"
+        android:hint="@string/auction_item_name_hint"
         android:inputType="text"
-        android:layout_above="@+id/auction_item_description"/>
+        android:textColor="@color/greyTextView" />
 
-    <EditText 
+    <EditText
         android:id="@id/auction_item_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyTextView"
-        android:hint="@string/auction_item_description_hint"
+        android:layout_above="@+id/new_auction_button"
         android:layout_margin="5dp"
+        android:hint="@string/auction_item_description_hint"
         android:inputType="text"
-        android:layout_above="@+id/new_auction_button"/>
-    
-     
-     <Button 
+        android:textColor="@color/greyTextView" />
+
+    <Button
         android:id="@id/new_auction_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_auction_button"
-        android:background="@color/greyTextView"
-        android:layout_margin="5dp"
         android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:background="@color/greyTextView"
         android:onClick="addNewAuction"
-        />
-    
+        android:text="@string/new_auction_button" />
+
 </RelativeLayout>

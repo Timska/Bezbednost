@@ -1,7 +1,5 @@
 package solution.springforandroid;
 
-import java.util.Date;
-
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -25,7 +23,7 @@ public class CountEndDate extends CountDownTimer{
 		int minutes = (int) (millisUntilFinished / (60 * 1000));
 		millisUntilFinished -= minutes * 60 * 1000;
 		int seconds = (int) (millisUntilFinished / 1000);
-		view.setText(String.format("%2d:%2d:%2d", hours, minutes, seconds));
+		view.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
 		if(hours < 1){
 			view.setTextColor(context.getResources().getColor(R.color.red));
 		}

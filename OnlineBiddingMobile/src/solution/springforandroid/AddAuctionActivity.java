@@ -23,13 +23,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class AddAuctionActivity extends Activity {
 
-	private EditText txtStartDate;
-	private EditText txtEndDate;
+	private TextView txtStartDate;
+	private TextView txtEndDate;
 	private DatePickerDialog.OnDateSetListener date;
 	private TimePickerDialog.OnTimeSetListener time;
 	private Calendar myCalendar;
@@ -62,7 +63,7 @@ public class AddAuctionActivity extends Activity {
 		txtAuctionItemDescription = (EditText) findViewById(R.id.auction_item_description);
 		
 		
-		txtStartDate = (EditText) findViewById(R.id.auction_start_date);
+		txtStartDate = (TextView) findViewById(R.id.auction_start_date);
 		
 		txtStartDate.setOnClickListener(new View.OnClickListener() {
 
@@ -81,7 +82,7 @@ public class AddAuctionActivity extends Activity {
 	    });
 		
 		
-		txtEndDate = (EditText) findViewById(R.id.auction_end_date);
+		txtEndDate = (TextView) findViewById(R.id.auction_end_date);
 		
 		txtEndDate.setOnClickListener(new View.OnClickListener() {
 
@@ -139,7 +140,7 @@ public class AddAuctionActivity extends Activity {
 	    String myFormat = "yyyy-MM-dd kk:mm"; //In which you need put here
 	    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-	    EditText ev;
+	    TextView ev;
 	    if(start){
 	    	ev = txtStartDate;
 	    }

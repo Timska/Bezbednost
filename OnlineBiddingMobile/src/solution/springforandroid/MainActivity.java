@@ -6,13 +6,12 @@ import java.util.List;
 
 import tables.Auction;
 import tables.User;
-import android.content.Intent;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import solution.springforandroid.DownloadListener;
 
 public class MainActivity extends Activity implements DownloadListener<Auction[]>, ListAuctions {
 

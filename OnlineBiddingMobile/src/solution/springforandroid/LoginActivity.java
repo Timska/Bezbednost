@@ -5,7 +5,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import tables.Auction;
 import tables.User;
 import android.app.Activity;
 import android.content.Intent;
