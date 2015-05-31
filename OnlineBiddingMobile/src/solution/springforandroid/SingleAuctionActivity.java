@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import tables.Auction;
 import tables.User;
+import tables.UserAuction;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -136,11 +137,11 @@ public class SingleAuctionActivity extends Activity {
 		btnRise.setEnabled(entered);
 		if(entered){
 			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
-			new PostForEnterOrExitAuction().execute(getResources().getString(R.string.url_address)+"/enterauction");
+			new PostForEnter().execute(getResources().getString(R.string.url_address)+"/enterauction");
 		}
 		else{
 			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
-			new PostForEnterOrExitAuction().execute(getResources().getString(R.string.url_address)+"/exitauction");
+			new PostForExit().execute(getResources().getString(R.string.url_address)+"/exitauction");
 		}
 	}
 	
@@ -230,31 +231,49 @@ public class SingleAuctionActivity extends Activity {
 		}
 	}
 	
-	private class PostForEnterOrExitAuction extends AsyncTask<String, Void, Auction> {
+	private class PostForEnter extends AsyncTask<String, Void, String> {
 		
 		@Override
-		protected Auction doInBackground(String... params) {
-			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
-			System.out.println("Stginuva do povik na server");
-			credentials.add("auctionID", String.valueOf(auction.getAuctionID()));
-			credentials.add("userName", currentUser.getUserName());
+		protected String doInBackground(String... params) {
+			UserAuction ua = new UserAuction(currentUser, auction);
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
 			
 			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			return restTemplate.postForObject(params[0], credentials, Auction.class);
+			return restTemplate.postForObject(params[0], ua, String.class);
 		}
 		
 		@Override
-		protected void onPostExecute(Auction result) {
+		protected void onPostExecute(String result) {
 			setResult(result);
 		}
 	}
 	
+	private class PostForExit extends AsyncTask<String, Void, Auction> {
+		
+		@Override
+		protected Auction doInBackground(String... params) {
+			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
+			System.out.println("Stginuva do povik na server");
+			UserAuction ua = new UserAuction(currentUser, auction);
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			return restTemplate.postForObject(params[0], ua, Auction.class);
+		}
+		
+		@Override
+		protected void onPostExecute(Auction result) {
+			
+		}
+	}
 	
-	private void setResult(Auction result){
-		auction = result;
+	
+	private void setResult(String result){
+		
 	}
 	
 	private void showResult(Auction result){

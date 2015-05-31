@@ -177,7 +177,7 @@ public class HelloWorldController {
 	@RequestMapping(value = "/userauctioncheck", method = RequestMethod.GET)
 	@ResponseBody
 	public UserAuction getUserAuctionCheck() {
-		return userAuctionService.findUserAuctionByUserAndAuction("", 1L);
+		return userAuctionService.findUserAuctionByUserAndAuction("VikiP", 1L);
 	}
 }
 
