@@ -120,6 +120,7 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(User result) {
+			System.out.println("onPostExecute entered!");
 			user = result;
 			startActivity();
 		}
