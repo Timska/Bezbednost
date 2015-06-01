@@ -90,8 +90,27 @@ public class SingleAuctionActivity extends Activity {
 					return;
 				}
 				
+				if(price > currentUser.getCredit()){
+					txtNewPrice.setText(String.valueOf(Integer.parseInt(auction.getCurrentPrice())+ 100));
+					Toast.makeText(SingleAuctionActivity.this, "Немате доволно кредит", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
 				newPrice = price;
+				if(currentUser.getUserName().equals(auction.getWinner().getUserName())){
+					currentUser.setCredit(currentUser.getCredit() - (price - Integer.parseInt(auction.getCurrentPrice())));
+					System.out.println(currentUser.getCredit());
+				}
+				else{
+					currentUser.setCredit(currentUser.getCredit() - price);
+					if(!auction.getWinner().getUserName().equals(auction.getCreator().getUserName())){
+						auction.getWinner().setCredit(auction.getWinner().getCredit() + Integer.parseInt(auction.getCurrentPrice()));
+						new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(false));
+					}
+				}
+				new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(true));
 				new PostPrice().execute(getResources().getString(R.string.url_address)+"/updateauctionprice");
+				
 			}
 		});
 		
@@ -252,7 +271,6 @@ public class SingleAuctionActivity extends Activity {
 		@Override
 		protected String doInBackground(String... params) {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
-			System.out.println("Stginuva do povik na server");
 			credentials.add("userName", currentUser.getUserName());
 			credentials.add("auctionID", auction.getAuctionID().toString());
 			
@@ -287,6 +305,32 @@ public class SingleAuctionActivity extends Activity {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			setEntered(result);
+		}
+	}
+	
+	private class PostUser extends AsyncTask<String, Void, String> {
+		
+		@Override
+		protected String doInBackground(String... params) {
+			User u;
+			System.out.println(Boolean.parseBoolean(params[1]));
+			if(Boolean.parseBoolean(params[1])){
+				u = currentUser;
+			}
+			else{
+				u = auction.getWinner();
+			}
+			System.out.println("curr" + currentUser.getCredit());
+			System.out.println("vo post user" + u.getCredit());
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			String response = restTemplate.postForObject(params[0], u, String.class);
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
 		}
 	}
 	

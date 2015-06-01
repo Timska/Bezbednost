@@ -43,7 +43,8 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
 				if(cbxAdministrator.isChecked()){
-					new PostAdminstratorCredentials().execute(getResources().getString(R.string.url_address)+"checkloginadministrator");
+					System.out.println("vleze");
+					new PostAdminstratorCredentials().execute(getResources().getString(R.string.url_address)+"/checkloginadministrator");
 				}
 				else{
 					new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/checkforlogin");
@@ -93,7 +94,11 @@ public class LoginActivity extends Activity {
 	
 	private void showResultAdministrator(String result) {
 		if(result.equals("correct")){
-			
+			Intent intent = new Intent(this, MainAdministratorActivity.class);
+			startActivity(intent);
+			txtPassword.setText("");
+			txtUsername.setText("");
+			cbxAdministrator.setChecked(false);
 		}
 		else{
 			if(result.equals(unexistingUser)){
@@ -166,7 +171,6 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(User result) {
-			System.out.println("onPostExecute entered!");
 			user = result;
 			startActivity();
 		}
@@ -175,8 +179,13 @@ public class LoginActivity extends Activity {
 	private void startActivity(){
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("user", user);
-		startActivity(intent);
-		txtPassword.setText("");
-		txtUsername.setText("");
+		if(!user.isActive()){
+			Toast.makeText(this, "Корисникот не е активиран", Toast.LENGTH_SHORT).show();;
+		}
+		else{
+			startActivity(intent);
+			txtPassword.setText("");
+			txtUsername.setText("");
+		}
 	}
 }

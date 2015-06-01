@@ -46,12 +46,16 @@
             android:label="@string/title_activity_my_auctions" >
         </activity>
         <activity
-			android:name="onlinebidding.activities.AddAuctionActivity"
-            android:label="@string/title_activity_add_auction" > 
+            android:name="onlinebidding.activities.AddAuctionActivity"
+            android:label="@string/title_activity_add_auction" >
         </activity>
         <activity
             android:name="onlinebidding.activities.ListEnteredActivity"
             android:label="@string/title_activity_list_entered" >
+        </activity>
+        <activity
+            android:name="onlinebidding.activities.MainAdministratorActivity"
+            android:label="@string/title_activity_main_administrator" >
         </activity>
     </application>
 

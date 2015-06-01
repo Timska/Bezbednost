@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ProfileActivity extends Activity{//  implements  DownloadListener<User>  {
 
@@ -17,6 +18,8 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 	private EditText txtEmail;
 	private EditText txtDate;
 	private User currentUser;
+	private TextView txtCredit;
+	private TextView txtActivated;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,16 @@ public class ProfileActivity extends Activity{//  implements  DownloadListener<U
 		txtEmail.setText(currentUser.getMail());
 		txtDate = (EditText) findViewById(R.id.editTxtDate);
 		txtDate.setText(DateFormat.getDateInstance().format(currentUser.getBirth()));
+		txtCredit = (TextView) findViewById(R.id.txt_credit_value);
+		txtCredit.setText(String.valueOf(currentUser.getCredit()));
+		txtActivated = (TextView) findViewById(R.id.txt_activated);
+		if(currentUser.isActive()){
+			txtActivated.setText("Профилот е активиран");
+		}
+		else{
+			txtActivated.setText("Профилот не е активиран");
+		}
+		
 	}
 	
 	public void startMyAuctions(View view){
