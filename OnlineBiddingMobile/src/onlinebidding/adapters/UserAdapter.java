@@ -5,7 +5,6 @@ import java.util.List;
 import onlinebidding.activities.ProfileActivity;
 import onlinebidding.activities.SingleAuctionActivity;
 import onlinebidding.interfaces.ListAuctions;
-import onlinebidding.interfaces.ListUsers;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
 import solution.springforandroid.R;
@@ -43,16 +42,7 @@ public class UserAdapter extends ArrayAdapter<User> {
        
        txtAuctionNameAndDate.setText(user.toString());
        
-       convertView.setOnClickListener(new View.OnClickListener() {
-		
-		public void onClick(View v) {
-			User u = list.get(i);
-			Intent intent = new Intent(context, ProfileActivity.class);
-			intent.putExtra("user", u);
-			ListUsers ctx = (ListUsers) context;
-			ctx.startMyProfileActivity(intent);
-		}
-	});
+       
        
        
        // Return the completed view to render on screen

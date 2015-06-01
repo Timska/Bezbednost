@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import onlinebidding.adapters.AuctionAdapter;
 import onlinebidding.adapters.UserAdapter;
-import onlinebidding.interfaces.ListUsers;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
 import solution.springforandroid.R;
@@ -22,7 +21,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ListEnteredActivity extends Activity implements ListUsers {
+public class ListEnteredActivity extends Activity {
 	
 	
 	private ListView usersEnteredView;
@@ -74,9 +73,7 @@ public class ListEnteredActivity extends Activity implements ListUsers {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void startMyProfileActivity(Intent intent) {
-		startActivity(intent);
-	}
+	
 	
 	private class PostAuction extends AsyncTask<String, Void, User[]> {
 		

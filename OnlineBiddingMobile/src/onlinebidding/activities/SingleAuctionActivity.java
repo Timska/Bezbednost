@@ -56,6 +56,7 @@ public class SingleAuctionActivity extends Activity {
 	
 	@Override
 	protected void onResume(){
+		super.onResume();
 		init();
 		
 		setTitle(auction.getAuctionName());
