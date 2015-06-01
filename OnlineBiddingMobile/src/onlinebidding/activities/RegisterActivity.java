@@ -219,7 +219,7 @@ public class RegisterActivity extends Activity {
 		protected String doInBackground(String... params) {
 			User u = new User(txtUsername.getText().toString(), txtPassword.getText().toString(),
 					txtFirstName.getText().toString(), txtLastName.getText().toString(), 
-					txtEmail.getText().toString(), txtBirth.getText().toString());
+					txtEmail.getText().toString(), txtBirth.getText().toString(), false, 0);
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests

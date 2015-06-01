@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
 				if(cbxAdministrator.isChecked()){
-					
+					new PostAdminstratorCredentials().execute(getResources().getString(R.string.url_address)+"checkloginadministrator");
 				}
 				else{
 					new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/checkforlogin");
@@ -91,6 +91,20 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
+	private void showResultAdministrator(String result) {
+		if(result.equals("correct")){
+			
+		}
+		else{
+			if(result.equals(unexistingUser)){
+				Toast.makeText(this, "Корисничкото име не постои", Toast.LENGTH_SHORT).show();
+			}
+			else if(result.equals(wrongPassword)){
+				Toast.makeText(this, "Внесена погрешна лозинка", Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+	
 	private void getUser(){
 		new PostUsername().execute(getResources().getString(R.string.url_address)+"/getuser");
 	}
@@ -114,6 +128,28 @@ public class LoginActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			showResult(result);
+		}
+	}
+	
+	private class PostAdminstratorCredentials extends AsyncTask<String, Void, String> {
+		
+		@Override
+		protected String doInBackground(String... params) {
+			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
+			credentials.add("userName", txtUsername.getText().toString());
+			credentials.add("password", txtPassword.getText().toString());
+			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			String response = restTemplate.postForObject(params[0], credentials, String.class);
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			showResultAdministrator(result);
 		}
 	}
 	
