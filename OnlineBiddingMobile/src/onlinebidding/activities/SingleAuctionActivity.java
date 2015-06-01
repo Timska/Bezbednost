@@ -90,18 +90,24 @@ public class SingleAuctionActivity extends Activity {
 					return;
 				}
 				
-				if(price > currentUser.getCredit()){
-					txtNewPrice.setText(String.valueOf(Integer.parseInt(auction.getCurrentPrice())+ 100));
-					Toast.makeText(SingleAuctionActivity.this, "Немате доволно кредит", Toast.LENGTH_SHORT).show();
-					return;
-				}
+				
 				
 				newPrice = price;
 				if(currentUser.getUserName().equals(auction.getWinner().getUserName())){
+					if(price - Integer.parseInt(auction.getCurrentPrice()) > currentUser.getCredit()){
+						txtNewPrice.setText(String.valueOf(Integer.parseInt(auction.getCurrentPrice())+ 100));
+						Toast.makeText(SingleAuctionActivity.this, "Немате доволно кредит", Toast.LENGTH_SHORT).show();
+						return;
+					}
 					currentUser.setCredit(currentUser.getCredit() - (price - Integer.parseInt(auction.getCurrentPrice())));
 					System.out.println(currentUser.getCredit());
 				}
 				else{
+					if(price > currentUser.getCredit()){
+						txtNewPrice.setText(String.valueOf(Integer.parseInt(auction.getCurrentPrice())+ 100));
+						Toast.makeText(SingleAuctionActivity.this, "Немате доволно кредит", Toast.LENGTH_SHORT).show();
+						return;
+					}
 					currentUser.setCredit(currentUser.getCredit() - price);
 					if(!auction.getWinner().getUserName().equals(auction.getCreator().getUserName())){
 						auction.getWinner().setCredit(auction.getWinner().getCredit() + Integer.parseInt(auction.getCurrentPrice()));
