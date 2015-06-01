@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import onlinebidding.adapters.AuctionAdapter;
 import onlinebidding.adapters.UserAdapter;
+import onlinebidding.adapters.UserEnteredAdapter;
 import onlinebidding.interfaces.ListUsers;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
@@ -51,7 +52,7 @@ public class ListEnteredActivity extends Activity{
 
 	private void initAuctionsView(){
 		usersEnteredView = (ListView) findViewById(R.id.users_entered_in_auction);
-		usersEnteredAdapter = new UserAdapter(this, listUsers);
+		usersEnteredAdapter = new UserEnteredAdapter(this, listUsers);
 		usersEnteredView.setAdapter(usersEnteredAdapter);
 	}
 	
