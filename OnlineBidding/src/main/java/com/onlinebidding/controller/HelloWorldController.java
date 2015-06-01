@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onlinebidding.model.Administrator;
 import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.Item;
 import com.onlinebidding.model.User;
 import com.onlinebidding.model.UserAuction;
+import com.onlinebidding.service.AdministratorService;
 import com.onlinebidding.service.AuctionService;
 import com.onlinebidding.service.ItemService;
 import com.onlinebidding.service.UserAuctionService;
@@ -60,9 +62,18 @@ public class HelloWorldController {
 	@Autowired 
 	private UserAuctionService userAuctionService;
 	
+	@Autowired
+	private AdministratorService administratorService;
+	
 	private static final String unexistingUser = "1";
 	private static final String wrongPassword = "2";
 	private static final String alreadyRegistered = "3";
+	
+	@RequestMapping(value = "/getallusers", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> getAllUsers() {
+		return userService.getAllUsers();
+	}
 	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
 	@ResponseBody
@@ -74,6 +85,21 @@ public class HelloWorldController {
 		}
 		String password = String.valueOf(map.getFirst("password").hashCode());
 		if (!user.getPassword().equals(password)) {
+			return wrongPassword;
+		}
+		return "correct";
+	}
+	
+	@RequestMapping(value = "/checkloginadministrator", method = RequestMethod.POST)
+	@ResponseBody
+	public String checkForAdministrator(@RequestBody MultiValueMap<String, String> map) {
+		String adminName = map.getFirst("userName");
+		Administrator admin = administratorService.findAdministrator(adminName);
+		if (admin == null) {
+			return unexistingUser;
+		}
+		String password = map.getFirst("password").toString();
+		if (!admin.getPassword().equals(password)) {
 			return wrongPassword;
 		}
 		return "correct";

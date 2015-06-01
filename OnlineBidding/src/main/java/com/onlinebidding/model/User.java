@@ -17,6 +17,8 @@ public class User {
 	private String lastName;
 	private String mail;
 	private Date birth;
+	private Boolean active;
+	private Integer credit;
 
 	public User() {
 
@@ -27,13 +29,17 @@ public class User {
 	}
 
 	public User(String userName, String password, String firstName,
-			String lastName, String mail, Date birth) {
+			String lastName, String mail, Date birth, Boolean active,
+			Integer credit) {
+		super();
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mail = mail;
 		this.birth = birth;
+		this.active = active;
+		this.credit = credit;
 	}
 
 	public String getLastName() {
@@ -78,6 +84,22 @@ public class User {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Integer getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Integer credit) {
+		this.credit = credit;
 	}
 
 }
