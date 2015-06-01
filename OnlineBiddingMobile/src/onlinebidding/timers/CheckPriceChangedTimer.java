@@ -24,7 +24,7 @@ public class CheckPriceChangedTimer extends CountDownTimer{
 
 	@Override
 	public void onTick(long millisUntilFinished) {
-		new PostForPriceUpdate().execute(ctx.getResources().getString(R.string.url_address)+"");
+		new PostForPriceUpdate().execute(ctx.getResources().getString(R.string.url_address)+"/getauction");
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class CheckPriceChangedTimer extends CountDownTimer{
 			// For bug fixing I/O POST requests
 			
 			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			return restTemplate.postForObject(params[0], ((SingleAuctionActivity) ctx).getActiveAuction(), Auction.class);
+			return restTemplate.postForObject(params[0], ((SingleAuctionActivity) ctx).getActiveAuction().getAuctionID(), Auction.class);
 		}
 		
 		@Override
