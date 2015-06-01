@@ -14,6 +14,8 @@ public class User implements Serializable{
 	private String lastName;
 	private String mail;
 	private Date birth;
+	private boolean active;
+	private int credit;
 	
 	public User() {
 
@@ -24,7 +26,7 @@ public class User implements Serializable{
 	}
 	
 	public User(String userName, String password, String firstName,
-			String lastName, String mail, String birth) {
+			String lastName, String mail, String birth, boolean active, int credit) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
@@ -35,6 +37,8 @@ public class User implements Serializable{
 		int month = Integer.parseInt(st.nextToken());
 		int day = Integer.parseInt(st.nextToken());
 		this.birth = new Date(year-1900, month-1, day);
+		this.credit = credit;
+		this.active = active;
 		System.out.println(this.birth);
 	}
 
@@ -47,6 +51,8 @@ public class User implements Serializable{
 		this.lastName = lastName;
 		this.mail = mail;
 		this.birth = birth;
+		this.credit = credit;
+		this.active = active;
 	}
 
 	public String getLastName() {
@@ -91,6 +97,22 @@ public class User implements Serializable{
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public int getCredit() {
+		return credit;
+	}
+
+	public void setCredit(int credit) {
+		this.credit = credit;
 	}
 
 	@Override
