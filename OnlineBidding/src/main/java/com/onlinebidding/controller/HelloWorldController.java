@@ -17,6 +17,7 @@ import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.Item;
 import com.onlinebidding.model.User;
 import com.onlinebidding.model.UserAuction;
+import com.onlinebidding.repository.UserRepository;
 import com.onlinebidding.service.AdministratorService;
 import com.onlinebidding.service.AuctionService;
 import com.onlinebidding.service.ItemService;
@@ -73,6 +74,13 @@ public class HelloWorldController {
 	@ResponseBody
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
+	}
+	
+	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateUser(@RequestBody User user) {
+		userService.create(user);
+		return "correct";
 	}
 	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
