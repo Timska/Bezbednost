@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+
 import onlinebidding.adapters.AuctionAdapter;
 import onlinebidding.interfaces.ListAuctions;
 import onlinebidding.model.Auction;
@@ -13,6 +16,7 @@ import onlinebidding.server.Downloader;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -37,7 +41,12 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	@Override
 	protected void onResume(){
 		super.onResume();
+		getUserFromServer();
 		getAuctionsFromServer();
+	}
+	
+	private void getUserFromServer(){
+		new PostUsername().execute(getResources().getString(R.string.url_address)+"/getuser");
 	}
 	
 	private void initAuctionsView(){
@@ -86,6 +95,23 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	public void startAuctionActivity(Intent intent) {
 		intent.putExtra("user", currentUser);
 		startActivity(intent);
+	}
+	
+	private class PostUsername extends AsyncTask<String, Void, User> {
+		
+		@Override
+		protected User doInBackground(String... params) {
+			
+			RestTemplate restTemplate = new RestTemplate();
+			// For bug fixing I/O POST requests
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			return restTemplate.postForObject(params[0], currentUser.getUserName(), User.class);
+		}
+		
+		@Override
+		protected void onPostExecute(User result) {
+			currentUser = result;
+		}
 	}
 
 }
