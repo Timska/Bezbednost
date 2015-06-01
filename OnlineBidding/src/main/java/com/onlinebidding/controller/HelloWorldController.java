@@ -17,7 +17,6 @@ import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.Item;
 import com.onlinebidding.model.User;
 import com.onlinebidding.model.UserAuction;
-import com.onlinebidding.repository.UserRepository;
 import com.onlinebidding.service.AdministratorService;
 import com.onlinebidding.service.AuctionService;
 import com.onlinebidding.service.ItemService;
