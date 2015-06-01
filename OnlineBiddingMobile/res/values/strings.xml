@@ -43,5 +43,7 @@
     <string name="new_auction_button">Додади аукција</string>
     <string name="url_address">http://192.168.0.101:8080/HelloWorld</string>
     <string name="title_activity_list_entered">Учесници во аукцијата</string>
+    <string name="title_activity_main_administrator">MainAdministratorActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
