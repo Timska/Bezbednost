@@ -160,6 +160,12 @@ public class HelloWorldController {
 		return true;
 	}
 	
+	@RequestMapping(value = "/getauction", method = RequestMethod.POST)
+	@ResponseBody
+	public Auction getAuctionByID(@RequestBody Long auctionID) {
+		return auctionService.findAuction(auctionID);
+	}
+	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
 	@ResponseBody
 	public String enterAuction(@RequestBody UserAuction userAuction) {
