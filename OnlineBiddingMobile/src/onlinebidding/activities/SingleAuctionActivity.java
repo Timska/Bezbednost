@@ -37,8 +37,8 @@ public class SingleAuctionActivity extends Activity {
 	private TextView txtAuctionCreator;
 	private TextView txtAuctionItemName;
 	private TextView txtAuctionItemDescription;
-	private CountDownTimer timer;
-	private CheckPriceChangedTimer timerUpdate;
+	private static CountDownTimer timer;
+	private static CheckPriceChangedTimer timerUpdate;
 	private TextView txtTimer;
 	private TextView txtWinner;
 	private Button btnViewEntrants;
