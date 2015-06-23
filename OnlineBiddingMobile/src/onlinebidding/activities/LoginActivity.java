@@ -1,8 +1,8 @@
 package onlinebidding.activities;
 
 import onlinebidding.model.User;
+import onlinebidding.server.CustomHttpRequestFactory;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -124,10 +124,16 @@ public class LoginActivity extends Activity {
 			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
 			
 			RestTemplate restTemplate = new RestTemplate();
+			
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			String response = restTemplate.postForObject(params[0], credentials, String.class);
-			return response;
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
+			System.out.println("ENTERED1!");
+			String result = restTemplate.postForObject(params[0], credentials, String.class);
+			System.out.println("ENTERED2!");
+			return result;
 		}
 		
 		@Override
@@ -146,10 +152,13 @@ public class LoginActivity extends Activity {
 			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
 			
 			RestTemplate restTemplate = new RestTemplate();
+			
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			String response = restTemplate.postForObject(params[0], credentials, String.class);
-			return response;
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
+			return restTemplate.postForObject(params[0], credentials, String.class);
 		}
 		
 		@Override
@@ -164,8 +173,12 @@ public class LoginActivity extends Activity {
 		protected User doInBackground(String... params) {
 			
 			RestTemplate restTemplate = new RestTemplate();
+			
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
 			return restTemplate.postForObject(params[0], txtUsername.getText().toString(), User.class);
 		}
 		

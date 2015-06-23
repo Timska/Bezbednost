@@ -2,10 +2,8 @@ package onlinebidding.timers;
 
 import onlinebidding.activities.SingleAuctionActivity;
 import onlinebidding.model.Auction;
+import onlinebidding.server.CustomHttpRequestFactory;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
@@ -39,8 +37,9 @@ public class CheckPriceChangedTimer extends CountDownTimer{
 		protected Auction doInBackground(String... params) {
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(ctx));
 			return restTemplate.postForObject(params[0], ((SingleAuctionActivity) ctx).getActiveAuction().getAuctionID(), Auction.class);
 		}
 		

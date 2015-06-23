@@ -4,22 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-
 import onlinebidding.adapters.UserAdapter;
 import onlinebidding.interfaces.ListUsers;
-import onlinebidding.model.Auction;
 import onlinebidding.model.User;
+import onlinebidding.server.CustomHttpRequestFactory;
 import onlinebidding.server.DownloadListener;
 import onlinebidding.server.Downloader;
+
+import org.springframework.web.client.RestTemplate;
+
 import solution.springforandroid.R;
-import solution.springforandroid.R.id;
-import solution.springforandroid.R.layout;
-import solution.springforandroid.R.menu;
-import solution.springforandroid.R.string;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -99,7 +94,9 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(MainAdministratorActivity.this));
 			String response = restTemplate.postForObject(params[0], u, String.class);
 			return response;
 		}

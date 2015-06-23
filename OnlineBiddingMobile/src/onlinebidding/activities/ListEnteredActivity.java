@@ -13,6 +13,7 @@ import onlinebidding.adapters.UserEnteredAdapter;
 import onlinebidding.interfaces.ListUsers;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
+import onlinebidding.server.CustomHttpRequestFactory;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -84,7 +85,9 @@ public class ListEnteredActivity extends Activity{
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(ListEnteredActivity.this));
 			return restTemplate.postForObject(params[0], opennedAuction.getAuctionID(), User[].class);
 		}
 		

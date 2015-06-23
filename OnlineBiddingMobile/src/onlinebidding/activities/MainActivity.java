@@ -1,4 +1,5 @@
 package onlinebidding.activities;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import onlinebidding.adapters.AuctionAdapter;
 import onlinebidding.interfaces.ListAuctions;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
+import onlinebidding.server.CustomHttpRequestFactory;
 import onlinebidding.server.DownloadListener;
 import onlinebidding.server.Downloader;
 import solution.springforandroid.R;
@@ -104,7 +106,10 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(MainActivity.this));
 			return restTemplate.postForObject(params[0], currentUser.getUserName(), User.class);
 		}
 		

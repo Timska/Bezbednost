@@ -5,7 +5,6 @@ import org.springframework.web.client.RestTemplate;
 import android.content.Context;
 import android.os.AsyncTask;
 
-@SuppressWarnings("deprecation")
 public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	private Class<T> type;
@@ -22,8 +21,7 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	protected T doInBackground(String... params) {
 		RestTemplate restTemplate = new RestTemplate();
 		// For HTTPS requests
-		// HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(new MyHttpClient(context));
-		// restTemplate.setRequestFactory(requestFactory);
+		restTemplate.setRequestFactory(new CustomHttpRequestFactory(context));
 		try{
 			return restTemplate.getForObject(params[0], type);
 		}

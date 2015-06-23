@@ -2,17 +2,13 @@ package onlinebidding.activities;
 
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import onlinebidding.model.Auction;
 import onlinebidding.model.User;
+import onlinebidding.server.CustomHttpRequestFactory;
 
-import org.codehaus.jackson.map.deser.std.CalendarDeserializer;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
@@ -223,7 +219,9 @@ public class RegisterActivity extends Activity {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			// For HTTPS requests
+			restTemplate.setRequestFactory(new CustomHttpRequestFactory(RegisterActivity.this));
 			String response = restTemplate.postForObject(params[0], u, String.class);
 			return response;
 		}
