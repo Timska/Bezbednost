@@ -27,7 +27,7 @@
     <string name="exit_auction">Излез</string>
     <string name="title_activity_my_auctions">Мои аукции</string>
     <string name="btn_show_finished">Сите аукции</string>
-    <string name="btn_hide_finished">Активни аукции</string>
+    <string name="btn_hide_finished">Активни</string>
     <string name="btn_add_auction">Додај аукција</string>
     <string name="txt_current_price">Моментално постигната цена:</string>
     <string name="btn_rise">Зголеми</string>

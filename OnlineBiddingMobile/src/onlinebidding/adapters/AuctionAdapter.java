@@ -54,7 +54,7 @@ public class AuctionAdapter extends ArrayAdapter<Auction> {
 		holder = (AuctionHolder) convertView.getTag();
 		Auction auction = list.get(position);
 		holder.txtName.setText("Име: " + auction.getAuctionName());
-		holder.txtAuctionPrice.setText("Моментална цена: " + auction.getCurrentPrice());
+		holder.txtAuctionPrice.setText("Моментална цена: " + auction.getCurrentPrice() + " ден.");
 		holder.txtAuctionStartDate.setText("Дата на почеток: " + auction.getStartDateToString());
 		
 		final int i = position;

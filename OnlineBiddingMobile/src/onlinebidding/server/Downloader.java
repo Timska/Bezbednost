@@ -1,5 +1,6 @@
 package onlinebidding.server;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import android.content.Context;
@@ -20,8 +21,13 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	@Override
 	protected T doInBackground(String... params) {
 		RestTemplate restTemplate = new RestTemplate();
+		
+		// For bug fixing I/O POST requests
+		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+					
 		// For HTTPS requests
-		restTemplate.setRequestFactory(new CustomHttpRequestFactory(context));
+		// restTemplate.setRequestFactory(new CustomHttpRequestFactory(context));
+		
 		try{
 			return restTemplate.getForObject(params[0], type);
 		}

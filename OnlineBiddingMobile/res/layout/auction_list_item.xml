@@ -10,7 +10,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/text_view" />
+        android:text="@string/text_view"
+        android:textColor="#FFF" />
 
     <TextView
         android:id="@+id/txtAuctionCurrentPrice"
@@ -19,7 +20,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtAuctionName"
-        android:text="@string/text_view" />
+        android:text="@string/text_view"
+        android:textColor="#FFF" />
 
     <TextView
         android:id="@+id/txtAuctionStartDate"
@@ -28,17 +30,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtAuctionCurrentPrice"
-        android:text="@string/text_view" />
+        android:text="@string/text_view"
+        android:textColor="#FFF" />
 
     <ImageView
         android:id="@+id/imgSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtAuctionStartDate"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/img_contentDescription"
         android:src="@drawable/arrow_icon" />
 

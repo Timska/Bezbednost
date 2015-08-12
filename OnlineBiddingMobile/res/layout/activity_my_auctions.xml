@@ -13,7 +13,8 @@
         android:id="@+id/my_auctions_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_change_shown_auctions" >
+        android:layout_above="@+id/btn_change_shown_auctions"
+        android:layout_marginBottom="15dp" >
     </ListView>
 
     <Button

@@ -36,8 +36,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		getUser();
-		
-		
 	}
 	
 	@Override
@@ -83,7 +81,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	}
 
 	public void onLoadFinished(Auction[] data) {
-		// TODO Auto-generated method stub
 		if(data != null){
 			listAuctions = Arrays.asList(data);
 			Collections.sort(listAuctions);
