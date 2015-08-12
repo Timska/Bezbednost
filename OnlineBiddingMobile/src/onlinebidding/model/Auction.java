@@ -3,10 +3,6 @@ package onlinebidding.model;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
-
-
-
 
 public class Auction implements Comparable<Auction>, Serializable {
 
@@ -77,10 +73,13 @@ public class Auction implements Comparable<Auction>, Serializable {
 	public Date getStartDate() {
 		return startDate;
 	}
+	
+	public String getStartDateToString() {
+		return DateFormat.getInstance().format(startDate);
+	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-		adjustDate(startDate);
 	}
 
 	public Date getEndDate() {
@@ -89,7 +88,6 @@ public class Auction implements Comparable<Auction>, Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-		adjustDate(endDate);
 	}
 
 	public String getCurrentPrice() {
@@ -103,13 +101,15 @@ public class Auction implements Comparable<Auction>, Serializable {
 	public int compareTo(Auction another) {
 		return this.startDate.compareTo(another.startDate);
 	}
-	
+
 	@Override
-	public String toString(){
-		return auctionName+"-"+currentPrice+" "+DateFormat.getInstance().format(startDate);
+	public String toString() {
+		return auctionName + "-" + currentPrice + " "
+				+ DateFormat.getInstance().format(startDate);
 	}
 
-	private void adjustDate(Date date){
-		
-	}
 }
+
+
+
+

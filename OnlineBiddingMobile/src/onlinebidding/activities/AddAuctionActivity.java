@@ -1,7 +1,6 @@
 package onlinebidding.activities;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -10,7 +9,6 @@ import java.util.StringTokenizer;
 import onlinebidding.model.Auction;
 import onlinebidding.model.Item;
 import onlinebidding.model.User;
-import onlinebidding.server.CustomHttpRequestFactory;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -264,10 +262,11 @@ public class AddAuctionActivity extends Activity {
 
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(AddAuctionActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(AddAuctionActivity.this));
+			
 			return restTemplate.postForObject(params[0], a, String.class);
 		}
 

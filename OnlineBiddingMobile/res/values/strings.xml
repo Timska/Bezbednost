@@ -9,6 +9,7 @@
     <string name="greeting_text">Добредојдовте во најбезбедната апликација за наддавање на целиот свет.</string>
     <string name="login_button">Најави се</string>
     <string name="register_button">Регистрирај се</string>
+    <string name="loginAdmin_button">Најави се како администратор</string>
     <string name="title_activity_register">Регистрација</string>
     <string name="first_name_hint">Име</string>
     <string name="last_name_hint">Презиме</string>
@@ -40,11 +41,13 @@
     <string name="auction_end_date_hint">Крајна дата на аукцијата</string>
     <string name="auction_item_name_hint">Име на предметот</string>
     <string name="auction_item_description_hint">Опис на предметот</string>
-    <string name="new_auction_button">Додади аукција</string> 
-    <string name="url_address">https://spiritbreakers.com.mk:8443/OnlineBidding</string>
-    <!-- <string name="url_address">http://192.168.0.100:8080/OnlineBidding</string>  -->
+    <string name="new_auction_button">Додаj аукција</string>
+    <!-- <string name="url_address">https://spiritbreakers.com.mk:8443/OnlineBidding</string> -->
+    <string name="url_address">http://192.168.1.122:8080/OnlineBidding</string>
     <string name="title_activity_list_entered">Учесници во аукцијата</string>
     <string name="title_activity_main_administrator">MainAdministratorActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="text_view">Text View</string>
+    <string name="img_contentDescription">Description</string>
 
 </resources>

@@ -1,8 +1,8 @@
 package onlinebidding.activities;
 
 import onlinebidding.model.User;
-import onlinebidding.server.CustomHttpRequestFactory;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -12,8 +12,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,36 +39,15 @@ public class LoginActivity extends Activity {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				//new PostUserCredentials().execute("http://192.168.0.106:8080/HelloWorld/sendmessagemap");
-				if(cbxAdministrator.isChecked()){
-					System.out.println("vleze");
-					new PostAdminstratorCredentials().execute(getResources().getString(R.string.url_address)+"/checkloginadministrator");
+				if (cbxAdministrator.isChecked()) {
+					new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/checkloginadministrator");
 				}
-				else{
+				else {
 					new PostUserCredentials().execute(getResources().getString(R.string.url_address)+"/checkforlogin");
 				}
 			}
 		});
 		cbxAdministrator = (CheckBox) findViewById(R.id.cbox_is_administrator);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 	
 	public void startRegisterProcess(View view){
@@ -94,11 +71,12 @@ public class LoginActivity extends Activity {
 	
 	private void showResultAdministrator(String result) {
 		if(result.equals("correct")){
-			Intent intent = new Intent(this, MainAdministratorActivity.class);
-			startActivity(intent);
 			txtPassword.setText("");
 			txtUsername.setText("");
 			cbxAdministrator.setChecked(false);
+			
+			Intent intent = new Intent(this, MainAdministratorActivity.class);
+			startActivity(intent);
 		}
 		else{
 			if(result.equals(unexistingUser)){
@@ -121,49 +99,25 @@ public class LoginActivity extends Activity {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
 			credentials.add("userName", txtUsername.getText().toString());
 			credentials.add("password", txtPassword.getText().toString());
-			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
 			
 			RestTemplate restTemplate = new RestTemplate();
 			
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
-			System.out.println("ENTERED1!");
-			String result = restTemplate.postForObject(params[0], credentials, String.class);
-			System.out.println("ENTERED2!");
-			return result;
-		}
-		
-		@Override
-		protected void onPostExecute(String result) {
-			showResult(result);
-		}
-	}
-	
-	private class PostAdminstratorCredentials extends AsyncTask<String, Void, String> {
-		
-		@Override
-		protected String doInBackground(String... params) {
-			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
-			credentials.add("userName", txtUsername.getText().toString());
-			credentials.add("password", txtPassword.getText().toString());
-			// UserCredentials credentials = new UserCredentials(txtUserName.getText().toString(), txtPassword.getText().toString());
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
 			
-			RestTemplate restTemplate = new RestTemplate();
-			
-			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			
-			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
 			return restTemplate.postForObject(params[0], credentials, String.class);
 		}
 		
 		@Override
 		protected void onPostExecute(String result) {
-			showResultAdministrator(result);
+			if (!cbxAdministrator.isChecked()) {
+				showResult(result);
+			} else {
+				showResultAdministrator(result);
+			}
 		}
 	}
 	
@@ -175,10 +129,11 @@ public class LoginActivity extends Activity {
 			RestTemplate restTemplate = new RestTemplate();
 			
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(LoginActivity.this));
+			
 			return restTemplate.postForObject(params[0], txtUsername.getText().toString(), User.class);
 		}
 		
@@ -190,15 +145,16 @@ public class LoginActivity extends Activity {
 	}
 	
 	private void startActivity(){
-		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtra("user", user);
 		if(!user.isActive()){
-			Toast.makeText(this, "Корисникот не е активиран", Toast.LENGTH_SHORT).show();;
+			Toast.makeText(this, "Корисникот не е активиран", Toast.LENGTH_SHORT).show();
 		}
 		else{
-			startActivity(intent);
 			txtPassword.setText("");
 			txtUsername.setText("");
+			
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.putExtra("user", user);
+			startActivity(intent);
 		}
 	}
 }

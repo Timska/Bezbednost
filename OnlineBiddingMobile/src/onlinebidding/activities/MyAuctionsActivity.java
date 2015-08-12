@@ -8,7 +8,6 @@ import onlinebidding.adapters.AuctionAdapter;
 import onlinebidding.interfaces.ListAuctions;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
-import onlinebidding.server.CustomHttpRequestFactory;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -103,9 +102,9 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 		protected Auction[] doInBackground(String... params) {
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(MyAuctionsActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(MyAuctionsActivity.this));
 			Auction[] response = restTemplate.postForObject(params[0], params[1], Auction[].class);
 			return response;
 		}

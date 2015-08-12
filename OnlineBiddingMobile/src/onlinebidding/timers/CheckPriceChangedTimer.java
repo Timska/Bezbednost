@@ -22,7 +22,7 @@ public class CheckPriceChangedTimer extends CountDownTimer{
 
 	@Override
 	public void onTick(long millisUntilFinished) {
-		new PostForPriceUpdate().execute(ctx.getResources().getString(R.string.url_address)+"/getauction");
+		// new PostForPriceUpdate().execute(ctx.getResources().getString(R.string.url_address)+"/getauction");
 	}
 
 	@Override
