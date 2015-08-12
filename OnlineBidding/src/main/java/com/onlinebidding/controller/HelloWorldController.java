@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.onlinebidding.model.Administrator;
 import com.onlinebidding.model.Auction;
@@ -110,6 +111,12 @@ public class HelloWorldController {
 			return wrongPassword;
 		}
 		return "correct";
+	}
+	
+	@RequestMapping(value = "/loginadministrator", method = RequestMethod.GET)
+	public ModelAndView loginadministrator(){
+		ModelAndView view = new ModelAndView("login");
+		return view;
 	}
 
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
