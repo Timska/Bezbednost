@@ -12,46 +12,64 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AuctionAdapter extends ArrayAdapter<Auction> {
 
 	private Context context;
+	private LayoutInflater inflater;
 	private List<Auction> list;
 	
-	public AuctionAdapter(Context context, List<Auction> auctions){
-		super(context, 0, auctions);
+	private int[] colors = new int[] { 0xAAf6ffc8, 0xAA538d00 };
+
+	public AuctionAdapter(Context context, List<Auction> auctions) {
+		super(context, R.layout.auction_list_item, auctions);
 		this.context = context;
+		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.list = auctions;
 	}
-	
-	@Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-       Auction auction = getItem(position);    
-       final int i = position;
 
-       if (convertView == null) {
-          convertView = LayoutInflater.from(getContext()).inflate(R.layout.simple_list_item, parent, false);
-       }
-       
-       TextView txtAuctionNameAndDate = (TextView) convertView.findViewById(R.id.txtItemInListView);
-       // Populate the data into the template view using the data object
-       
-       txtAuctionNameAndDate.setText(auction.toString());
-       
-       convertView.setOnClickListener(new View.OnClickListener() {
-		
-		public void onClick(View v) {
-			Auction a = list.get(i);
-			Intent intent = new Intent(context, SingleAuctionActivity.class);
-			intent.putExtra("auction", a);
-			ListAuctions ctx = (ListAuctions) context;
-			ctx.startAuctionActivity(intent);
+	private class AuctionHolder {
+		private RelativeLayout itemLayout;
+		private TextView txtName;
+		private TextView txtAuctionPrice;
+		private TextView txtAuctionStartDate;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+
+		AuctionHolder holder = null;
+		if (convertView == null) {
+			holder = new AuctionHolder();
+			holder.itemLayout = (RelativeLayout) inflater.inflate(R.layout.auction_list_item, parent, false);
+			holder.txtName = (TextView) holder.itemLayout.findViewById(R.id.txtAuctionName);
+			holder.txtAuctionPrice = (TextView) holder.itemLayout.findViewById(R.id.txtAuctionCurrentPrice);
+			holder.txtAuctionStartDate = (TextView) holder.itemLayout.findViewById(R.id.txtAuctionStartDate);
+			convertView = holder.itemLayout;
+			convertView.setTag(holder);
 		}
-	});
-       
-       
-       // Return the completed view to render on screen
-       return convertView;
-   }
+		
+		holder = (AuctionHolder) convertView.getTag();
+		Auction auction = list.get(position);
+		holder.txtName.setText("Име: " + auction.getAuctionName());
+		holder.txtAuctionPrice.setText("Моментална цена: " + auction.getCurrentPrice() + " ден.");
+		holder.txtAuctionStartDate.setText("Дата на почеток: " + auction.getStartDateToString());
+		
+		final int i = position;
+		convertView.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(context, SingleAuctionActivity.class);
+				intent.putExtra("auction", list.get(i));
+				ListAuctions ctx = (ListAuctions) context;
+				ctx.startAuctionActivity(intent);
+			}
+		});
+		int colorPos = position % colors.length;
+	    convertView.setBackgroundColor(colors[colorPos]);
+
+		return convertView;
+	}
 }

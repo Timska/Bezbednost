@@ -1,13 +1,14 @@
 package onlinebidding.activities;
+
 import java.util.Date;
 
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
 import onlinebidding.model.UserAuction;
-import onlinebidding.server.CustomHttpRequestFactory;
 import onlinebidding.timers.CheckPriceChangedTimer;
 import onlinebidding.timers.CountEndDateTimer;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -249,9 +250,9 @@ public class SingleAuctionActivity extends Activity {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
 			return restTemplate.postForObject(params[0], credentials, Auction.class);
 		}
 		
@@ -269,9 +270,9 @@ public class SingleAuctionActivity extends Activity {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
 			return restTemplate.postForObject(params[0], ua, String.class);
 		}
 		
@@ -291,9 +292,9 @@ public class SingleAuctionActivity extends Activity {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
 			return restTemplate.postForObject(params[0], credentials, String.class);
 		}
 		
@@ -313,9 +314,9 @@ public class SingleAuctionActivity extends Activity {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
 			return restTemplate.postForObject(params[0], credentials, Boolean.class);
 		}
 		
@@ -341,9 +342,9 @@ public class SingleAuctionActivity extends Activity {
 			System.out.println("vo post user" + u.getCredit());
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(SingleAuctionActivity.this));
 			String response = restTemplate.postForObject(params[0], u, String.class);
 			return response;
 		}

@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-
 import onlinebidding.adapters.AuctionAdapter;
 import onlinebidding.interfaces.ListAuctions;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
-import onlinebidding.server.CustomHttpRequestFactory;
 import onlinebidding.server.DownloadListener;
 import onlinebidding.server.Downloader;
+
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -36,8 +36,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		getUser();
-		
-		
 	}
 	
 	@Override
@@ -83,7 +81,6 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	}
 
 	public void onLoadFinished(Auction[] data) {
-		// TODO Auto-generated method stub
 		if(data != null){
 			listAuctions = Arrays.asList(data);
 			Collections.sort(listAuctions);
@@ -106,10 +103,11 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
-			// restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 			
 			// For HTTPS requests
-			restTemplate.setRequestFactory(new CustomHttpRequestFactory(MainActivity.this));
+			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(MainActivity.this));
+			
 			return restTemplate.postForObject(params[0], currentUser.getUserName(), User.class);
 		}
 		

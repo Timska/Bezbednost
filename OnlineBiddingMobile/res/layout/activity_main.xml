@@ -53,7 +53,8 @@
         android:id="@+id/auctionsView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menuMyActivity" >
+        android:layout_below="@+id/menuMyActivity"
+        android:layout_marginTop="15dp" >
     </ListView>
 
 </RelativeLayout>
