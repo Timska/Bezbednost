@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/txtUser_Name"
+        android:id="@+id/txt_UserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,12 +14,12 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/txtE_mail"
+        android:id="@+id/txt_Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtUser_Name"
-        android:layout_alignStart="@+id/txtUser_Name"
-        android:layout_below="@+id/txtUser_Name"
+        android:layout_alignLeft="@+id/txt_UserName"
+        android:layout_alignStart="@+id/txt_UserName"
+        android:layout_below="@+id/txt_UserName"
         android:text="@string/text_view"
         android:textSize="20sp" />
 

@@ -44,8 +44,8 @@ public class UserAdapter extends ArrayAdapter<User> {
 		if (convertView == null) {
 			holder = new UserHolder();
 			holder.itemLayout = (RelativeLayout) inflater.inflate(R.layout.user_list_item, parent, false);
-			holder.userName = (TextView) holder.itemLayout.findViewById(R.id.txtUser_Name);
-			holder.email = (TextView) holder.itemLayout.findViewById(R.id.txtE_mail);
+			holder.userName = (TextView) holder.itemLayout.findViewById(R.id.txt_UserName);
+			holder.email = (TextView) holder.itemLayout.findViewById(R.id.txt_Email);
 			convertView = holder.itemLayout;
 			convertView.setTag(holder);
 		}
