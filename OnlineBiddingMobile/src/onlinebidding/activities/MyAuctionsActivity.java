@@ -2,6 +2,7 @@ package onlinebidding.activities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import onlinebidding.adapters.AuctionAdapter;
@@ -45,8 +46,17 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 		
 		setTitle(currentUser.getUserName());
 		
-		
-		shownFinished = false;
+		if (savedInstanceState != null && savedInstanceState.containsKey("shownFinished")) {
+			shownFinished = savedInstanceState.getBoolean("shownFinished");
+		} else {
+			shownFinished = false;
+		}
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBoolean("shownFinished", shownFinished);
 	}
 	
 	@Override
@@ -118,6 +128,7 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	private void showResult(Auction[] data){
 		if(data != null){
 			listMyAuctions = Arrays.asList(data);
+			Collections.sort(listMyAuctions);
 		}
 		else{
 			listMyAuctions = new ArrayList<Auction>();

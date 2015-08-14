@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,90 +9,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="onlinebidding.activities.RegisterActivity" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="none"
-        android:text="@string/register_head_text"
-        android:textColor="@color/greyTextView"
-        android:textSize="20sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/firstNameText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lastNameText"
-        android:layout_margin="5dp"
-        android:hint="@string/first_name_hint"
-        android:textColor="@color/greyTextView" />
+        <TextView
+            android:id="@+id/fillRegisterInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/register_head_text"
+            android:textColor="@color/greyTextView"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@id/lastNameText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/usernameRegisterText"
-        android:layout_margin="5dp"
-        android:hint="@string/last_name_hint"
-        android:textColor="@color/greyTextView" />
+        <EditText
+            android:id="@+id/firstNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fillRegisterInfo"
+            android:layout_margin="5dp"
+            android:hint="@string/first_name_hint"
+            android:textColor="@color/greyTextView" />
 
-    <EditText
-        android:id="@id/usernameRegisterText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/passwordRegisterText"
-        android:layout_margin="5dp"
-        android:hint="@string/username_hint"
-        android:textColor="@color/greyTextView" />
+        <EditText
+            android:id="@+id/lastNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstNameText"
+            android:layout_margin="5dp"
+            android:hint="@string/last_name_hint"
+            android:textColor="@color/greyTextView" />
 
-    <EditText
-        android:id="@id/passwordRegisterText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/passwordRepeatText"
-        android:layout_margin="5dp"
-        android:hint="@string/password_hint"
-        android:inputType="textPassword"
-        android:textColor="@color/greyTextView" />
+        <EditText
+            android:id="@+id/usernameRegisterText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lastNameText"
+            android:layout_margin="5dp"
+            android:hint="@string/username_hint"
+            android:textColor="@color/greyTextView" />
 
-    <EditText
-        android:id="@id/passwordRepeatText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/emailText"
-        android:layout_margin="5dp"
-        android:hint="@string/repeat_password_hint"
-        android:inputType="textPassword"
-        android:textColor="@color/greyTextView" />
+        <EditText
+            android:id="@+id/passwordRegisterText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameRegisterText"
+            android:layout_margin="5dp"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword"
+            android:textColor="@color/greyTextView" />
 
-    <EditText
-        android:id="@id/emailText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/birthText"
-        android:layout_margin="5dp"
-        android:hint="@string/email_hint"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/greyTextView" />
+        <EditText
+            android:id="@+id/passwordRepeatText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordRegisterText"
+            android:layout_margin="5dp"
+            android:hint="@string/repeat_password_hint"
+            android:inputType="textPassword"
+            android:textColor="@color/greyTextView" />
 
-    <TextView
-        android:id="@id/birthText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/register_button_register"
-        android:layout_margin="20dp"
-        android:text="@string/birth_hint"
-        android:textColor="@color/greyTextView"
-        android:textSize="18sp" />
+        <EditText
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordRepeatText"
+            android:layout_margin="5dp"
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/greyTextView" />
 
-    <Button
-        android:id="@id/register_button_register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:background="@color/greyTextView"
-        android:onClick="registerNewUser"
-        android:text="@string/register_button" />
+        <TextView
+            android:id="@+id/birthText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailText"
+            android:layout_margin="20dp"
+            android:text="@string/birth_hint"
+            android:textColor="@color/greyTextView"
+            android:textSize="18sp" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/register_button_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/birthText"
+            android:layout_marginTop="15dp"
+            android:background="@color/greyTextView"
+            android:onClick="registerNewUser"
+            android:text="@string/register_button" />
+    </RelativeLayout>
+
+</ScrollView>

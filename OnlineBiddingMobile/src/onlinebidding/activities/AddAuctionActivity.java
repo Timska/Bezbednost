@@ -19,8 +19,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -149,25 +147,6 @@ public class AddAuctionActivity extends Activity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_auction, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void addNewAuction(View view) {
 		if (validate()) {
 			new PostAuction().execute(getResources().getString(
@@ -178,42 +157,39 @@ public class AddAuctionActivity extends Activity {
 
 	private boolean validate() {
 		boolean valid = true;
-		if (txtAuctionName.getText().toString().isEmpty()) {
+		if (txtAuctionName.getText().toString().trim().isEmpty()) {
 			Toast.makeText(this, "Внесете име на аукцијата", Toast.LENGTH_SHORT)
 					.show();
 			valid = false;
 		}
-		if (txtAuctionPrice.getText().toString().isEmpty()) {
+		else if (txtAuctionPrice.getText().toString().trim().isEmpty()) {
 			Toast.makeText(this, "Внесете почетна цена", Toast.LENGTH_SHORT)
 					.show();
 			valid = false;
-		} else {
-			try {
-				Integer.parseInt(txtAuctionPrice.getText().toString());
-			} catch (Exception e) {
-				Toast.makeText(this, "Внесете валидна цена", Toast.LENGTH_SHORT)
-						.show();
-				valid = false;
-			}
-		}
-		if (txtStartDate.getText().toString().equals(getResources().getString(R.string.auction_start_date_hint))) {
+		} 
+		else if (txtStartDate.getText().toString().equals(getResources().getString(R.string.auction_start_date_hint))) {
 			Toast.makeText(this, "Внесете почетна дата",
 					Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if (txtStartDate.getText().toString().equals(getResources().getString(R.string.auction_end_date_hint))) {
+		else if (txtEndDate.getText().toString().equals(getResources().getString(R.string.auction_end_date_hint))) {
 			Toast.makeText(this, "Внесете крајна дата",
 					Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if (getDateFromString(txtStartDate.getText().toString()).after(
+		else if (getDateFromString(txtStartDate.getText().toString()).after(
 				getDateFromString(txtEndDate.getText().toString()))) {
 			Toast.makeText(this, "Почетната дата треба да е пред крајната",
 					Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if (txtAuctionItemName.getText().toString().isEmpty()) {
+		else if (txtAuctionItemName.getText().toString().trim().isEmpty()) {
 			Toast.makeText(this, "Внесете име на предметот што е на аукција",
+					Toast.LENGTH_SHORT).show();
+			valid = false;
+		}
+		else if (txtAuctionItemDescription.getText().toString().trim().isEmpty()) {
+			Toast.makeText(this, "Внесете опис на предметот што е на аукција",
 					Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
@@ -225,6 +201,7 @@ public class AddAuctionActivity extends Activity {
 		currentUser = (User) getIntent().getExtras().get("user");
 	}
 
+	@SuppressWarnings("deprecation")
 	private Date getDateFromString(String s) {
 		System.out.println("vo get date" + s);
 		StringTokenizer st = new StringTokenizer(s);
@@ -235,16 +212,13 @@ public class AddAuctionActivity extends Activity {
 		int day = Integer.parseInt(date.nextToken());
 		int hours = Integer.parseInt(time.nextToken());
 		int minutes = Integer.parseInt(time.nextToken());
-		;
-		Date dateFromString = new Date(year - 1900, month - 1, day, hours,
-				minutes);
+		Date dateFromString = new Date(year - 1900, month - 1, day, hours, minutes);
 		System.out.println(dateFromString);
 		return dateFromString;
 	}
 
 	private void showResult() {
-		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT)
-				.show();
+		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT).show();
 		finish();
 	}
 
@@ -254,12 +228,13 @@ public class AddAuctionActivity extends Activity {
 		protected String doInBackground(String... params) {
 			Item item = new Item(txtAuctionItemName.getText().toString(), null,
 					txtAuctionItemDescription.getText().toString());
+			
 			Auction a = new Auction(txtAuctionName.getText().toString(),
 					currentUser, currentUser, item,
 					getDateFromString(txtStartDate.getText().toString()),
 					getDateFromString(txtEndDate.getText().toString()),
 					txtAuctionPrice.getText().toString());
-
+			
 			RestTemplate restTemplate = new RestTemplate();
 			// For bug fixing I/O POST requests
 			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());

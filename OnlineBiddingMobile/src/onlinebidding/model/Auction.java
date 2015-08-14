@@ -74,7 +74,7 @@ public class Auction implements Comparable<Auction>, Serializable {
 		return startDate;
 	}
 	
-	public String getStartDateToString() {
+	public String convertStartDateToString() {
 		return DateFormat.getInstance().format(startDate);
 	}
 
@@ -99,7 +99,8 @@ public class Auction implements Comparable<Auction>, Serializable {
 	}
 
 	public int compareTo(Auction another) {
-		return this.startDate.compareTo(another.startDate);
+		return another.startDate.compareTo(this.startDate);
+		// return this.startDate.compareTo(another.startDate);
 	}
 
 	@Override

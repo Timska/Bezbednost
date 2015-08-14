@@ -55,7 +55,7 @@ public class AuctionAdapter extends ArrayAdapter<Auction> {
 		Auction auction = list.get(position);
 		holder.txtName.setText("Име: " + auction.getAuctionName());
 		holder.txtAuctionPrice.setText("Моментална цена: " + auction.getCurrentPrice() + " ден.");
-		holder.txtAuctionStartDate.setText("Дата на почеток: " + auction.getStartDateToString());
+		holder.txtAuctionStartDate.setText("Дата на почеток: " + auction.convertStartDateToString());
 		
 		final int i = position;
 		convertView.setOnClickListener(new View.OnClickListener() {

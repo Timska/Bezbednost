@@ -17,6 +17,7 @@
     <string name="repeat_password_hint">Повторно внеси лозинка</string>
     <string name="register_head_text">Ве молиме пополнете ги следните информации.</string>
     <string name="birth_hint">Дата на раѓање</string>
+    <string name="credit_hint">Кредит</string>
     <string name="title_activity_profile">Мој профил</string>
     <string name="save_changes">Зачувај промени</string>
     <string name="my_auctions">Мои аукции</string>
@@ -36,7 +37,7 @@
     <string name="txt_item_description">Опис:</string>
     <string name="title_activity_add_auction">Нова аукција</string>
     <string name="auction_name_hint">Име на аукција</string>
-    <string name="current_price_hint">Почетна цена на аукцискиот предмет</string>
+    <string name="current_price_hint">Почетна цена на аукцијата</string>
     <string name="auction_start_date_hint">Почетна дата на аукцијата</string>
     <string name="auction_end_date_hint">Крајна дата на аукцијата</string>
     <string name="auction_item_name_hint">Име на предметот</string>
@@ -45,7 +46,7 @@
     <!-- <string name="url_address">https://spiritbreakers.com.mk:8443/OnlineBidding</string> -->
     <string name="url_address">http://192.168.1.122:8080/OnlineBidding</string>
     <string name="title_activity_list_entered">Учесници во аукцијата</string>
-    <string name="title_activity_main_administrator">MainAdministratorActivity</string>
+    <string name="title_activity_main_administrator">Администратор</string>
     <string name="hello_world">Hello world!</string>
     <string name="text_view">Text View</string>
     <string name="img_contentDescription">Description</string>

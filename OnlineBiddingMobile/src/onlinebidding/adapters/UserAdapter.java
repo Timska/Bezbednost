@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -64,6 +65,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 				AlertDialog.Builder adb = new AlertDialog.Builder(context);
 				adb.setTitle("Внеси кредит");
 				final EditText input = new EditText(context);
+				input.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
 				adb.setView(input);
 				adb.setPositiveButton("OK",
 						new DialogInterface.OnClickListener() {

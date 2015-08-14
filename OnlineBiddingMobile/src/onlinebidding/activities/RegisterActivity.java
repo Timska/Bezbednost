@@ -17,8 +17,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -128,25 +126,6 @@ public class RegisterActivity extends Activity {
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.register, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
 	public void registerNewUser(View view){
 		
 		if(validate()){
@@ -156,41 +135,32 @@ public class RegisterActivity extends Activity {
 	
 	private boolean validate(){
 		boolean valid = true;
-		if(txtFirstName.getText().toString().isEmpty()){
+		if(txtFirstName.getText().toString().trim().isEmpty()){
 			Toast.makeText(this, "Внесете име", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if(txtLastName.getText().toString().isEmpty()){
+		else if(txtLastName.getText().toString().trim().isEmpty()){
 			Toast.makeText(this, "Внесете презиме", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if(txtUsername.getText().toString().isEmpty()){
+		else if(txtUsername.getText().toString().trim().isEmpty()){
 			Toast.makeText(this, "Внесете корисничко име", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		String regExp = "^(?=.*[!@#$&*])(?=.*[0-9]).{6,15}$";
-		if(txtPassword.getText().toString().isEmpty()){
-			Toast.makeText(this, "Внесете лозинка", Toast.LENGTH_SHORT).show();
-			valid = false;
-		}
-		if(txtRepeatPassword.getText().toString().isEmpty()){
-			Toast.makeText(this, "Повторете ја лозинката", Toast.LENGTH_SHORT).show();
-			valid = false;
-		}
-		if(!txtPassword.getText().toString().matches(regExp)){
+		else if(!txtPassword.getText().toString().matches("^(?=.*[!@#$&*])(?=.*[0-9]).{6,15}$")){
 			Toast.makeText(this, "Лозинката треба да содржи барем еден "
 					+ "специјален знак, една цифра и минимум должина шест", Toast.LENGTH_LONG).show();
 			valid = false;
 		}
-		if(!txtRepeatPassword.getText().toString().equals(txtPassword.getText().toString())){
+		else if(!txtRepeatPassword.getText().toString().equals(txtPassword.getText().toString())){
 			Toast.makeText(this, "Лозинките се разликуваат", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if(!txtEmail.getText().toString().matches("^([A-Za-z0-9.-_])+@([A-Za-z0-9.-_])+.([A-Za-z]{2,4})$")){
-			Toast.makeText(this, "Внесете валиден маил", Toast.LENGTH_SHORT).show();
+		else if(!txtEmail.getText().toString().matches("^([A-Za-z0-9.-_])+@([A-Za-z0-9.-_])+.([A-Za-z]{2,4})$")){
+			Toast.makeText(this, "Внесете валиден мejл", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
-		if(!txtBirth.getText().toString().matches("^(19[0-9][0-9])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")){
+		else if(txtBirth.getText().toString().equals(getResources().getString(R.string.birth_hint))) {
 			Toast.makeText(this, "Внесете валиден датум", Toast.LENGTH_SHORT).show();
 			valid = false;
 		}
@@ -200,8 +170,6 @@ public class RegisterActivity extends Activity {
 	private void showResult(String result) {
 		if(result.equals("correct")){
 			Toast.makeText(this, "Успешна регистрација", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(this, LoginActivity.class);
-			startActivity(intent);
 			finish();
 		}
 		else{

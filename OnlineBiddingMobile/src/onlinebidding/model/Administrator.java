@@ -1,6 +1,6 @@
 package onlinebidding.model;
 
-public class Administrator {
+/*public class Administrator {
 
 	private String username;
 	private String password;
@@ -29,4 +29,4 @@ public class Administrator {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-}
+}*/

@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	@Override
 	protected void onResume(){
 		super.onResume();
-		getUserFromServer();
+		// getUserFromServer();
 		getAuctionsFromServer();
 	}
 	

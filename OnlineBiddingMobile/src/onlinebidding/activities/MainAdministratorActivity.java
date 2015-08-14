@@ -17,8 +17,6 @@ import solution.springforandroid.R;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -42,27 +40,7 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		downloader.execute(getResources().getString(R.string.url_address)+"/getallusers");
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_administrator, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void onLoadFinished(User[] data) {
-		// TODO Auto-generated method stub
 		setData(data);
 	}
 	
@@ -82,7 +60,6 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 	}
 
 	public void activate(int position) {
-		// TODO Auto-generated method stub
 		new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(position));
 	}
 	
