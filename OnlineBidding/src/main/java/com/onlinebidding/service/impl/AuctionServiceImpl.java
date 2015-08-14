@@ -71,7 +71,14 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	public List<Auction> getWonUserAuctions(String userName) {
-		return auctionRepository.findByWinnerUserName(userName);
+		Date now = new Date();
+		List<Auction> wonAuctions = auctionRepository.findByWinnerUserName(userName);
+		for (int i = wonAuctions.size() - 1; i >= 0; i--) {
+			if (wonAuctions.get(i).getEndDate().after(now)) {
+				wonAuctions.remove(i);
+			}
+		}
+		return wonAuctions;
 	}
 }
 
