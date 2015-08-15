@@ -29,21 +29,32 @@ app.factory('transformRequestAsFormPost', function(){
 	}
 });
 
-app.controller('LoginController', [ '$http', 'transformRequestAsFormPost', function($scope, $http, transformRequestAsFormPost){
-	$scope.username='';
+app.controller('LoginController', [ '$scope', '$http', '$window', 'transformRequestAsFormPost', function($scope, $http, $window, transformRequestAsFormPost){
+	$scope.username='SpiritBreakersAdmin';
 	$scope.password='';
 	$scope.result = '';
 	$scope.submit = function(){
+		$window.alert('vleze vo submit');
 		var request = $http({
 			method: "post",
 			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/checkloginadministrator",
 			data: {
 				userName: $scope.username, 
 				password: $scope.password
-			}
+			},
+			headers: { 
+				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			transformRequest: transform
 		});
+		
+		var transform = function(data){
+	        return $.param(data);
+	    }
+		
 		request.success(function(data){
 			$scope.result = data;
+			$window.alert(data);
 		});
 	}
 }]);

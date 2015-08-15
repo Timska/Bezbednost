@@ -36,5 +36,20 @@
 		</div>
 	</div>
 </div>
+
+<div id="add-auction">
+	<form>
+		<h2>Внесете податоци</h2>
+			<label for="inputUsername" class="sr-only">Корисничко име</label> <input
+				type="text" id="inputUsername" ng-model="username" placeholder="Корисничко име"
+				class="form-control"> <label for="inputPassword"
+				class="sr-only">Лозинка</label> <input type="password"
+				id="inputPassword" ng-model="password" placeholder="Лозинка" class="form-control">
+			<br>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">
+			Најави се
+			</button>
+		</form>
+</div>
 </body>
 </html>

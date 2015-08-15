@@ -102,6 +102,7 @@ public class HelloWorldController {
 	public String checkForAdministrator(@RequestBody MultiValueMap<String, String> map) {
 		String adminName = map.getFirst("userName");
 		Administrator admin = administratorService.findAdministrator(adminName);
+		System.out.println("vleze vo check login");
 		if (admin == null) {
 			return unexistingUser;
 		}
