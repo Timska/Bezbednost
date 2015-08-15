@@ -102,6 +102,7 @@ public class HelloWorldController {
 	public String checkForAdministrator(@RequestBody MultiValueMap<String, String> map) {
 		String adminName = map.getFirst("userName");
 		Administrator admin = administratorService.findAdministrator(adminName);
+		System.out.println("vleze vo check login");
 		if (admin == null) {
 			return unexistingUser;
 		}
@@ -114,8 +115,17 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/loginadministrator", method = RequestMethod.GET)
 	public ModelAndView loginadministrator(){
+		System.out.println("vleze vo login");
 		ModelAndView view = new ModelAndView("login");
 		return view;
+	}
+	
+	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
+	public ModelAndView auctions(){
+		ModelAndView mv = new ModelAndView("administrator");
+		List<Auction> list = auctionService.getAllAuctions();
+		mv.addObject(list);
+		return mv;
 	}
 
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)

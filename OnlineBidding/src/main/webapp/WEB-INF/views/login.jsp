@@ -16,19 +16,20 @@
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src="<c:url value="/resources/controllers/loginController.js" />"></script>
+<script src="<c:url value="/resources/scripts/myApp.js" />"></script>
 <body>
-	<div ng-app="loginApp" ng-controller="loginCtrl" class="container">
-		<form class="form-signin" action="/checkloginadministrator" method="POST">
+	<div ng-app="myApp" ng-controller="LoginController" class="container">
+		<form class="form-signin">
 			<h2>Внесете податоци</h2>
-			<label for="inputUsername" class="sr-only">Корисничко име</label> <input
-				type="text" id="inputUsername" ng-model="username" placeholder="Корисничко име"
-				class="form-control"> <label for="inputPassword"
-				class="sr-only">Лозинка</label> <input type="password"
-				id="inputPassword" ng-model="password" placeholder="Лозинка" class="form-control">
+			<label for="inputUsername" class="sr-only">Корисничко име</label>
+			<input type="text" id="inputUsername" ng-model="username"
+				class="form-control">
+			<label for="inputPassword" class="sr-only">Лозинка</label>
+			<input type="password" id="inputPassword" ng-model="password" placeholder="Лозинка" class="form-control">
 			<br>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Најави
-				се</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submit()">
+				Најави се
+			</button>
 		</form>
 	</div>
 
