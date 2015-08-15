@@ -29,10 +29,22 @@ app.factory('transformRequestAsFormPost', function(){
 	}
 });
 
-app.controller('LoginController', [ '$scope', '$http', '$window', 'transformRequestAsFormPost', function($scope, $http, $window, transformRequestAsFormPost){
+app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'transformRequestAsFormPost', function($scope, $http, $window, $log, transformRequestAsFormPost){
 	$scope.username='SpiritBreakersAdmin';
 	$scope.password='';
 	$scope.result = '';
+	
+	$scope.invalidUsername = false;
+	$scope.invalidPassword = false;
+	
+	$scope.usernameChange = function(){
+		$scope.invalidUsername = false;
+	}
+	
+	$scope.passwordChange = function(){
+		$scope.invalidPassword = false;
+	}
+	
 	$scope.submit = function(){
 		$window.alert('vleze vo submit');
 		var request = $http({
@@ -45,17 +57,22 @@ app.controller('LoginController', [ '$scope', '$http', '$window', 'transformRequ
 			headers: { 
 				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 			},
-			transformRequest: transform
+			transformRequest: transformRequestAsFormPost
 		});
-		
-		var transform = function(data){
-	        return $.param(data);
-	    }
 		
 		request.success(function(data){
 			$scope.result = data;
-			$window.alert(data);
+			processResult();
 		});
+		
+		processResult = function(){
+			if($scope.result == 1){
+				$scope.invalidUsername = true;
+			}
+			else if($scope.result === 2){
+				$scope.invalidPassword = true;
+			}
+		}
 	}
 }]);
 

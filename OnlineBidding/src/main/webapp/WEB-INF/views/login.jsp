@@ -23,9 +23,10 @@
 			<h2>Внесете податоци</h2>
 			<label for="inputUsername" class="sr-only">Корисничко име</label>
 			<input type="text" id="inputUsername" ng-model="username"
-				class="form-control">
+				class="form-control" ng-class="{invalid: invalidUsername}" ng-change="usernameChange()">
 			<label for="inputPassword" class="sr-only">Лозинка</label>
-			<input type="password" id="inputPassword" ng-model="password" placeholder="Лозинка" class="form-control">
+			<input type="password" id="inputPassword" ng-model="password" placeholder="Лозинка"
+				class="form-control" ng-class="{invalid: invalidPassword}" ng-change="passwordChange()">
 			<br>
 			<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submit()">
 				Најави се
