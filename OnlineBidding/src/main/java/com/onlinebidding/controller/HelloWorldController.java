@@ -37,7 +37,7 @@ public class HelloWorldController {
 		return mv;
 	}
 	
-	@RequestMapping("/message")
+	@RequestMapping(value="/message", method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public String getMessage() {
 		return "Hello everyone! How are you? Doing goooood?";
