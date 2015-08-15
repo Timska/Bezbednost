@@ -3,7 +3,7 @@ var app = angular.module('myApp', []);
 app.factory('transformRequestAsFormPost', function(){
 	function transformRequest(data, getHeaders) {
 		var headers = getHeaders();
-		headers["Content-type"] = "application/x-www-form-urlencoded; charset=utf-8";
+		headers["Content-type"] = "application/x-www-form-urlencoded; application/json; charset=utf-8";
 		return(serializeData(data));
 	}
 	
@@ -55,7 +55,7 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'trans
 				password: $scope.password
 			},
 			headers: { 
-				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				'Content-Type': 'application/x-www-form-urlencoded; application/jsonp; charset=UTF-8'
 			},
 			transformRequest: transformRequestAsFormPost
 		});
@@ -72,6 +72,9 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'trans
 			}
 			else if($scope.result === 2){
 				$scope.invalidPassword = true;
+			}
+			else if($scope.result === 'c'){
+				
 			}
 		}
 	}
