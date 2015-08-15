@@ -16,10 +16,10 @@
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src="<c:url value="/resources/controllers/loginController.js" />"></script>
+<script src="<c:url value="/resources/controllers/loginApp.js" />"></script>
 <body>
-	<div ng-app="loginApp" ng-controller="loginCtrl" class="container">
-		<form class="form-signin" action="/checkloginadministrator" method="POST">
+	<div ng-app="myApp" ng-controller="LoginController" class="container">
+		<form class="form-signin" action="/checkloginadministrator" ng-submit="submit()">
 			<h2>Внесете податоци</h2>
 			<label for="inputUsername" class="sr-only">Корисничко име</label> <input
 				type="text" id="inputUsername" ng-model="username" placeholder="Корисничко име"

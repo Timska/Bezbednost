@@ -114,8 +114,17 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/loginadministrator", method = RequestMethod.GET)
 	public ModelAndView loginadministrator(){
+		System.out.println("vleze vo login");
 		ModelAndView view = new ModelAndView("login");
 		return view;
+	}
+	
+	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
+	public ModelAndView auctions(){
+		ModelAndView mv = new ModelAndView("administrator");
+		List<Auction> list = auctionService.getAllAuctions();
+		mv.addObject(list);
+		return mv;
 	}
 
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
