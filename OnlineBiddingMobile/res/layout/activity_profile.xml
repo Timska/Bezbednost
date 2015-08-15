@@ -131,8 +131,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:onClick="startMyAuctions"
-            android:text="@string/my_auctions"
+            android:onClick="startWonAuctions"
+            android:text="@string/won_auctions"
             android:textColor="@color/textColor" />
     </LinearLayout>
 

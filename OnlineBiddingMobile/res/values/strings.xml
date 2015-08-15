@@ -20,6 +20,7 @@
     <string name="credit_hint">Кредит</string>
     <string name="title_activity_profile">Мој профил</string>
     <string name="save_changes">Зачувај промени</string>
+    <string name="won_auctions">Победени аукции</string>
     <string name="my_auctions">Мои аукции</string>
     <string name="my_profile">Мој профил</string>
     <string name="log_out">Одјави се</string>
@@ -50,5 +51,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="text_view">Text View</string>
     <string name="img_contentDescription">Description</string>
+    <string name="title_activity_won_auctions">WonAuctionsActivity</string>
 
 </resources>

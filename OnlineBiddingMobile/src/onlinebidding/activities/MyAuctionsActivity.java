@@ -18,8 +18,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +25,6 @@ import android.widget.ListView;
 
 public class MyAuctionsActivity extends Activity implements ListAuctions {
 
-	
 	private User currentUser;
 	private List<Auction> listMyAuctions;
 	private ListView myAuctionsView;
@@ -79,32 +76,10 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	private void getActiveAuctionsFromUser(String username){
 		new PostUsername().execute(getResources().getString(R.string.url_address)+"/usernotfinishedauctions", username);
 	}
-
 	
 	private void getUser(){
 		currentUser = (User) getIntent().getExtras().get("user");
 	}
-	
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.my_auctions, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
 	
 	private class PostUsername extends AsyncTask<String, Void, Auction[]> {
 		
