@@ -52,8 +52,8 @@ public class ProfileActivity extends Activity{
 		}
 	}
 	
-	public void startMyAuctions(View view){
-		Intent intent = new Intent(this, MyAuctionsActivity.class);
+	public void startWonAuctions(View view){
+		Intent intent = new Intent(this, WonAuctionsActivity.class);
 		intent.putExtra("user", currentUser);
 		startActivity(intent);
 	}

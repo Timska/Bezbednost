@@ -57,6 +57,10 @@
             android:name="onlinebidding.activities.MainAdministratorActivity"
             android:label="@string/title_activity_main_administrator" >
         </activity>
+        <activity
+            android:name="onlinebidding.activities.WonAuctionsActivity"
+            android:label="@string/title_activity_won_auctions" >
+        </activity>
     </application>
 
 </manifest>
