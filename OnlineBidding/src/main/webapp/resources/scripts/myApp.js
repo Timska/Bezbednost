@@ -62,6 +62,7 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'trans
 		
 		request.success(function(data){
 			$scope.result = data;
+			$window.alert(data);
 			processResult();
 		});
 		
