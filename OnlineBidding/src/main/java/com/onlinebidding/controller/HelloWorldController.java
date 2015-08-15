@@ -3,6 +3,7 @@ package com.onlinebidding.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,7 @@ public class HelloWorldController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/message", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value="/message", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String getMessage() {
 		return "Hello everyone! How are you? Doing goooood?";
