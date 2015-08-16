@@ -62,9 +62,9 @@ app.controller('StartDatepickerController', ['$scope', 'newAuctionService', func
 	 };
 	 
 	 $scope.changed = function () {
-		newAuctionService.startDate.setFullYear(starttime.getFullYear());
-		newAuctionService.startDate.setMonth(starttime.getMonth());
-		newAuctionService.startDate.setDate(starttime.getDate());
+		newAuctionService.startDate.setFullYear(start.getFullYear());
+		newAuctionService.startDate.setMonth(start.getMonth());
+		newAuctionService.startDate.setDate(start.getDate());
 	 };
 }]);
 
@@ -133,8 +133,8 @@ app.controller('EndDatepickerController', ['$scope', 'newAuctionService', functi
 	 };
 	 
 	 $scope.changed = function () {
-		newAuctionService.endDate.setFullYear(endtime.getFullYear());
-		newAuctionService.endDate.setMonth(endtime.getMonth());
-		newAuctionService.endDate.setDate(endtime.getDate());
+		newAuctionService.endDate.setFullYear(end.getFullYear());
+		newAuctionService.endDate.setMonth(end.getMonth());
+		newAuctionService.endDate.setDate(end.getDate());
 	 };
 }]);

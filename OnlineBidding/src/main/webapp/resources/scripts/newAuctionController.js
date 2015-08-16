@@ -10,7 +10,12 @@ app.controller('NewAuctionController', ['$scope', '$http', 'userService', 'newAu
 			data: newAuctionService,
 		});
 		
-	}
+	};
+	
+	$scope.auctionName = '';
+	$scope.itemName = '';
+	$scope.itemDescription = '';
+	$scope.itemPrice = '';
 	
 	var createAuction = function(){
 		newAuctionService.auctionName = $scope.auctionName;

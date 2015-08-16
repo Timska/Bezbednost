@@ -16,7 +16,11 @@
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.3.js"></script>
+	
 <script src="<c:url value="/resources/scripts/myApp.js" />"></script>
+<script src="<c:url value="/resources/scripts/loginController.js" />"></script>
+
 <body>
 	<div ng-app="myApp" ng-controller="LoginController" class="container">
 		<form class="form-signin">
