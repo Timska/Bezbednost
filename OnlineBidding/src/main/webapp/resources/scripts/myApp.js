@@ -37,7 +37,11 @@ app.factory('userService', function(){
 	}
 	
 	service.setUser = function(value){
-		service.onlineUser = value;
+		$window.alert("setira");
+		service.onlineUser = {
+			username: value.username,
+			password: value.password
+		};
 	}
 	
 	service.setIsUser = function(value){

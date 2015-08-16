@@ -24,7 +24,7 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 		
 		request.success(function(data){
 			$window.alert("vo administrator success");
-			userService.onlineAdministrator = data;
+			userService.setAdministrator(data);
 			$log.log(data);
 		});
 		
@@ -35,17 +35,10 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 		});
 		
 		secondRequest.success(function(data){
+			userService.setUser(data);
+			userService.setIsUser = isNullOrEmptyOrUndefined(data);
 			
-			$window.alert("vo user success");
-			
-			userService.isNotUser = isNullOrEmptyOrUndefined(data);
-			
-			$window.alert(userService.isNotUser);
-			
-			
-			userService.onlineUser = data;
-			
-			$window.alert(userService.onlineUser.userName);
+			$window.alert(userService.getUser().username);
 			$log.log(data);
 		});
 		
