@@ -41,7 +41,11 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 			userService.isNotUser = isNullOrEmptyOrUndefined(data);
 			
 			$window.alert(userService.isNotUser);
+			
+			
 			userService.onlineUser = data;
+			
+			$window.alert(userService.onlineUser.userName);
 			$log.log(data);
 		});
 		

@@ -30,14 +30,33 @@ app.factory('transformRequestAsFormPost', function(){
 });
 
 app.factory('userService', function(){
-	var onlineAdministrator = {};
-	var onlineUser = {};
-	var isNotUser;
-	return {
-		onlineAdministrator: onlineAdministrator,
-		onlineUser: onlineUser,
-		isNotUser: isNotUser
-	};
+	var service = this;
+	
+	service.setAdministrator = function(value){
+		service.onlineAdministrator = value;
+	}
+	
+	service.setUser = function(value){
+		service.onlineUser = value;
+	}
+	
+	service.setIsUser = function(value){
+		service.isUser = value;
+	}
+	
+	service.getAdministrator = function(){
+		return service.onlineAdministrator;
+	}
+	
+	service.getUser = function(){
+		return service.onlineUser;
+	}
+	
+	service.getIsUser = function(){
+		return service.isUser;
+	}
+	
+	return service;
 });
 
 
