@@ -52,5 +52,6 @@
     <string name="text_view">Text View</string>
     <string name="img_contentDescription">Description</string>
     <string name="title_activity_won_auctions">WonAuctionsActivity</string>
+    <string name="prefs_name">DBLoggedInFile</string>
 
 </resources>

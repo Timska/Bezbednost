@@ -5,7 +5,6 @@ import java.util.Date;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
 import onlinebidding.model.UserAuction;
-import onlinebidding.timers.CheckPriceChangedTimer;
 import onlinebidding.timers.CountEndDateTimer;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -15,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,7 +37,7 @@ public class SingleAuctionActivity extends Activity {
 	private TextView txtAuctionItemName;
 	private TextView txtAuctionItemDescription;
 	private static CountDownTimer timer;
-	private static CheckPriceChangedTimer timerUpdate;
+	// private static CheckPriceChangedTimer timerUpdate;
 	private TextView txtTimer;
 	private TextView txtWinner;
 	private Button btnViewEntrants;
@@ -49,13 +49,6 @@ public class SingleAuctionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_single_auction);
 		
-		
-		
-	}
-	
-	@Override
-	protected void onResume(){
-		super.onResume();
 		init();
 		
 		setTitle(auction.getAuctionName());
@@ -69,7 +62,7 @@ public class SingleAuctionActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		timer.cancel();
-		timerUpdate.cancel();
+		// timerUpdate.cancel();
 	}
 	
 	private void checkEntered(){
@@ -78,7 +71,7 @@ public class SingleAuctionActivity extends Activity {
 	
 	private void initViews(){
 		txtPrice = (TextView) findViewById(R.id.txt_price);
-		txtPrice.setText(auction.getCurrentPrice()+"ден");
+		txtPrice.setText(auction.getCurrentPrice()+" ден.");
 		
 		txtNewPrice = (EditText) findViewById(R.id.txt_new_price);
 		newPrice = Integer.parseInt(auction.getCurrentPrice()) + 100;
@@ -115,14 +108,17 @@ public class SingleAuctionActivity extends Activity {
 						return;
 					}
 					currentUser.setCredit(currentUser.getCredit() - price);
-					if(!auction.getWinner().getUserName().equals(auction.getCreator().getUserName())){
+					/*if(!auction.getWinner().getUserName().equals(auction.getCreator().getUserName())){
 						auction.getWinner().setCredit(auction.getWinner().getCredit() + Integer.parseInt(auction.getCurrentPrice()));
 						new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(false));
-					}
+					}*/
+					//
+					auction.getWinner().setCredit(auction.getWinner().getCredit() + Integer.parseInt(auction.getCurrentPrice()));
+					new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(false));
+					//
 				}
 				new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(true));
 				new PostPrice().execute(getResources().getString(R.string.url_address)+"/updateauctionprice");
-				
 			}
 		});
 		
@@ -159,7 +155,16 @@ public class SingleAuctionActivity extends Activity {
 	
 	public void enterOrExitAuction(View view){
 		entered = !entered;
-		btnRise.setEnabled(entered);
+
+		Date dateNow = new Date();
+		if (auction.getStartDate().after(dateNow)) {
+			btnRise.setEnabled(false);
+			txtNewPrice.setEnabled(false);
+		} else {
+			btnRise.setEnabled(entered);
+			txtNewPrice.setEnabled(entered);
+		}
+		
 		if(entered){
 			btnEnterAuction.setText(getResources().getString(R.string.exit_auction));
 			new PostForEnter().execute(getResources().getString(R.string.url_address)+"/enterauction");
@@ -173,6 +178,7 @@ public class SingleAuctionActivity extends Activity {
 	private void checkCreator(){
 		if(currentUser.getUserName().equals(auction.getCreator().getUserName())){
 			btnRise.setEnabled(false);
+			txtNewPrice.setEnabled(false);
 			btnEnterAuction.setEnabled(false);
 		}
 		else{
@@ -193,8 +199,8 @@ public class SingleAuctionActivity extends Activity {
 		timer = new CountEndDateTimer(milliseconds, (long)1000, txtTimer, this);
 		timer.start();
 		
-		timerUpdate = new CheckPriceChangedTimer(60 * 60 * 1000, 1000 * 60, this);
-		timerUpdate.start();
+		// timerUpdate = new CheckPriceChangedTimer(60 * 60 * 1000, 1000 * 60, this);
+		// timerUpdate.start();
 	}
 	
 	private void init(){
@@ -206,15 +212,10 @@ public class SingleAuctionActivity extends Activity {
 	public void auctionFinished(){
 		txtTimer.setText("Завршено");
 		btnRise.setEnabled(false);
+		txtNewPrice.setEnabled(false);
+		btnEnterAuction.setEnabled(false);
+		btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
 		txtWinner.setText("Победник е: "+auction.getWinner().getUserName());
-		txtWinner.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				Intent intent = new Intent(SingleAuctionActivity.this, ProfileActivity.class);
-				intent.putExtra("user", auction.getWinner());
-				startActivity(intent);
-			}
-		});
 	}
 	
 	private class PostPrice extends AsyncTask<String, Void, Auction> {
@@ -284,6 +285,15 @@ public class SingleAuctionActivity extends Activity {
 	
 	private class PostCheckUserInAuction extends AsyncTask<String, Void, Boolean> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(SingleAuctionActivity.this);
+			this.dialog.setMessage("Превземање податоци...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected Boolean doInBackground(String... params) {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
@@ -300,6 +310,9 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
+			if (dialog.isShowing()) {
+	            dialog.dismiss();
+	        }
 			setEntered(result);
 		}
 	}
@@ -329,13 +342,13 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
+			
 		}
 	}
 	
 	public Auction getActiveAuction(){
 		return auction;
 	}
-	
 	
 	private void setEntered(boolean result){
 		entered = result;
@@ -345,12 +358,22 @@ public class SingleAuctionActivity extends Activity {
 		else{
 			btnEnterAuction.setText(getResources().getString(R.string.enter_auction));
 		}
-		btnRise.setEnabled(entered);
+		
+		Date dateNow = new Date();
+		if (auction.getEndDate().before(dateNow)) {
+			auctionFinished();
+		} else if (auction.getStartDate().after(dateNow)) {
+			btnRise.setEnabled(false);
+			txtNewPrice.setEnabled(false);
+		} else {
+			btnRise.setEnabled(entered);
+			txtNewPrice.setEnabled(entered);
+		}
 	}
 	
 	public void showResult(Auction result){
 		auction = result;
-		txtPrice.setText(result.getCurrentPrice()+"ден");
+		txtPrice.setText(result.getCurrentPrice()+" ден.");
 		newPrice = Integer.parseInt(auction.getCurrentPrice()) + 100;
 		txtNewPrice.setText(newPrice+"");
 	}

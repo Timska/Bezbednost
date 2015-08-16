@@ -1,6 +1,5 @@
 package onlinebidding.activities;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -54,8 +52,8 @@ public class RegisterActivity extends Activity {
 		
 		txtBirth.setOnClickListener(new View.OnClickListener() {
 
-	        public void onClick(View v) {
-	            // TODO Auto-generated method stub
+	        @SuppressWarnings("deprecation")
+			public void onClick(View v) {
 	        	DatePickerDialog dpd = new DatePickerDialog(RegisterActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
 						myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -78,11 +76,9 @@ public class RegisterActivity extends Activity {
 		date = new DatePickerDialog.OnDateSetListener() {
 
 		    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		        // TODO Auto-generated method stub
 		        myCalendar.set(Calendar.YEAR, year);
 		        myCalendar.set(Calendar.MONTH, monthOfYear);
 		        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-		        
 
 	            updateLabel();
 		    }

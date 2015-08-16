@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,20 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+		if (prefs.getString("userName", null) != null) {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		} else if (prefs.getString("adminName", null) != null) {
+			Intent intent = new Intent(this, MainAdministratorActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
+		
 		setContentView(R.layout.activity_login);
 		
 		txtUsername = (EditText) findViewById(R.id.usernameText);
@@ -75,8 +90,14 @@ public class LoginActivity extends Activity {
 			txtUsername.setText("");
 			cbxAdministrator.setChecked(false);
 			
+			SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString("adminName", "SpiritBreakersAdmin");
+			editor.commit();
+			
 			Intent intent = new Intent(this, MainAdministratorActivity.class);
 			startActivity(intent);
+			finish();
 		}
 		else{
 			if(result.equals(unexistingUser)){
@@ -152,9 +173,15 @@ public class LoginActivity extends Activity {
 			txtPassword.setText("");
 			txtUsername.setText("");
 			
+			SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString("userName", user.getUserName());
+			editor.commit();
+	
 			Intent intent = new Intent(this, MainActivity.class);
-			intent.putExtra("user", user);
+			// intent.putExtra("user", user);
 			startActivity(intent);
+			finish();
 		}
 	}
 }

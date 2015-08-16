@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class Auction implements Comparable<Auction>, Serializable {
 
+	private static final long serialVersionUID = -4176502115158816420L;
+	
 	private Long auctionID;
 	private String auctionName;
 	private User creator;

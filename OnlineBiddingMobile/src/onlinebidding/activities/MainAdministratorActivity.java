@@ -15,10 +15,14 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainAdministratorActivity extends Activity implements DownloadListener<User[]>, ListUsers {
 
@@ -36,12 +40,23 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 	}
 	
 	private void getAllUsers(){
-		Downloader<User[]> downloader = new Downloader<User[]>(User[].class, this, this);
+		Downloader<User[]> downloader = new Downloader<User[]>(User[].class, this);
 		downloader.execute(getResources().getString(R.string.url_address)+"/getallusers");
 	}
 
 	public void onLoadFinished(User[] data) {
 		setData(data);
+	}
+	
+	public void logoutAdmin(View view) {
+		SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("adminName", null);
+		editor.commit();
+		
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		finish();
 	}
 	
 	private void setData(User[] data){
@@ -81,6 +96,9 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		
 		@Override
 		protected void onPostExecute(String result) {
+			if (result.equals("correct")) {
+				Toast.makeText(MainAdministratorActivity.this, "Успешно внесен кредит", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }

@@ -3,19 +3,18 @@ package onlinebidding.server;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	private Class<T> type;
 	private DownloadListener<T> listener;
-	private Context context;
+	// private Context context;
 	
-	public Downloader(Class<T> type, DownloadListener<T> listener, Context context) {
+	public Downloader(Class<T> type, DownloadListener<T> listener) {
 		this.type = type;
 		this.listener = listener;
-		this.context = context;
+		// this.context = context;
 	}
 	
 	@Override
@@ -35,7 +34,6 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 			System.out.println(e.toString());
 		}
 		return null;
-		
 	}
 	
 	@Override
