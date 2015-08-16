@@ -1,4 +1,4 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ui.bootstrap']);
 
 app.factory('transformRequestAsFormPost', function(){
 	function transformRequest(data, getHeaders) {
@@ -29,57 +29,19 @@ app.factory('transformRequestAsFormPost', function(){
 	}
 });
 
-app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'transformRequestAsFormPost', function($scope, $http, $window, $log, transformRequestAsFormPost){
-	$scope.username='SpiritBreakersAdmin';
-	$scope.password='';
-	$scope.result = '';
+app.factory('userService', function(){
+	var onlineUser = {};
 	
-	$scope.invalidUsername = false;
-	$scope.invalidPassword = false;
+	return onlineUser;
+});
+
+
+app.factory('newAuctionService', function(){
+	var auction = {};
 	
-	$scope.usernameChange = function(){
-		$scope.invalidUsername = false;
-	}
-	
-	$scope.passwordChange = function(){
-		$scope.invalidPassword = false;
-	}
-	
-	$scope.submit = function(){
-		$window.alert('vleze vo submit');
-		var request = $http({
-			method: "post",
-			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/checkloginadministrator",
-			data: {
-				userName: $scope.username, 
-				password: $scope.password
-			},
-			headers: { 
-				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-			},
-			transformRequest: transformRequestAsFormPost,
-			transformResponse: []
-		});
-		
-		request.success(function(data){
-			$scope.result = data;
-			$window.alert(data);
-			processResult();
-		});
-		
-		processResult = function(){
-			if($scope.result == '1'){
-				$scope.invalidUsername = true;
-			}
-			else if($scope.result == '2'){
-				$scope.invalidPassword = true;
-			}
-			else if($scope.result == 'correct'){
-				$window.alert("jeeeeej");
-			}
-		}
-	}
-}]);
+	return auction;
+});
+
 
 app.value("$sanitize", function(html) {
 	return(html);

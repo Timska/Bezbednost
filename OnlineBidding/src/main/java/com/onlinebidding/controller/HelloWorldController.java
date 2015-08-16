@@ -83,6 +83,13 @@ public class HelloWorldController {
 		return "correct";
 	}
 	
+	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteUser(@RequestBody User user) {
+		userService.delete(user);
+		return "correct";
+	}
+	
 	@RequestMapping(value = "/checkforlogin", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkForLogin(@RequestBody MultiValueMap<String, String> map) {
@@ -134,6 +141,12 @@ public class HelloWorldController {
 	@ResponseBody
 	public User getUser(@RequestBody String username) {
 		return userService.findUser(username);
+	}
+	
+	@RequestMapping(value = "/getadministrator", method = RequestMethod.POST)
+	@ResponseBody
+	public Administrator getAdministrator(@RequestBody String username) {
+		return administratorService.findAdministrator(username);
 	}
 	
 	@RequestMapping(value = "/registeruser", method = RequestMethod.POST)
