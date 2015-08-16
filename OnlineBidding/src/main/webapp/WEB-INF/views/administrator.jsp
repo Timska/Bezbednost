@@ -64,8 +64,8 @@
 			</table>
 			
 			<hr>
-				<button class="btn btn-success" ng-click="addAuction()">
-					<span class="glyphicon glyphicon-user"></span>  Креирај аукција
+				<button class="btn btn-success" ng-click="addAuction()" ng-disabled="isNotUser">
+					 Креирај аукција
 				</button>
 			<hr>
 		</div>
@@ -119,7 +119,7 @@
 			<div ng-controller="StartDatepickerController" class="col-md-6">
             	<p class="input-group">
             		<label for="inputStartDate">Почеток на аукција</label>
-              		<input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{format}}" ng-model="start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              		<input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{}}" ng-model="start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               		<span class="input-group-btn" class="form-control">
               			<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             		</span>
@@ -136,7 +136,7 @@
             <div ng-controller="EndDatepickerController" class="col-md-6">
             	<p class="input-group">
             		<label for="inputEndDate">Крај на аукција</label>
-              		<input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{format}}" ng-model="end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              		<input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{}}" ng-model="end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               		<span class="input-group-btn">
               			<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             		</span>

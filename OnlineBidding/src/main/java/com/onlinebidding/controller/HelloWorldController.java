@@ -140,7 +140,9 @@ public class HelloWorldController {
 	@RequestMapping(value = "/getuser", method = RequestMethod.POST)
 	@ResponseBody
 	public User getUser(@RequestBody String username) {
-		return userService.findUser(username);
+		User user = userService.findUser(username);
+		System.out.println(user.getUserName());
+		return user;
 	}
 	
 	@RequestMapping(value = "/getadministrator", method = RequestMethod.POST)

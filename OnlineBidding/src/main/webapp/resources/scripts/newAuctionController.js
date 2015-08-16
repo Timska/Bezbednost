@@ -13,7 +13,7 @@ app.controller('NewAuctionController', ['$scope', '$http', 'userService', 'newAu
 	};
 	
 	$scope.auctionName = '';
-	$scope.itemName = '';
+	$scope.itemName = 'Da vidime so ke se pojavi';
 	$scope.itemDescription = '';
 	$scope.itemPrice = '';
 	

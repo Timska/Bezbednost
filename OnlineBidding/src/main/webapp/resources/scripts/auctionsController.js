@@ -3,10 +3,16 @@ app.controller('AuctionsController', ['$scope', '$http', '$window', 'userService
 	my.auctions = [];
 	my.userauctions = [];
 	
+	
+	$scope.isNotUser = userService.isNotUser;
+	$window.alert($scope.isNotUser);
+	$window.alert(userService.onlineAdministrator.userName);
+	
 	$scope.addClicked = false;
 	$scope.editClicked = false;
 	
 	$scope.initAuctions = function(){
+		
 		$http.get('https://spiritbreakers.com.mk:8443/OnlineBidding/getallauctions').success(function(data){
 			my.auctions = data;
 		});
@@ -33,7 +39,9 @@ app.controller('AuctionsController', ['$scope', '$http', '$window', 'userService
 	
 	$scope.addAuction = function(){
 		$scope.addClicked = true;
-		$window.alert($scope.addClicked);
 		$scope.editClicked = false;
 	};
+	
+	
+	
 }]);

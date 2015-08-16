@@ -1,18 +1,11 @@
 app.controller('StartDatepickerController', ['$scope', 'newAuctionService', function($scope, newAuctionService){
-	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-	$scope.format = $scope.formats[0];
 	
-	$scope.start;
+	$scope.start = new Date();
 	
 	$scope.today = function() {
 	    $scope.start = new Date();
 	};
-	
-	$scope.today();
 
-	$scope.clear = function () {
-	    $scope.start = null;
-	};
 	
 	$scope.toggleMin = function() {
 	    $scope.minDate = $scope.minDate ? null : new Date();
@@ -62,24 +55,24 @@ app.controller('StartDatepickerController', ['$scope', 'newAuctionService', func
 	 };
 	 
 	 $scope.changed = function () {
-		newAuctionService.startDate.setFullYear(start.getFullYear());
-		newAuctionService.startDate.setMonth(start.getMonth());
-		newAuctionService.startDate.setDate(start.getDate());
+		newAuctionService.startDate = new Date();
+		newAuctionService.startDate.setFullYear($scope.start.getFullYear());
+		newAuctionService.startDate.setMonth($scope.start.getMonth());
+		newAuctionService.startDate.setDate($scope.start.getDate());
 	 };
 }]);
 
 
-app.controller('EndDatepickerController', ['$scope', 'newAuctionService', function($scope, newAuctionService){
+app.controller('EndDatepickerController', ['$scope', '$window', 'newAuctionService', function($scope, $window, newAuctionService){
 	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
 	$scope.format = $scope.formats[0];
 	
-	$scope.end;
+	$scope.end = new Date();
 	
 	$scope.today = function() {
 	    $scope.end = new Date();
+	    $window.alert(end);
 	};
-	
-	$scope.today();
 
 	$scope.clear = function () {
 	    $scope.end = null;
@@ -91,6 +84,7 @@ app.controller('EndDatepickerController', ['$scope', 'newAuctionService', functi
 	$scope.toggleMin();
 	
 	$scope.open = function($event) {
+		$scope.end = new Date();
 	    $scope.status.opened = true;
 	};
 	
@@ -133,8 +127,9 @@ app.controller('EndDatepickerController', ['$scope', 'newAuctionService', functi
 	 };
 	 
 	 $scope.changed = function () {
-		newAuctionService.endDate.setFullYear(end.getFullYear());
-		newAuctionService.endDate.setMonth(end.getMonth());
-		newAuctionService.endDate.setDate(end.getDate());
+		newAuctionService.endDate = new Date();
+		newAuctionService.endDate.setFullYear($scope.end.getFullYear());
+		newAuctionService.endDate.setMonth($scope.end.getMonth());
+		newAuctionService.endDate.setDate($scope.end.getDate());
 	 };
 }]);

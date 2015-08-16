@@ -30,15 +30,20 @@ app.factory('transformRequestAsFormPost', function(){
 });
 
 app.factory('userService', function(){
+	var onlineAdministrator = {};
 	var onlineUser = {};
-	
-	return onlineUser;
+	var isNotUser;
+	return {
+		onlineAdministrator: onlineAdministrator,
+		onlineUser: onlineUser,
+		isNotUser: isNotUser
+	};
 });
 
 
 app.factory('newAuctionService', function(){
 	var auction = {};
-	
+	auction.item = {};
 	return auction;
 });
 

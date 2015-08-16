@@ -23,9 +23,34 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 		});
 		
 		request.success(function(data){
-			userService = data;
+			$window.alert("vo administrator success");
+			userService.onlineAdministrator = data;
 			$log.log(data);
 		});
+		
+		var secondRequest = $http({
+			method: "post",
+			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/getuser",
+			data: $scope.username,
+		});
+		
+		secondRequest.success(function(data){
+			
+			$window.alert("vo user success");
+			
+			userService.isNotUser = isNullOrEmptyOrUndefined(data);
+			
+			$window.alert(userService.isNotUser);
+			userService.onlineUser = data;
+			$log.log(data);
+		});
+		
+		var isNullOrEmptyOrUndefined = function (value) {
+		    if (value === "" || value === null || typeof value === "undefined") {
+		        return true;
+		    }
+		    return false;
+		};
 	}
 	
 	
