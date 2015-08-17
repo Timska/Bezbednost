@@ -1,5 +1,5 @@
-app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userService', 'transformRequestAsFormPost', function($scope, $http, $window, $log, userService, transformRequestAsFormPost){
-	$scope.username='SpiritBreakersAdmin';
+app.controller('LoginController', [ '$scope', '$http', '$window', '$log', '$cookies', 'transformRequestAsFormPost', function($scope, $http, $window, $log, $cookies, transformRequestAsFormPost){
+	$scope.username='';
 	$scope.password='';
 	$scope.result = '';
 	
@@ -22,12 +22,6 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 			data: $scope.username,
 		});
 		
-		request.success(function(data){
-			$window.alert("vo administrator success");
-			userService.setAdministrator(data);
-			$log.log(data);
-		});
-		
 		var secondRequest = $http({
 			method: "post",
 			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/getuser",
@@ -35,24 +29,23 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 		});
 		
 		secondRequest.success(function(data){
-			userService.setUser(data);
-			userService.setIsUser = isNullOrEmptyOrUndefined(data);
-			
-			$window.alert(userService.getUser().username);
-			$log.log(data);
+			$scope.result = data;
+			$window.alert(data.userName);
+			$cookies.put('username', data.userName);
+			$cookies.putObject('user', data);
 		});
 		
-		var isNullOrEmptyOrUndefined = function (value) {
-		    if (value === "" || value === null || typeof value === "undefined") {
-		        return true;
-		    }
-		    return false;
-		};
 	}
+	
+	var isNullOrEmptyOrUndefined = function (value) {
+	    if (value === "" || value === null || typeof value === "undefined") {
+	        return true;
+	    }
+	    return false;
+	};
 	
 	
 	$scope.submit = function(){
-		$window.alert('vleze vo submit');
 		var request = $http({
 			method: "post",
 			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/checkloginadministrator",
@@ -69,7 +62,6 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', 'userS
 		
 		request.success(function(data){
 			$scope.result = data;
-			$log.log(data);
 			processResult();
 		});
 		

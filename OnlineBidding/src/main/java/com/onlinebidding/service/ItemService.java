@@ -11,4 +11,6 @@ public interface ItemService {
 	public Item findItem(Long itemID);
 	
 	public List<Item> getAllItems();
+	
+	public void delete(Long itemID);
 }

@@ -4,13 +4,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.3.js"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-cookies.js"></script>
 
 <script src="<c:url value="/resources/scripts/myApp.js" />"></script>
-<script src="<c:url value="/resources/scripts/auctionsController.js" />"></script>
+<script src="<c:url value="/resources/scripts/mainController.js" />"></script>
 <script src="<c:url value="/resources/scripts/loginController.js" />"></script>
 <script src="<c:url value="/resources/scripts/userController.js" />"></script>
 <script src="<c:url value="/resources/scripts/modalController.js" />"></script>
@@ -28,7 +29,7 @@
 <link href="<c:url value="/resources/css/administrator.css" />" rel="stylesheet">
 
 </head>
-<body ng-app="myApp" ng-controller="AuctionsController" ng-init="initAuctions()">
+<body ng-app="myApp" ng-controller="MainController" ng-init="checkRedirect()">
 <div id="tab-container">
 	<div class="container">
 		<ul class="nav nav-pills">
@@ -43,19 +44,13 @@
 			<table class="table table-striped">
   				<thead>
     				<tr>
-      					<th></th>
       					<th>Аукција</th>
      					<th>Креатор</th>
      					<th>Цена</th>
     				</tr>
   				</thead>
   				<tbody>
-    				<tr ng-repeat="auction in auctions">
-      					<td>
-        					<button class="btn" ng-show="myauction(auction)">
-         						<span class="glyphicon glyphicon-pencil"></span>  Edit
-        					</button>
-      					</td>
+    				<tr ng-repeat="auction in auctions" ng-click="editAuction(auction)">
       					<td>{{ auction.auctionName }}</td>
       					<td>{{ auction.creator.userName }}</td>
       					<td>{{ auction.currentPrice }}</td>
@@ -64,7 +59,7 @@
 			</table>
 			
 			<hr>
-				<button class="btn btn-success" ng-click="addAuction()" ng-disabled="isNotUser">
+				<button class="btn btn-success" ng-click="showNewAuction()">
 					 Креирај аукција
 				</button>
 			<hr>
@@ -84,7 +79,7 @@
   				<tbody>
     				<tr ng-repeat="user in users">
       					<td>
-        					<button class="btn" ng-click="addCredit(user)">
+        					<button class="btn btn-success" ng-click="addCredit(user)">
         						Додади кредит
         					</button>
       					</td>
@@ -92,7 +87,7 @@
       					<td>{{user.mail}}</td>
       					<td>{{user.credit}}</td>
       					<td>
-        					<button class="btn" ng-click="deleteUser(user)">
+        					<button class="btn btn-danger" ng-click="deleteUser(user)">
         						Избриши
         					</button>
       					</td>
@@ -103,9 +98,11 @@
 	</div>
 </div>
 
-<div id="add-auction" ng-show="addClicked" ng-controller="NewAuctionController">
-	<form>
+
+<div id="add-auction" ng-show="addClicked" >
+	<form >
 		<h2>Нова аукција</h2>
+		
 			<label for="inputName" class="sr-only">Име на аукција</label>
 			<input type="text" id="inputName" ng-model="auctionName" placeholder="Име на аукција" class="form-control">
 			
@@ -152,9 +149,44 @@
         	<label for="inputItemPrice" class="sr-only">Цена на предмет</label>
 			<input type="text" id="inputItemPrice" ng-model="itemPrice" placeholder="Цена на предмет" class="form-control">
         	<br>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="addAuction()">
+        	
+			<button class="btn btn-lg btn-primary btn-block" type="submit" ng-show="addClicked" ng-click="createAuction()">
 				Додади
 			</button>
+		</form>
+</div>
+
+<div id="add-auction" ng-show="editClicked">
+	<form>
+		<h2 ng-show="editClicked">Едит аукција</h2>
+		
+			<label for="inputName">Име на аукција</label>
+			<input type="text" id="inputName" ng-disabled="editClicked" ng-model="editAuctionName" placeholder="Име на аукција" class="form-control">
+			
+			<label for="inputItemName">Име на предмет</label>
+			<input type="text" id="inputItemName" ng-disabled="editClicked" ng-model="editItemName" placeholder="Име на предмет" class="form-control">
+			
+			<label for="inputItemDescription">Опис на предмет</label>
+			<input type="text" id="inputItemDescription" ng-disabled="editClicked" ng-model="editItemDescription" placeholder="Опис на предмет" class="form-control">
+			
+			<label for="inputCreator">Креатор</label>
+			<input type="text" id="inputCreator" ng-disabled="editClicked" ng-model="editAuctonCreator" placeholder="Креатор на аукција" class="form-control">
+			
+			<label for="inputWinner">Победник</label>
+			<input type="text" id="inputWinner" ng-disabled="editClicked" ng-model="editAuctionWinner" placeholder="Победник" class="form-control">
+			
+			<label for="inputStart">Почетна дата</label>
+			<input type="text" id="inputStart" ng-disabled="editClicked" ng-model="editAuctionStart" placeholder="Почеток" class="form-control">
+			
+			<label for="inputEnd">Крајна дата</label>
+			<input type="text" id="inputEnd" ng-disabled="editClicked" ng-model="editAuctionEnd" placeholder="Крај" class="form-control">
+        	
+        	<label for="inputItemPrice">Цена на предмет</label>
+			<input type="text" id="inputItemPrice" ng-disabled="editClicked" ng-model="editItemPrice" placeholder="Цена на предмет" class="form-control">
+        	<br>
+        	<button class="btn btn-danger" ng-disabled="started" ng-click="deleteAuction()">
+         		Избриши
+        	</button>
 		</form>
 </div>
 </body>

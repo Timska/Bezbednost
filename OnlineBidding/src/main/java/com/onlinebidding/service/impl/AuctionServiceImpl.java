@@ -80,6 +80,10 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 		return wonAuctions;
 	}
+
+	public void deleteAuction(Long auctionID) {
+		auctionRepository.delete(auctionID);
+	}
 }
 
 

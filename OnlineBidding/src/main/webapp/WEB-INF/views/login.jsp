@@ -15,8 +15,9 @@
 
 </head>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.3.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-cookies.js"></script>
 	
 <script src="<c:url value="/resources/scripts/myApp.js" />"></script>
 <script src="<c:url value="/resources/scripts/loginController.js" />"></script>
@@ -27,8 +28,8 @@
 			<h2>Внесете податоци</h2>
 			<label for="inputUsername" class="sr-only">Корисничко име</label>
 			<input type="text" id="inputUsername" ng-model="username"
-				class="form-control" ng-class="{invalid: invalidUsername}" ng-change="usernameChange()">
-			<label for="inputPassword" class="sr-only">Лозинка</label>
+				class="form-control" ng-class="{invalid: invalidUsername}" ng-change="usernameChange()" placeholder="Корисничко име">
+			<label for="inputPassword" class="sr-only" >Лозинка</label>
 			<input type="password" id="inputPassword" ng-model="password" placeholder="Лозинка"
 				class="form-control" ng-class="{invalid: invalidPassword}" ng-change="passwordChange()">
 			<br>

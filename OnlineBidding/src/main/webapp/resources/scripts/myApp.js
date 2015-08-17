@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.bootstrap']);
+var app = angular.module('myApp', ['ui.bootstrap', 'ngCookies']);
 
 app.factory('transformRequestAsFormPost', function(){
 	function transformRequest(data, getHeaders) {
@@ -28,41 +28,6 @@ app.factory('transformRequestAsFormPost', function(){
 		return source;
 	}
 });
-
-app.factory('userService', function(){
-	var service = this;
-	
-	service.setAdministrator = function(value){
-		service.onlineAdministrator = value;
-	}
-	
-	service.setUser = function(value){
-		$window.alert("setira");
-		service.onlineUser = {
-			username: value.username,
-			password: value.password
-		};
-	}
-	
-	service.setIsUser = function(value){
-		service.isUser = value;
-	}
-	
-	service.getAdministrator = function(){
-		return service.onlineAdministrator;
-	}
-	
-	service.getUser = function(){
-		return service.onlineUser;
-	}
-	
-	service.getIsUser = function(){
-		return service.isUser;
-	}
-	
-	return service;
-});
-
 
 app.factory('newAuctionService', function(){
 	var auction = {};

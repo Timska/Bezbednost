@@ -1,4 +1,4 @@
-app.controller('UsersController', ['$scope', '$http', '$window', '$modal', 'userService', function($scope, $http, $window, $modal, userService){
+app.controller('UsersController', ['$scope', '$http', '$window', '$modal', function($scope, $http, $window, $modal){
 	
 	var my = $scope;
 	my.users = [];
@@ -17,7 +17,6 @@ app.controller('UsersController', ['$scope', '$http', '$window', '$modal', 'user
 		});
 		
 		modalInstance.result.then(function(credit){
-			$window.alert(user.credit);
 			user.credit = parseInt(user.credit, 10) + parseInt(credit, 10);
 			user.active = true;
 			

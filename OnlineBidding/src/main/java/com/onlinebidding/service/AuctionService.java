@@ -24,4 +24,6 @@ public interface AuctionService {
 	public List<Auction> getWonUserAuctions(String userName);
 
 	public Auction getAuctionByItemID(Long itemID);
+	
+	public void deleteAuction(Long auctionID);
 }

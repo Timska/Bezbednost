@@ -2,7 +2,7 @@ app.controller('StartTimepickerController', ['$scope', 'newAuctionService', func
 	 $scope.starttime = new Date();
 
 	 $scope.hstep = 1;
-	 $scope.mstep = 15;
+	 $scope.mstep = 1;
 
 	 $scope.options = {
 	    hstep: [1, 2, 3],
@@ -19,6 +19,7 @@ app.controller('StartTimepickerController', ['$scope', 'newAuctionService', func
 	 };
 
 	 $scope.changed = function () {
+		 newAuctionService.startDate = new Date();
 		newAuctionService.startDate.setHours($scope.starttime.getHours());
 		newAuctionService.startDate.setMinutes($scope.starttime.getMinutes());
 	 };
@@ -32,7 +33,7 @@ app.controller('EndTimepickerController', ['$scope', 'newAuctionService', functi
 	 $scope.endtime = new Date();
 
 	  $scope.hstep = 1;
-	  $scope.mstep = 15;
+	  $scope.mstep = 1;
 
 	  $scope.options = {
 	    hstep: [1, 2, 3],
@@ -49,6 +50,7 @@ app.controller('EndTimepickerController', ['$scope', 'newAuctionService', functi
 	  };
 	  
 	  $scope.changed = function () {
+		  newAuctionService.endDate = new Date();
 		  newAuctionService.endDate.setHours($scope.endtime.getHours());
 		  newAuctionService.endDate.setMinutes($scope.endtime.getMinutes());
 	  };

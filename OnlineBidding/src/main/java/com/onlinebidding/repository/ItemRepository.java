@@ -6,4 +6,5 @@ import com.onlinebidding.model.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
+	public void delete(Long itemID);
 }

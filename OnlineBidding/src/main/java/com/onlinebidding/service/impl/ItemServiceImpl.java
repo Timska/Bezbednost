@@ -27,4 +27,8 @@ public class ItemServiceImpl implements ItemService {
 		return itemRepository.findAll();
 	}
 
+	public void delete(Long itemID) {
+		itemRepository.delete(itemID);
+	}
+
 }

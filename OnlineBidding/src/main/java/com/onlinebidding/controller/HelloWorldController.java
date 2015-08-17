@@ -232,6 +232,11 @@ public class HelloWorldController {
 		return auctionService.findAuction(auctionID);
 	}
 	
+	@RequestMapping(value = "/deleteauction", method = RequestMethod.POST)
+	public void deleteAuction(@RequestBody Auction auction){
+		auctionService.deleteAuction(auction.getAuctionID());
+	}
+	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
 	@ResponseBody
 	public String enterAuction(@RequestBody UserAuction userAuction) {

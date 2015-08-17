@@ -34,6 +34,7 @@ timepicker{
 }
 
 #add-auction {
+	width: 550px;
 	max-width: 550px;
   	padding: 30px;
   	margin: 0 auto;

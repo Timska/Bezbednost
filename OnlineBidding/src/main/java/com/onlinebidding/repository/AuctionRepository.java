@@ -14,4 +14,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 	
 	public Auction findByItemItemID(Long itemID);
 	
+	public void delete(Long auctionID);
+	
 }
