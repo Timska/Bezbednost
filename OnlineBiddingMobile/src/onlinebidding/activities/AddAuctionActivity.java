@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -66,7 +67,6 @@ public class AddAuctionActivity extends Activity {
 		txtStartDate.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				DatePickerDialog dpd = new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
 						myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -85,7 +85,6 @@ public class AddAuctionActivity extends Activity {
 		txtEndDate.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				DatePickerDialog dpd = new DatePickerDialog(AddAuctionActivity.this, date, myCalendar
 						.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
 						myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -110,7 +109,6 @@ public class AddAuctionActivity extends Activity {
 
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
-				// TODO Auto-generated method stub
 				myCalendar.set(Calendar.YEAR, year);
 				myCalendar.set(Calendar.MONTH, monthOfYear);
 				myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -123,7 +121,6 @@ public class AddAuctionActivity extends Activity {
 		time = new TimePickerDialog.OnTimeSetListener() {
 
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-				// TODO Auto-generated method stub
 				myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 				myCalendar.set(Calendar.MINUTE, minute);
 			}
@@ -217,12 +214,23 @@ public class AddAuctionActivity extends Activity {
 		return dateFromString;
 	}
 
-	private void showResult() {
-		Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT).show();
-		finish();
+	private void showResult(String result) {
+		if (result.equals("correct")) {
+			Toast.makeText(this, "Успешно додадена аукција", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
 
 	private class PostAuction extends AsyncTask<String, Void, String> {
+		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(AddAuctionActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -247,8 +255,10 @@ public class AddAuctionActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-			System.out.println("vo post execute");
-			showResult();
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			showResult(result);
 		}
 	}
 

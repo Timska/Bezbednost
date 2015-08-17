@@ -13,10 +13,9 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -53,28 +52,16 @@ public class ListEnteredActivity extends Activity{
 		usersEnteredView.setAdapter(usersEnteredAdapter);
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.list_entered, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	
-	
 	private class PostAuction extends AsyncTask<String, Void, User[]> {
+		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(ListEnteredActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
 		
 		@Override
 		protected User[] doInBackground(String... params) {
@@ -91,6 +78,9 @@ public class ListEnteredActivity extends Activity{
 		
 		@Override
 		protected void onPostExecute(User[] result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			setData(result);
 		}
 	}

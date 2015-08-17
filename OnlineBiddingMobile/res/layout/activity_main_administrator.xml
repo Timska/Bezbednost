@@ -12,7 +12,21 @@
     <ListView
         android:id="@+id/users_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_logoutAdmin" >
     </ListView>
+
+    <Button
+        android:id="@id/btn_logoutAdmin"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/users_list"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/users_list"
+        android:layout_marginBottom="15dp"
+        android:onClick="logoutAdmin"
+        android:text="@string/log_out"
+        android:textColor="@color/textColor" />
 
 </RelativeLayout>

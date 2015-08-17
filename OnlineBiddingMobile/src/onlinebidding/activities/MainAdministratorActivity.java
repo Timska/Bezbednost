@@ -15,10 +15,15 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainAdministratorActivity extends Activity implements DownloadListener<User[]>, ListUsers {
 
@@ -44,6 +49,17 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		setData(data);
 	}
 	
+	public void logoutAdmin(View view) {
+		SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("adminName", null);
+		editor.commit();
+		
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	
 	private void setData(User[] data){
 		listUsers = new ArrayList<User>();
 		if(data != null){
@@ -65,6 +81,15 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 	
 	private class PostUser extends AsyncTask<String, Void, String> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(MainAdministratorActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected String doInBackground(String... params) {
 			User u = listUsers.get(Integer.parseInt(params[1]));
@@ -81,6 +106,12 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		
 		@Override
 		protected void onPostExecute(String result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
+			if (result.equals("correct")) {
+				Toast.makeText(MainAdministratorActivity.this, "Успешно внесен кредит", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }

@@ -6,6 +6,8 @@ import java.util.Date;
 
 public class Item implements Serializable{
 
+	private static final long serialVersionUID = -6496566490456053772L;
+
 	private Long itemID;
 	private String itemName;
 	private Date created;

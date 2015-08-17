@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-
 public class User implements Serializable{
+
+	private static final long serialVersionUID = 2638747308211997627L;
 
 	private String userName;
 	private String password;
@@ -25,6 +26,7 @@ public class User implements Serializable{
 		return firstName;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public User(String userName, String password, String firstName,
 			String lastName, String mail, String birth, boolean active, int credit) {
 		this.userName = userName;
@@ -51,8 +53,6 @@ public class User implements Serializable{
 		this.lastName = lastName;
 		this.mail = mail;
 		this.birth = birth;
-		this.credit = credit;
-		this.active = active;
 	}
 
 	public String getLastName() {

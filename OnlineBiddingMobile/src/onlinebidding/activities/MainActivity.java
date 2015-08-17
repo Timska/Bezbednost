@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -35,13 +36,13 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		getUser();
+		// getUser();
 	}
 	
 	@Override
 	protected void onResume(){
 		super.onResume();
-		// getUserFromServer();
+		getUserFromServer();
 		getAuctionsFromServer();
 	}
 	
@@ -55,9 +56,9 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		auctionsView.setAdapter(auctionsAdapter);
 	}
 	
-	private void getUser(){
+	/*private void getUser(){
 		currentUser = (User) getIntent().getExtras().get("user");
-	}
+	}*/
 	
 	private void getAuctionsFromServer(){
 		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
@@ -66,16 +67,25 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	public void startMyProfileActivity(View view){
 		Intent intent =  new Intent(MainActivity.this, ProfileActivity.class);
+		// intent.putExtra("user", currentUser.getUserName());
 		intent.putExtra("user", currentUser);
 		startActivity(intent);
 	}
 	
 	public void logOut(View view){
+		SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("userName", null);
+		editor.commit();
+		
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
 		finish();
 	}
 	
 	public void startMyAuctions(View view){
 		Intent intent = new Intent(this, MyAuctionsActivity.class);
+		// intent.putExtra("user", currentUser.getUserName());
 		intent.putExtra("user", currentUser);
 		startActivity(intent);
 	}
@@ -98,6 +108,15 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	private class PostUsername extends AsyncTask<String, Void, User> {
 		
+		/*private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(MainActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}*/
+		
 		@Override
 		protected User doInBackground(String... params) {
 			
@@ -108,11 +127,18 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 			// For HTTPS requests
 			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(MainActivity.this));
 			
-			return restTemplate.postForObject(params[0], currentUser.getUserName(), User.class);
+			SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
+			String userName = prefs.getString("userName", null);
+			
+			// return restTemplate.postForObject(params[0], currentUser.getUserName(), User.class);
+			return restTemplate.postForObject(params[0], userName, User.class);
 		}
 		
 		@Override
 		protected void onPostExecute(User result) {
+			/*if (dialog.isShowing()) {
+				dialog.dismiss();
+			}*/
 			currentUser = result;
 		}
 	}
