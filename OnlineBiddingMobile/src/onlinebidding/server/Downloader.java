@@ -3,18 +3,29 @@ package onlinebidding.server;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	private Class<T> type;
 	private DownloadListener<T> listener;
-	// private Context context;
+	private Context context;
 	
-	public Downloader(Class<T> type, DownloadListener<T> listener) {
+	public Downloader(Class<T> type, DownloadListener<T> listener, Context context) {
 		this.type = type;
 		this.listener = listener;
-		// this.context = context;
+		this.context = context;
+	}
+	
+	private ProgressDialog dialog;
+	
+	@Override
+	protected void onPreExecute() {
+		dialog = new ProgressDialog(context);
+		this.dialog.setMessage("Loading...");
+		this.dialog.show();
 	}
 	
 	@Override
@@ -38,6 +49,9 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	@Override
 	protected void onPostExecute(T result) {
+		if (dialog.isShowing()) {
+			dialog.dismiss();
+		}
 		listener.onLoadFinished(result);
 	}
 	

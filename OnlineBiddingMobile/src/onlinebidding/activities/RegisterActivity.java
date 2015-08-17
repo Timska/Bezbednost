@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -175,6 +176,15 @@ public class RegisterActivity extends Activity {
 	
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(RegisterActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected String doInBackground(String... params) {
 			User u = new User(txtUsername.getText().toString(), txtPassword.getText().toString(),
@@ -192,6 +202,9 @@ public class RegisterActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			showResult(result);
 		}
 	}

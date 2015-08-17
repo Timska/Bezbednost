@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -83,6 +84,15 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	
 	private class PostUsername extends AsyncTask<String, Void, Auction[]> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(MyAuctionsActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected Auction[] doInBackground(String... params) {
 			RestTemplate restTemplate = new RestTemplate();
@@ -96,6 +106,9 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 		
 		@Override
 		protected void onPostExecute(Auction[] result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			showResult(result);
 		}
 	}

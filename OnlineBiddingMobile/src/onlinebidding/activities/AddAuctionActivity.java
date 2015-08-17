@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -221,6 +222,15 @@ public class AddAuctionActivity extends Activity {
 	}
 
 	private class PostAuction extends AsyncTask<String, Void, String> {
+		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(AddAuctionActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -245,7 +255,9 @@ public class AddAuctionActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
-			System.out.println("vo post execute");
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			showResult(result);
 		}
 	}

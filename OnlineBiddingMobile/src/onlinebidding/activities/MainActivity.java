@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	}*/
 	
 	private void getAuctionsFromServer(){
-		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this);
+		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
 		downloader.execute(getResources().getString(R.string.url_address)+"/notfinishedauctions");
 	}
 	
@@ -108,6 +108,15 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 	
 	private class PostUsername extends AsyncTask<String, Void, User> {
 		
+		/*private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(MainActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}*/
+		
 		@Override
 		protected User doInBackground(String... params) {
 			
@@ -127,6 +136,9 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		
 		@Override
 		protected void onPostExecute(User result) {
+			/*if (dialog.isShowing()) {
+				dialog.dismiss();
+			}*/
 			currentUser = result;
 		}
 	}

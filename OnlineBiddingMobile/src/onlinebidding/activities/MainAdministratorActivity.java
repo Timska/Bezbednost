@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -40,7 +41,7 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 	}
 	
 	private void getAllUsers(){
-		Downloader<User[]> downloader = new Downloader<User[]>(User[].class, this);
+		Downloader<User[]> downloader = new Downloader<User[]>(User[].class, this, this);
 		downloader.execute(getResources().getString(R.string.url_address)+"/getallusers");
 	}
 
@@ -80,6 +81,15 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 	
 	private class PostUser extends AsyncTask<String, Void, String> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(MainAdministratorActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected String doInBackground(String... params) {
 			User u = listUsers.get(Integer.parseInt(params[1]));
@@ -96,6 +106,9 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		
 		@Override
 		protected void onPostExecute(String result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			if (result.equals("correct")) {
 				Toast.makeText(MainAdministratorActivity.this, "Успешно внесен кредит", Toast.LENGTH_SHORT).show();
 			}

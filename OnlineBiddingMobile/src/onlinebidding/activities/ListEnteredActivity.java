@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -53,6 +54,15 @@ public class ListEnteredActivity extends Activity{
 	
 	private class PostAuction extends AsyncTask<String, Void, User[]> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(ListEnteredActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected User[] doInBackground(String... params) {
 			
@@ -68,6 +78,9 @@ public class ListEnteredActivity extends Activity{
 		
 		@Override
 		protected void onPostExecute(User[] result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			setData(result);
 		}
 	}

@@ -220,6 +220,15 @@ public class SingleAuctionActivity extends Activity {
 	
 	private class PostPrice extends AsyncTask<String, Void, Auction> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(SingleAuctionActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected Auction doInBackground(String... params) {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
@@ -237,11 +246,23 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(Auction result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			showResult(result);
 		}
 	}
 	
 	private class PostForEnter extends AsyncTask<String, Void, String> {
+		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(SingleAuctionActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
 		
 		@Override
 		protected String doInBackground(String... params) {
@@ -257,11 +278,22 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 		}
 	}
 	
 	private class PostForExit extends AsyncTask<String, Void, String> {
+		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(SingleAuctionActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
 		
 		@Override
 		protected String doInBackground(String... params) {
@@ -279,7 +311,9 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 		}
 	}
 	
@@ -290,7 +324,7 @@ public class SingleAuctionActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			dialog = new ProgressDialog(SingleAuctionActivity.this);
-			this.dialog.setMessage("Превземање податоци...");
+			this.dialog.setMessage("Loading...");
 			this.dialog.show();
 		}
 		
@@ -319,6 +353,15 @@ public class SingleAuctionActivity extends Activity {
 	
 	private class PostUser extends AsyncTask<String, Void, String> {
 		
+		/*private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(SingleAuctionActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}*/
+		
 		@Override
 		protected String doInBackground(String... params) {
 			User u;
@@ -342,7 +385,9 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			
+			/*if (dialog.isShowing()) {
+				dialog.dismiss();
+			}*/
 		}
 	}
 	

@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -115,6 +116,15 @@ public class LoginActivity extends Activity {
 	
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
 		
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(LoginActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}
+		
 		@Override
 		protected String doInBackground(String... params) {
 			MultiValueMap<String, String> credentials = new LinkedMultiValueMap<String, String>();
@@ -134,6 +144,9 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
+			if (dialog.isShowing()) {
+				dialog.dismiss();
+			}
 			if (!cbxAdministrator.isChecked()) {
 				showResult(result);
 			} else {
@@ -143,6 +156,15 @@ public class LoginActivity extends Activity {
 	}
 	
 	private class PostUsername extends AsyncTask<String, Void, User> {
+		
+		/*private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(LoginActivity.this);
+			this.dialog.setMessage("Loading...");
+			this.dialog.show();
+		}*/
 		
 		@Override
 		protected User doInBackground(String... params) {
@@ -160,6 +182,9 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(User result) {
+			/*if (dialog.isShowing()) {
+				dialog.dismiss();
+			}*/
 			user = result;
 			startActivity();
 		}
