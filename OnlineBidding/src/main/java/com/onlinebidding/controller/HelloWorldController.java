@@ -270,6 +270,7 @@ public class HelloWorldController {
 
 	public static void send(String msg) {
 		Sender sender = new Sender("");
+		
 	}
 	
 }
