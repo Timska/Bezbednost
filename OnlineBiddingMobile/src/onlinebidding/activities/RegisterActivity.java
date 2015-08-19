@@ -33,6 +33,7 @@ public class RegisterActivity extends Activity {
 	private Calendar myCalendar;
 	private EditText txtPassword;
 	private EditText txtRepeatPassword;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -174,15 +175,31 @@ public class RegisterActivity extends Activity {
 		}
 	}
 	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(RegisterActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(RegisterActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -202,8 +219,8 @@ public class RegisterActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			showResult(result);
 		}

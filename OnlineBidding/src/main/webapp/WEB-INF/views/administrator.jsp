@@ -34,7 +34,7 @@
 	<div class="container">
 		<ul class="nav nav-pills">
 			<li class="active"><a data-toggle="pill" href="#auctions">Аукции</a></li>
-			<li><a data-toggle="pill" href="#users">Корисници</a></li>
+			<li><a data-toggle="pill" href="#users" ng-click="inUsers()">Корисници</a></li>
 		</ul>
 	</div>
 	
@@ -86,11 +86,6 @@
       					<td>{{user.userName}}</td>
       					<td>{{user.mail}}</td>
       					<td>{{user.credit}}</td>
-      					<td>
-        					<button class="btn btn-danger" ng-click="deleteUser(user)">
-        						Избриши
-        					</button>
-      					</td>
     				</tr>
   				</tbody>
 			</table>
@@ -116,7 +111,7 @@
 			<div ng-controller="StartDatepickerController" class="col-md-6">
             	<p class="input-group">
             		<label for="inputStartDate">Почеток на аукција</label>
-              		<input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{}}" ng-model="start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              		<input type="text" class="form-control" ng-init="init()" ng-change="changed()" datepicker-popup="{{}}" ng-model="start" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               		<span class="input-group-btn" class="form-control">
               			<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             		</span>
@@ -133,7 +128,7 @@
             <div ng-controller="EndDatepickerController" class="col-md-6">
             	<p class="input-group">
             		<label for="inputEndDate">Крај на аукција</label>
-              		<input type="text" class="form-control" ng-change="changed()" datepicker-popup="{{}}" ng-model="end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              		<input type="text" class="form-control" ng-init="init()" ng-change="changed()" datepicker-popup="{{}}" ng-model="end" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               		<span class="input-group-btn">
               			<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             		</span>

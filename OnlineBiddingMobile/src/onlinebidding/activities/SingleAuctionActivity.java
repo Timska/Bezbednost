@@ -43,6 +43,7 @@ public class SingleAuctionActivity extends Activity {
 	private Button btnViewEntrants;
 	private boolean entered;
 	private Button btnEnterAuction;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,9 @@ public class SingleAuctionActivity extends Activity {
 	
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
+		dismissProgressDialog();
 		timer.cancel();
+		super.onDestroy();
 		// timerUpdate.cancel();
 	}
 	
@@ -89,8 +91,6 @@ public class SingleAuctionActivity extends Activity {
 					return;
 				}
 				
-				
-				
 				newPrice = price;
 				if(currentUser.getUserName().equals(auction.getWinner().getUserName())){
 					if(price - Integer.parseInt(auction.getCurrentPrice()) > currentUser.getCredit()){
@@ -108,14 +108,8 @@ public class SingleAuctionActivity extends Activity {
 						return;
 					}
 					currentUser.setCredit(currentUser.getCredit() - price);
-					/*if(!auction.getWinner().getUserName().equals(auction.getCreator().getUserName())){
-						auction.getWinner().setCredit(auction.getWinner().getCredit() + Integer.parseInt(auction.getCurrentPrice()));
-						new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(false));
-					}*/
-					//
 					auction.getWinner().setCredit(auction.getWinner().getCredit() + Integer.parseInt(auction.getCurrentPrice()));
 					new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(false));
-					//
 				}
 				new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(true));
 				new PostPrice().execute(getResources().getString(R.string.url_address)+"/updateauctionprice");
@@ -218,15 +212,25 @@ public class SingleAuctionActivity extends Activity {
 		txtWinner.setText("Победник е: "+auction.getWinner().getUserName());
 	}
 	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(SingleAuctionActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
 	private class PostPrice extends AsyncTask<String, Void, Auction> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(SingleAuctionActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -246,8 +250,8 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(Auction result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			showResult(result);
 		}
@@ -255,13 +259,9 @@ public class SingleAuctionActivity extends Activity {
 	
 	private class PostForEnter extends AsyncTask<String, Void, String> {
 		
-		private ProgressDialog dialog;
-		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(SingleAuctionActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -278,21 +278,17 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 		}
 	}
 	
 	private class PostForExit extends AsyncTask<String, Void, String> {
 		
-		private ProgressDialog dialog;
-		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(SingleAuctionActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -311,21 +307,17 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 		}
 	}
 	
 	private class PostCheckUserInAuction extends AsyncTask<String, Void, Boolean> {
 		
-		private ProgressDialog dialog;
-		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(SingleAuctionActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -344,8 +336,8 @@ public class SingleAuctionActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
-			if (dialog.isShowing()) {
-	            dialog.dismiss();
+			if (!isFinishing()) {
+	            dismissProgressDialog();
 	        }
 			setEntered(result);
 		}

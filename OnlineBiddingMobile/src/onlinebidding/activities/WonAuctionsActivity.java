@@ -27,6 +27,7 @@ public class WonAuctionsActivity extends Activity implements ListAuctions {
 	private List<Auction> listMyAuctions;
 	private ListView myAuctionsView;
 	private ArrayAdapter<Auction> myAuctionsAdapter;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +44,31 @@ public class WonAuctionsActivity extends Activity implements ListAuctions {
 		new PostUsername().execute(getResources().getString(R.string.url_address)+"/wonuserauctions", currentUser.getUserName());
 	}
 	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(WonAuctionsActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+	
 	private class PostUsername extends AsyncTask<String, Void, Auction[]> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(WonAuctionsActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -67,8 +84,8 @@ public class WonAuctionsActivity extends Activity implements ListAuctions {
 		
 		@Override
 		protected void onPostExecute(Auction[] result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			showResult(result);
 		}

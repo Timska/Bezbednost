@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.android.gcm.server.Sender;
 import com.onlinebidding.model.Administrator;
 import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.Item;
@@ -130,6 +132,7 @@ public class HelloWorldController {
 	}
 	
 	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
+	@Transactional
 	public ModelAndView auctions(){
 		ModelAndView mv = new ModelAndView("administrator");
 		List<Auction> list = auctionService.getAllAuctions();
@@ -233,8 +236,11 @@ public class HelloWorldController {
 	}
 	
 	@RequestMapping(value = "/deleteauction", method = RequestMethod.POST)
-	public void deleteAuction(@RequestBody Auction auction){
-		auctionService.deleteAuction(auction.getAuctionID());
+	@ResponseBody
+	public String deleteAuction(@RequestBody Long auctionID){
+		System.out.println("vo delete method");
+		auctionService.deleteAuction(auctionID);
+		return "success";
 	}
 	
 	@RequestMapping(value = "/enterauction", method = RequestMethod.POST)
@@ -262,6 +268,10 @@ public class HelloWorldController {
 		return "correct";
 	}
 
+	public static void send(String msg) {
+		Sender sender = new Sender("");
+	}
+	
 }
 
 

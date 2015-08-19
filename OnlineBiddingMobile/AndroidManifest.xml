@@ -16,6 +16,12 @@
         android:icon="@drawable/icon_online_binding"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <provider
+            android:name="onlinebidding.db.AuctionContentProvider"
+            android:authorities="onlinebidding.db"
+            android:exported="false" >
+        </provider>
+
         <activity
             android:name="onlinebidding.activities.MainActivity"
             android:label="@string/app_name" >
@@ -60,6 +66,10 @@
         <activity
             android:name="onlinebidding.activities.WonAuctionsActivity"
             android:label="@string/title_activity_won_auctions" >
+        </activity>
+        <activity
+            android:name="onlinebidding.activities.ActiveAuctionsActivity"
+            android:label="@string/title_activity_active_auctions" >
         </activity>
     </application>
 

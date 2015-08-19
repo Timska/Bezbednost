@@ -1,5 +1,6 @@
 package onlinebidding.adapters;
 
+import java.util.Collection;
 import java.util.List;
 
 import onlinebidding.activities.SingleAuctionActivity;
@@ -28,6 +29,18 @@ public class AuctionAdapter extends ArrayAdapter<Auction> {
 		this.context = context;
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.list = auctions;
+	}
+	
+	@Override
+	public void clear() {
+		list.clear();
+		notifyDataSetInvalidated();
+	}
+	
+	@Override
+	public void addAll(Collection<? extends Auction> auctions) {
+		list.addAll(auctions);
+		notifyDataSetChanged();
 	}
 
 	private class AuctionHolder {

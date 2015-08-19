@@ -40,6 +40,7 @@ public class AddAuctionActivity extends Activity {
 	private EditText txtAuctionItemDescription;
 	private User currentUser;
 	private boolean start;
+	private ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -220,46 +221,62 @@ public class AddAuctionActivity extends Activity {
 			finish();
 		}
 	}
+	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(AddAuctionActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
 
-	private class PostAuction extends AsyncTask<String, Void, String> {
+	 private class PostAuction extends AsyncTask<String, Void, String> {
 		
-		private ProgressDialog dialog;
-		
-		@Override
-		protected void onPreExecute() {
-			dialog = new ProgressDialog(AddAuctionActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
-		}
-
-		@Override
-		protected String doInBackground(String... params) {
-			Item item = new Item(txtAuctionItemName.getText().toString(), null,
-					txtAuctionItemDescription.getText().toString());
-			
-			Auction a = new Auction(txtAuctionName.getText().toString(),
-					currentUser, currentUser, item,
-					getDateFromString(txtStartDate.getText().toString()),
-					getDateFromString(txtEndDate.getText().toString()),
-					txtAuctionPrice.getText().toString());
-			
-			RestTemplate restTemplate = new RestTemplate();
-			// For bug fixing I/O POST requests
-			restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-			
-			// For HTTPS requests
-			// restTemplate.setRequestFactory(new CustomHttpRequestFactory(AddAuctionActivity.this));
-			
-			return restTemplate.postForObject(params[0], a, String.class);
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
-			showResult(result);
-		}
-	}
+		 @Override
+		 protected void onPreExecute() {
+			showProgressDialog();
+		 }
+	
+		 @Override
+		 protected String doInBackground(String... params) {
+			 Item item = new Item(txtAuctionItemName.getText().toString(), null,
+					 txtAuctionItemDescription.getText().toString());
+				
+			 Auction a = new Auction(txtAuctionName.getText().toString(),
+					 currentUser, currentUser, item,
+					 getDateFromString(txtStartDate.getText().toString()),
+					 getDateFromString(txtEndDate.getText().toString()),
+					 txtAuctionPrice.getText().toString());
+				
+			 RestTemplate restTemplate = new RestTemplate();
+			 // For bug fixing I/O POST requests
+			 restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+				
+			 // For HTTPS requests
+			 // restTemplate.setRequestFactory(new CustomHttpRequestFactory(AddAuctionActivity.this));
+				
+			 return restTemplate.postForObject(params[0], a, String.class);
+		 }
+	
+		 @Override
+		 protected void onPostExecute(String result) {
+			 if (!isFinishing()) {
+				 dismissProgressDialog();
+			 }
+			 showResult(result);
+		 }
+	 }
 
 }

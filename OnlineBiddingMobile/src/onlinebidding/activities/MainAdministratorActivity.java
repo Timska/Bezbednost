@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import onlinebidding.adapters.UserAdapter;
+import onlinebidding.interfaces.DialogShower;
 import onlinebidding.interfaces.ListUsers;
 import onlinebidding.model.User;
 import onlinebidding.server.DownloadListener;
@@ -25,12 +26,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainAdministratorActivity extends Activity implements DownloadListener<User[]>, ListUsers {
-
+public class MainAdministratorActivity extends Activity implements DownloadListener<User[]>, ListUsers, DialogShower {
 	
 	private ListView allUsersView;
 	private ArrayAdapter<User> allUsersAdapter;
 	private List<User> listUsers;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 	}
 	
 	private void getAllUsers(){
-		Downloader<User[]> downloader = new Downloader<User[]>(User[].class, this, this);
+		Downloader<User[]> downloader = new Downloader<User[]>(User[].class, this, this, this);
 		downloader.execute(getResources().getString(R.string.url_address)+"/getallusers");
 	}
 
@@ -79,15 +80,31 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		new PostUser().execute(getResources().getString(R.string.url_address)+"/updateuser", String.valueOf(position));
 	}
 	
+	public void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(MainAdministratorActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 public void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+	
 	private class PostUser extends AsyncTask<String, Void, String> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(MainAdministratorActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -106,8 +123,8 @@ public class MainAdministratorActivity extends Activity implements DownloadListe
 		
 		@Override
 		protected void onPostExecute(String result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			if (result.equals("correct")) {
 				Toast.makeText(MainAdministratorActivity.this, "Успешно внесен кредит", Toast.LENGTH_SHORT).show();

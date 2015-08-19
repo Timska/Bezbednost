@@ -26,6 +26,7 @@ public class ListEnteredActivity extends Activity{
 	private ArrayAdapter<User> usersEnteredAdapter;
 	private List<User> listUsers;
 	private Auction opennedAuction;
+	private ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +53,31 @@ public class ListEnteredActivity extends Activity{
 		usersEnteredView.setAdapter(usersEnteredAdapter);
 	}
 	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(ListEnteredActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+
 	private class PostAuction extends AsyncTask<String, Void, User[]> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(ListEnteredActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -78,8 +95,8 @@ public class ListEnteredActivity extends Activity{
 		
 		@Override
 		protected void onPostExecute(User[] result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			setData(result);
 		}

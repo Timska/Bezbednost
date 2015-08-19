@@ -1,5 +1,10 @@
 package onlinebidding.activities;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
 import onlinebidding.model.User;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -10,10 +15,14 @@ import org.springframework.web.client.RestTemplate;
 import solution.springforandroid.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,10 +38,25 @@ public class LoginActivity extends Activity {
 	private static final String wrongPassword = "2";
 	private User user;
 	private CheckBox cbxAdministrator;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		try {
+			boolean result = new CheckConnection().execute("http://www.google.com").get();
+			if (!result) {
+				Intent intent = new Intent(this, ActiveAuctionsActivity.class);
+				startActivity(intent);
+				finish();
+				return;
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 		
 		SharedPreferences prefs = getSharedPreferences(getResources().getString(R.string.prefs_name), 0);
 		if (prefs.getString("userName", null) != null) {
@@ -64,6 +88,39 @@ public class LoginActivity extends Activity {
 			}
 		});
 		cbxAdministrator = (CheckBox) findViewById(R.id.cbox_is_administrator);
+	}
+	
+	private boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null;
+	}
+	
+	private boolean hasActiveInternetConnection(String url) {
+	    if (isNetworkAvailable()) {
+	        try {
+	            HttpURLConnection urlc = (HttpURLConnection) (new URL(url).openConnection());
+	            urlc.setRequestProperty("User-Agent", "Test");
+	            urlc.setRequestProperty("Connection", "close");
+	            urlc.setConnectTimeout(1500); 
+	            urlc.connect();
+	            return (urlc.getResponseCode() == 200);
+	        } catch (IOException e) {
+	            Log.e("LoginActivity", "Error checking internet connection", e);
+	        }
+	    } else {
+	        Log.d("LoginActivity", "No network available!");
+	    }
+	    return false;
+	}
+	
+	private class CheckConnection extends AsyncTask<String, Void, Boolean> {
+		
+		@Override
+		protected Boolean doInBackground(String... params) {
+			return hasActiveInternetConnection(params[0]);
+		}
+		
 	}
 	
 	public void startRegisterProcess(View view){
@@ -114,15 +171,31 @@ public class LoginActivity extends Activity {
 		new PostUsername().execute(getResources().getString(R.string.url_address)+"/getuser");
 	}
 	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(LoginActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+	
 	private class PostUserCredentials extends AsyncTask<String, Void, String> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(LoginActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -144,8 +217,8 @@ public class LoginActivity extends Activity {
 		
 		@Override
 		protected void onPostExecute(String result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			if (!cbxAdministrator.isChecked()) {
 				showResult(result);

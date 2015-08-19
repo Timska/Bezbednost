@@ -1,31 +1,33 @@
 package onlinebidding.server;
 
+import onlinebidding.interfaces.DialogShower;
+
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import android.app.ProgressDialog;
-import android.content.Context;
+import android.app.Activity;
 import android.os.AsyncTask;
 
 public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	private Class<T> type;
 	private DownloadListener<T> listener;
-	private Context context;
+	private Activity context;
+	private DialogShower shower;
 	
-	public Downloader(Class<T> type, DownloadListener<T> listener, Context context) {
+	public Downloader(Class<T> type, DownloadListener<T> listener, Activity context, DialogShower shower) {
 		this.type = type;
 		this.listener = listener;
 		this.context = context;
+		this.shower = shower;
 	}
-	
-	private ProgressDialog dialog;
 	
 	@Override
 	protected void onPreExecute() {
-		dialog = new ProgressDialog(context);
-		this.dialog.setMessage("Loading...");
-		this.dialog.show();
+		if (shower == null) {
+			System.out.println("WTF");
+		}
+		shower.showProgressDialog();
 	}
 	
 	@Override
@@ -49,8 +51,8 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	@Override
 	protected void onPostExecute(T result) {
-		if (dialog.isShowing()) {
-			dialog.dismiss();
+		if (!context.isFinishing()) {
+			shower.dismissProgressDialog();
 		}
 		listener.onLoadFinished(result);
 	}

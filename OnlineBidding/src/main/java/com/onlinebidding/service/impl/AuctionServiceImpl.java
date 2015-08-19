@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.onlinebidding.model.Auction;
 import com.onlinebidding.model.User;
+import com.onlinebidding.model.UserAuction;
 import com.onlinebidding.repository.AuctionRepository;
+import com.onlinebidding.repository.UserAuctionRepository;
 import com.onlinebidding.service.AuctionService;
 
 @Service
@@ -16,6 +18,9 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private AuctionRepository auctionRepository;
+	
+	@Autowired
+	private UserAuctionRepository userAuctionRepository;
 	
 	public void create(Auction auction) {
 		auctionRepository.save(auction);
@@ -82,7 +87,11 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	public void deleteAuction(Long auctionID) {
-		auctionRepository.delete(auctionID);
+		List<UserAuction> userAuctions = userAuctionRepository.findByAuctionAuctionID(auctionID);
+		for (UserAuction ua : userAuctions) {
+			userAuctionRepository.delete(ua.getID());
+		}
+		auctionRepository.delete(auctionRepository.findOne(auctionID));
 	}
 }
 

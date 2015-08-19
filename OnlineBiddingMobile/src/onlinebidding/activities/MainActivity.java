@@ -2,10 +2,13 @@ package onlinebidding.activities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 import onlinebidding.adapters.AuctionAdapter;
+import onlinebidding.db.AuctionContentProvider;
+import onlinebidding.interfaces.DialogShower;
 import onlinebidding.interfaces.ListAuctions;
 import onlinebidding.model.Auction;
 import onlinebidding.model.User;
@@ -17,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 
 import solution.springforandroid.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -25,17 +30,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends Activity implements DownloadListener<Auction[]>, ListAuctions {
+public class MainActivity extends Activity implements DownloadListener<Auction[]>, ListAuctions, DialogShower {
 
 	private ListView auctionsView;
 	private ArrayAdapter<Auction> auctionsAdapter;
 	private List<Auction> listAuctions;
 	private User currentUser;
+	private ContentResolver resolver;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		resolver = getContentResolver();
 		// getUser();
 	}
 	
@@ -60,8 +68,28 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		currentUser = (User) getIntent().getExtras().get("user");
 	}*/
 	
+	public void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(MainActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 public void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+	
 	private void getAuctionsFromServer(){
-		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this);
+		Downloader<Auction[]> downloader = new Downloader<Auction[]>(Auction[].class, this, this, this);
 		downloader.execute(getResources().getString(R.string.url_address)+"/notfinishedauctions");
 	}
 	
@@ -94,11 +122,23 @@ public class MainActivity extends Activity implements DownloadListener<Auction[]
 		if(data != null){
 			listAuctions = Arrays.asList(data);
 			Collections.sort(listAuctions);
+			
+			int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+			if (day == Calendar.TUESDAY || day == Calendar.FRIDAY) {
+				fillAuctionsDB(data);
+			}
 		}
 		else{
 			listAuctions = new ArrayList<Auction>();
 		}
 		initAuctionsView();
+	}
+	
+	private void fillAuctionsDB(Auction[] data) {
+		resolver.delete(AuctionContentProvider.CONTENT_URI, null, null);
+		for (Auction auction : data) {
+			resolver.insert(AuctionContentProvider.CONTENT_URI, AuctionContentProvider.auctionToContentValues(auction));
+		}
 	}
 
 	public void startAuctionActivity(Intent intent) {

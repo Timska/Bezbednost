@@ -32,6 +32,7 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 	private ArrayAdapter<Auction> myAuctionsAdapter;
 	private boolean shownFinished;
 	private Button btnChangeShownAuctions;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,15 +83,31 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 		currentUser = (User) getIntent().getExtras().get("user");
 	}
 	
+	private void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(MyAuctionsActivity.this);
+            dialog.setMessage("Loading...");
+        }
+        dialog.show();
+    }
+	
+	 private void dismissProgressDialog() {
+		 if (dialog != null && dialog.isShowing()) {
+			 dialog.dismiss();
+		 }
+	 }
+	 
+	 @Override
+	 protected void onDestroy() {
+		 dismissProgressDialog();
+		 super.onDestroy();
+	 }
+	
 	private class PostUsername extends AsyncTask<String, Void, Auction[]> {
-		
-		private ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(MyAuctionsActivity.this);
-			this.dialog.setMessage("Loading...");
-			this.dialog.show();
+			showProgressDialog();
 		}
 		
 		@Override
@@ -106,8 +123,8 @@ public class MyAuctionsActivity extends Activity implements ListAuctions {
 		
 		@Override
 		protected void onPostExecute(Auction[] result) {
-			if (dialog.isShowing()) {
-				dialog.dismiss();
+			if (!isFinishing()) {
+				dismissProgressDialog();
 			}
 			showResult(result);
 		}

@@ -30,7 +30,6 @@ app.controller('LoginController', [ '$scope', '$http', '$window', '$log', '$cook
 		
 		secondRequest.success(function(data){
 			$scope.result = data;
-			$window.alert(data.userName);
 			$cookies.put('username', data.userName);
 			$cookies.putObject('user', data);
 		});

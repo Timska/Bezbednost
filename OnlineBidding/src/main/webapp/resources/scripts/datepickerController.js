@@ -54,6 +54,14 @@ app.controller('StartDatepickerController', ['$scope', 'newAuctionService', func
 		return '';
 	 };
 	 
+	 $scope.init = function() {
+		 $scope.start = new Date();
+		 newAuctionService.startDate = new Date();
+		 newAuctionService.startDate.setFullYear($scope.start.getFullYear());
+		 newAuctionService.startDate.setMonth($scope.start.getMonth());
+		 newAuctionService.startDate.setDate($scope.start.getDate());
+	 }
+	 
 	 $scope.changed = function () {
 		newAuctionService.startDate = new Date();
 		newAuctionService.startDate.setFullYear($scope.start.getFullYear());
@@ -125,6 +133,14 @@ app.controller('EndDatepickerController', ['$scope', '$window', 'newAuctionServi
 		
 		return '';
 	 };
+	 
+	 $scope.init = function() {
+		 $scope.end = new Date();
+		 newAuctionService.endDate = new Date();
+		 newAuctionService.endDate.setFullYear($scope.end.getFullYear());
+		 newAuctionService.endDate.setMonth($scope.end.getMonth());
+		 newAuctionService.endDate.setDate($scope.end.getDate());
+	 }
 	 
 	 $scope.changed = function () {
 		newAuctionService.endDate = new Date();

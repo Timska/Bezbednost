@@ -15,6 +15,15 @@ app.controller('MainController', ['$scope', '$http', '$window', '$cookies', 'new
 		
 	};
 	
+	$scope.inUsers= function(){
+		$scope.addClicked = false;
+		$scope.editClicked = false;
+		$scope.auctionName = '';
+		$scope.itemName = '';
+		$scope.itemDescription = '';
+		$scope.itemPrice = '';
+	}
+	
 	$scope.checkRedirect = function(){
 		if($scope.username === undefined){
 			$window.location.href = 'https://spiritbreakers.com.mk:8443/OnlineBidding/loginadministrator';
@@ -28,15 +37,14 @@ app.controller('MainController', ['$scope', '$http', '$window', '$cookies', 'new
 		var request = $http({
 			method: "post",
 			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/deleteauction",
-			data: $scope.opennedAuction,
+			data: $scope.opennedAuction.auctionID,
 			transformResponse: []
 		});
 		
 		request.success(function(data){
-			$window.alert("daaa");
 			$scope.initAuctions();
 			$scope.editClicked = false;
-		}) 
+		});
 	}
 	
 	$scope.started = false;
@@ -51,8 +59,10 @@ app.controller('MainController', ['$scope', '$http', '$window', '$cookies', 'new
 		$scope.editItemDescription = auction.item.description;
 		$scope.editAuctonCreator = auction.creator.userName;
 		$scope.editAuctionWinner = auction.winner.userName;
-		$scope.editAuctionStart = new Date(parseInt(auction.startDate,10)).toUTCString();
-		$scope.editAuctionEnd = new Date(parseInt(auction.endDate,10)).toUTCString();
+		$scope.auctionStartDate = new Date(parseInt(auction.startDate,10));
+		$scope.editAuctionStart = $scope.auctionStartDate.toString().substring(0,$scope.auctionStartDate.toString().indexOf('G'));
+		$scope.auctionEndDate = new Date(parseInt(auction.endDate,10));
+		$scope.editAuctionEnd = $scope.auctionEndDate.toString().substring(0,$scope.auctionEndDate.toString().indexOf('G'));
 		$scope.editStarttime = auction.startDate;
 		$scope.editEndtime = auction.endDate;
 		$scope.editItemPrice = auction.currentPrice;
@@ -77,7 +87,6 @@ app.controller('MainController', ['$scope', '$http', '$window', '$cookies', 'new
 	}
 	
 	$scope.addAuction = function(){
-		$window.alert("vo add");
 		var request = $http({
 			method: "post",
 			url: "https://spiritbreakers.com.mk:8443/OnlineBidding/addauction",
@@ -88,11 +97,13 @@ app.controller('MainController', ['$scope', '$http', '$window', '$cookies', 'new
 		request.success(function(data){
 			$scope.addClicked = false;
 			$scope.initAuctions();
+			$scope.auctionName = '';
+			$scope.itemName = '';
+			$scope.itemDescription = '';
+			$scope.itemPrice = '';
 		})
 		
 	};
-	
-	
 	
 	$scope.auctionName = '';
 	$scope.itemName = '';
