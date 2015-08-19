@@ -54,5 +54,6 @@
     <string name="title_activity_won_auctions">WonAuctionsActivity</string>
     <string name="prefs_name">DBLoggedInFile</string>
     <string name="title_activity_active_auctions">Активни аукции</string>
+    <string name="title_activity_check">CheckActivity</string>
 
 </resources>
