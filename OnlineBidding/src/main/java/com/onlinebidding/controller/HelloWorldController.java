@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Sender;
 import com.onlinebidding.model.Administrator;
 import com.onlinebidding.model.Auction;
@@ -267,12 +269,36 @@ public class HelloWorldController {
 		auctionService.create(auction);
 		return "correct";
 	}
-
-	public static void send(String msg) {
-		Sender sender = new Sender("");
-		
+	
+	/////////////////////////////RegistrationProcess////////////////////////////////////////
+	
+	@RequestMapping(value = "/registrationid", method = RequestMethod.POST)
+	@ResponseBody
+	public String registrationCheck(@RequestBody String regId) {
+		System.out.println("=========================");
+		System.err.println(regId);
+		System.out.println("=========================");
+		return null;
 	}
 	
+	private static String API_KEY = "AIzaSyCpb8NjxcSyxuHr80gQoc_FfXEdS8iQF4M";
+
+	public static void register(String regId) {
+		System.out.println("registered: "+regId);
+		Datastore.register(regId);
+	}
+
+	public static void unregister(String regId) {
+		System.out.println("unregistered: "+regId);
+		Datastore.unregister(regId);
+	}
+	
+	public static void send(String msg) throws Exception {
+		Sender sender = new Sender(API_KEY);
+		Message message = new Message.Builder().addData("msg", msg).build();
+		MulticastResult result = sender.send(message, Datastore.getDevices(), 5);
+	}
+
 }
 
 

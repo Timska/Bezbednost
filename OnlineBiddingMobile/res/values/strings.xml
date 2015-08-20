@@ -45,7 +45,7 @@
     <string name="auction_item_description_hint">Опис на предметот</string>
     <string name="new_auction_button">Додаj аукција</string>
     <!-- <string name="url_address">https://spiritbreakers.com.mk:8443/OnlineBidding</string> -->
-    <string name="url_address">http://192.168.0.101:8080/OnlineBidding</string>
+    <string name="url_address">http://192.168.0.102:8080/OnlineBidding</string>
     <string name="title_activity_list_entered">Учесници во аукцијата</string>
     <string name="title_activity_main_administrator">Администратор</string>
     <string name="hello_world">Hello world!</string>

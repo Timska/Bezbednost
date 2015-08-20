@@ -24,9 +24,6 @@ public class Downloader<T> extends AsyncTask<String, Void, T> {
 	
 	@Override
 	protected void onPreExecute() {
-		if (shower == null) {
-			System.out.println("WTF");
-		}
 		shower.showProgressDialog();
 	}
 	

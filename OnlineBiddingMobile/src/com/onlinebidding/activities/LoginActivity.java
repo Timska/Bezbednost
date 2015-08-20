@@ -258,7 +258,9 @@ public class LoginActivity extends Activity {
 			/*if (dialog.isShowing()) {
 				dialog.dismiss();
 			}*/
-			user = result;
+			// Intent intentForGCMTokenRegistration = new Intent(LoginActivity.this, RegistrationIntentService.class);
+            // startService(intentForGCMTokenRegistration);
+            user = result;
 			startActivity();
 		}
 	}
