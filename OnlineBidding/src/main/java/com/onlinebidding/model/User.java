@@ -19,18 +19,15 @@ public class User {
 	private Date birth;
 	private Boolean active;
 	private Integer credit;
+	private String resId;
 
 	public User() {
 
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
 	public User(String userName, String password, String firstName,
 			String lastName, String mail, Date birth, Boolean active,
-			Integer credit) {
+			Integer credit, String resId) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -40,6 +37,15 @@ public class User {
 		this.birth = birth;
 		this.active = active;
 		this.credit = credit;
+		this.resId = resId;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
@@ -82,10 +88,6 @@ public class User {
 		this.birth = birth;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public Boolean getActive() {
 		return active;
 	}
@@ -100,6 +102,14 @@ public class User {
 
 	public void setCredit(Integer credit) {
 		this.credit = credit;
+	}
+
+	public String getResId() {
+		return resId;
+	}
+
+	public void setResId(String resId) {
+		this.resId = resId;
 	}
 
 }

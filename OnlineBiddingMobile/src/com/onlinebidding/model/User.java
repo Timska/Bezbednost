@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class User implements Serializable{
+public class User implements Serializable {
 
-	private static final long serialVersionUID = 2638747308211997627L;
+	private static final long serialVersionUID = 7843343766394827578L;
 
 	private String userName;
 	private String password;
@@ -17,7 +17,8 @@ public class User implements Serializable{
 	private Date birth;
 	private boolean active;
 	private int credit;
-	
+	private String resId;
+
 	public User() {
 
 	}
@@ -25,10 +26,11 @@ public class User implements Serializable{
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public User(String userName, String password, String firstName,
-			String lastName, String mail, String birth, boolean active, int credit) {
+			String lastName, String mail, String birth, boolean active,
+			int credit, String resId) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
@@ -38,10 +40,11 @@ public class User implements Serializable{
 		int year = Integer.parseInt(st.nextToken());
 		int month = Integer.parseInt(st.nextToken());
 		int day = Integer.parseInt(st.nextToken());
-		this.birth = new Date(year-1900, month-1, day);
+		this.birth = new Date(year - 1900, month - 1, day);
 		this.credit = credit;
 		this.active = active;
 		System.out.println(this.birth);
+		this.resId = resId;
 	}
 
 	public User(String userName, String password, String firstName,
@@ -115,8 +118,16 @@ public class User implements Serializable{
 		this.credit = credit;
 	}
 
+	public String getResId() {
+		return resId;
+	}
+
+	public void setResId(String resId) {
+		this.resId = resId;
+	}
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.userName + "\t" + this.mail;
 	}
 }

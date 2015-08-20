@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.android.gcm.server.Message;
-import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Sender;
 import com.onlinebidding.model.Administrator;
 import com.onlinebidding.model.Auction;
@@ -204,6 +203,19 @@ public class HelloWorldController {
 		Long auctionID = Long.parseLong(map.getFirst("auctionID").toString());
 		String userName = map.getFirst("userName").toString();
 		String price = map.getFirst("auctionPrice").toString();
+		
+		Auction a = auctionService.findAuction(auctionID);
+		String currentWinner = a.getWinner().getUserName();
+		if (!currentWinner.equals(userName)) {
+			String resId = userService.findUser(currentWinner).getResId();
+			String message = "Цената на аукцијата " + a.getAuctionName() + " е зголемена на " + price;
+			try {
+				send(message, resId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return auctionService.updateAuction(auctionID, userService.findUser(userName), price);
 	}
 	///////////////////////////////////////Changed from here////////////////////////////////////////////
@@ -274,29 +286,19 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/registrationid", method = RequestMethod.POST)
 	@ResponseBody
-	public String registrationCheck(@RequestBody String regId) {
-		System.out.println("=========================");
-		System.err.println(regId);
-		System.out.println("=========================");
-		return null;
+	public String registrationCheck(@RequestBody MultiValueMap<String, String> map) {
+		String userName = map.getFirst("userName").toString();
+		String resId = map.getFirst("resId").toString();
+		userService.updateUser(userName, resId);
+		return "correct";
 	}
 	
-	private static String API_KEY = "AIzaSyCpb8NjxcSyxuHr80gQoc_FfXEdS8iQF4M";
+	private static String API_KEY = "AIzaSyCnWgF8HOhVtKcS4jukmdCCpjGbysfr68M";
 
-	public static void register(String regId) {
-		System.out.println("registered: "+regId);
-		Datastore.register(regId);
-	}
-
-	public static void unregister(String regId) {
-		System.out.println("unregistered: "+regId);
-		Datastore.unregister(regId);
-	}
-	
-	public static void send(String msg) throws Exception {
+	private static void send(String msg, String resId) throws Exception {
 		Sender sender = new Sender(API_KEY);
-		Message message = new Message.Builder().addData("msg", msg).build();
-		MulticastResult result = sender.send(message, Datastore.getDevices(), 5);
+		Message message = new Message.Builder().addData("message", msg).build();
+		sender.send(message, resId, 5);
 	}
 
 }

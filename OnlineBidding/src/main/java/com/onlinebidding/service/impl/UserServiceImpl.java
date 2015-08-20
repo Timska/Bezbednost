@@ -41,4 +41,10 @@ public class UserServiceImpl implements UserService {
 		userRepository.delete(userRepository.findOne(user.getUserName()));
 	}
 
+	public User updateUser(String userName, String resId) {
+		User user = userRepository.findOne(userName);
+		user.setResId(resId);
+		return userRepository.save(user);
+	}
+
 }
