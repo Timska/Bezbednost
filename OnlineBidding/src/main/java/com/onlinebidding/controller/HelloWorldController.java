@@ -205,19 +205,22 @@ public class HelloWorldController {
 		String price = map.getFirst("auctionPrice").toString();
 		
 		Auction a = auctionService.findAuction(auctionID);
-		String currentWinner = a.getWinner().getUserName();
-		if (!currentWinner.equals(userName)) {
-			String resId = userService.findUser(currentWinner).getResId();
-			String message = "Цената на аукцијата " + a.getAuctionName() + " е зголемена на " + price;
-			try {
-				send(message, resId);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		List<User> usersEntered = userAuctionService.getAuctionEnteredUsers(auctionID);
+		for (User user : usersEntered) {
+			if (!user.getUserName().equals(userName)) {
+				String resId = user.getResId();
+				String message = "Цената на аукцијата " + a.getAuctionName() + " е зголемена на " + price + " ден.";
+				try {
+					send(message, resId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}	
 		}
-		
+			
 		return auctionService.updateAuction(auctionID, userService.findUser(userName), price);
 	}
+	
 	///////////////////////////////////////Changed from here////////////////////////////////////////////
 	@RequestMapping(value = "/userenteredauctions", method = RequestMethod.POST)
 	@ResponseBody
@@ -299,6 +302,9 @@ public class HelloWorldController {
 		Sender sender = new Sender(API_KEY);
 		Message message = new Message.Builder().addData("message", msg).build();
 		sender.send(message, resId, 5);
+		System.err.println("========================");
+		System.err.println(message + " " + resId);
+		System.err.println("========================");
 	}
 
 }
